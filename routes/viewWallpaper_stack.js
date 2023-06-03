@@ -1,23 +1,16 @@
-import { createStackNavigator } from 'react-navigation-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
 import WallpaperSet from '../screens/wallpaperSet'
 import View_wallpaper from '../screens/view_wallpaper'
 
-const screens = {
-    WallpaperSet:{
-        screen: WallpaperSet,
-        navigationOptions:{}
-    },
-    View_wallpaper:{
-        screen: View_wallpaper,
-        navigationOptions:{}
-    }
 
 
+const Stack = createNativeStackNavigator();
 
-};
-
-const ViewWallpaper_stack = createStackNavigator(screens);
-
-export default ViewWallpaper_stack;
+export default function ViewWallpaper_stack(){
+    <Stack.Navigator>
+        <Stack.Screen name = "wallpaper set" component={ WallpaperSet }/>
+        <Stack.Screen name = "view wallpaper" component={ View_wallpaper }/>
+    </Stack.Navigator>
+}

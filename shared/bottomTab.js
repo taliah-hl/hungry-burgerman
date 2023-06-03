@@ -18,9 +18,9 @@ const BottomTab=() =>{
     <Tab.Navigator>
         <Tab.Screen name="Home" component={Homepage}/>
         <Tab.Screen name="Draw Card" component={Drawcard_stack}/>
-        {/* <Tab.Screen name="My Card" component={Viewcard_stack}/>
-        <Tab.Screen name="Burger Wallpaper" component={ViewWallpaper_stack}/>
-   */}
+         <Tab.Screen name="My Card" component={Viewcard_stack}/>
+       <Tab.Screen name="Burger Wallpaper" component={ViewWallpaper_stack}/> 
+    
     </Tab.Navigator>
     )
 

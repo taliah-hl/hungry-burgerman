@@ -16,12 +16,15 @@ import Viewcard_stack from './routes/viewCard_stack';
 import ViewEgg_stack from './routes/viewEgg_stack';
 import ViewWallpaper_stack from './routes/viewWallpaper_stack';
 
-//const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
    
-    <BottomTab/>
+  
+      <BottomTab/>
+   
+    
       
     </NavigationContainer>  );
 }
