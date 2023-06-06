@@ -9,7 +9,7 @@ export const globalStyles = StyleSheet.create({
 
     pairGreenBtnsLarge:{
         height: 192,
-        width: 328,
+        width: '100%',
         flexDirection: 'row',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
@@ -20,7 +20,7 @@ export const globalStyles = StyleSheet.create({
         width: 146,
         flex: 1,
         alignItem:  'space-between',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
     },
 
     greenCircleBtnLarge:{
@@ -29,12 +29,20 @@ export const globalStyles = StyleSheet.create({
         width: 145,
         backgroundColor: '#52c69c',
         padding: 24,
+        alignSelf: 'center',
 
     },
     greenBtnTextLarge: { 
         textAlign: 'center',
         color: '#4a4848',
+        fontSize: 20,
+        margin: 5,
     },
+    greenCircleBtnIconLarge:{
+        width: 93,
+        height: 93,
+        resizeMode: 'contain',
+    }
 
 
 

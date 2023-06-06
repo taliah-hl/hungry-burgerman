@@ -1,9 +1,12 @@
-import { StyleSheet, Image, Text, View, Button, TouchableOpacity } from 'react-native'
+import { StyleSheet, Image, Text, View, Button, TouchableOpacity, ImageBackground } from 'react-native'
 import React from 'react'
 import {globalStyles} from '../components/global_style'
 
 export default function Drawcard_step1({ navigation }) {
   return (
+    <ImageBackground source={require('../assets/drawcard-bg.jpg')}
+      resizeMode="cover"
+      style={{flex: 1, justifyContent: 'center'}}>
     <View style={styles.container}>
     <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
@@ -15,17 +18,23 @@ export default function Drawcard_step1({ navigation }) {
       <View style={globalStyles.pairGreenBtnsLarge}>
         
         <View style={globalStyles.greenBtnFrameLarge}>
-         <Button style = {globalStyles.greenCircleBtnLarge}>
-          <Image source = {require('../assets/meal.png')}/>
-         </Button>
+         <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
+          onPress={()=> navigation.navigate('Draw card step 2')}>
+          <Image source = {require('../assets/meal.png')}
+            style={globalStyles.greenCircleBtnIconLarge}
+          />
+         </TouchableOpacity>
         <Text style = {globalStyles.greenBtnTextLarge}>吃的</Text>
         </View>
         
         <View style={globalStyles.greenBtnFrameLarge}>
-         <Button style = {globalStyles.greenCircleBtnLarge}>
-          <Image source = {require('../assets/soda.png')}/>
-         </Button>
-        <Text style = {globalStyles.greenBtnTextLarge}>吃的</Text>
+         <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
+          onPress={()=> navigation.navigate('Draw card step 2')}>
+          <Image source = {require('../assets/soda.png')}
+              style={globalStyles.greenCircleBtnIconLarge}
+          />
+         </TouchableOpacity>
+        <Text style = {globalStyles.greenBtnTextLarge}>喝的</Text>
         </View>
       </View>
 
@@ -33,6 +42,7 @@ export default function Drawcard_step1({ navigation }) {
     </View>
       
     </View>
+    </ImageBackground>
   )
 }
 

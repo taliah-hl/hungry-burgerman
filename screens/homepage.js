@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
     height: '70%', 
     alignSelf: 'center', 
     margin: 30, 
-    transform:[{rotate: '-7.52deg'}]
+    transform:[{rotate: '-7.52deg'}],
+    resizeMode: 'contain',
   },
   lowersection:{
     flex: 1,
