@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Homepage from '../screens/homepage';
+import Home_stack from '../routes/home_stack'
 import Drawcard_step1 from '../screens/drawcard_step1';
 import Drawcard_result from '../screens/drawcard_result';
 import MyCard from '../screens/myCard';
@@ -16,8 +17,12 @@ const Tab = createBottomTabNavigator();
 const BottomTab=() =>{
     return(
     <Tab.Navigator>
-        <Tab.Screen name="Home" component={Homepage}/>
-        <Tab.Screen name="Draw Card" component={Drawcard_stack}/>
+        <Tab.Group screenOptions={{ headerShown: false }}>
+            <Tab.Screen name="Home" 
+                component={Home_stack}/>
+        
+            <Tab.Screen name="Draw Card" component={Drawcard_stack} />
+        </Tab.Group>
          <Tab.Screen name="My Card" component={Viewcard_stack}/>
        <Tab.Screen name="Burger Wallpaper" component={ViewWallpaper_stack}/> 
     

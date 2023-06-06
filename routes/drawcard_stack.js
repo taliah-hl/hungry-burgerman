@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 export default function Drawcard_stack(){
     return(
       
-         <Stack.Navigator>
+         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Draw card step 1" component = {Drawcard_step1}/>
             <Stack.Screen name="Draw card step 2" component = {Drawcard_step2}/>
             <Stack.Screen name="Draw card animation" component = {Drawcard_animation}/>
