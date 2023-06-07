@@ -1,6 +1,8 @@
 import { StyleSheet, Image, Text, View, Button, TouchableOpacity, ImageBackground } from 'react-native'
 import React from 'react'
+import { SvgUri } from 'react-native-svg';
 import {globalStyles} from '../components/global_style'
+import SpeechBubble_2line_toRight from '../components/speechBubble_2line_toRight'
 
 export default function Drawcard_step1({ navigation }) {
   return (
@@ -11,7 +13,19 @@ export default function Drawcard_step1({ navigation }) {
     <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
       <View style = {styles.burgermanSpeech}>
+        <View style={styles.speechBubble}>
+          <SpeechBubble_2line_toRight/>
+        </View>
+        <View style={styles.bugermanSmall}>
+          <Image source={require('../assets/burgerman.png')}
+           style={styles.bugermanpic} />
+        </View>
 
+      {/* <SvgUri width="100%" jeight="100%"
+        source={require('../assets/speech_bubble-2line-toright.svg')}
+      /> */}
+
+      
       </View>
     </View>
     <View style = {styles.lowersection}>
@@ -51,9 +65,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 31,
     paddingRight: 31,
-    paddingTop: 107,
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    
 
   },
   uppersection:{
@@ -61,20 +75,40 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-end',
+    borderWidth: 2,
+    borderColor: 'red',
   },
   lowersection:{
     flex:3,
     justifyContent: 'center',
-    alignItem: 'space-around',
+    alignItem: 'flex-start',
+    borderWidth: 2,
+    borderColor: 'red',
   },
   progressBar:{
     flex:1,
+    
 
   },
   burgermanSpeech:{
     flex:1,
-
+    flexDirection: 'row',
+  
   },
+  speechBubble:{
+    flex: 4,
+    borderWidth: 2,
+    borderColor: 'green',
+  },
+  bugermanSmall:{
+    flex: 1,
+  },
+  bugermanpic:{
+    width: '90%',
+    height: '90%',
+    resizeMode: 'contain',
+    transform:[{rotate: '8.36deg'}],
+  }
 
 
 
