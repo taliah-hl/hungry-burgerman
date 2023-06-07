@@ -11,6 +11,8 @@ export default function Drawcard_step2({ navigation }) {
     <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
       <View style = {styles.burgermanSpeech}>
+        <Image source={require('../assets/speechAndBurgerman-drawcard-step2.png')}
+           style={styles.bugermanSpeechImg} />
 
       </View>
     </View>
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 31,
     paddingRight: 31,
-    paddingTop: 107,
     justifyContent: 'center',
     flexDirection: 'column'
 
@@ -74,6 +75,11 @@ const styles = StyleSheet.create({
   burgermanSpeech:{
     flex:1,
 
+  },
+  bugermanSpeechImg:{
+    width: '90%',
+    height: '90%',
+    resizeMode: 'contain',
   },
 
 

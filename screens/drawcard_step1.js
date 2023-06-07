@@ -13,13 +13,10 @@ export default function Drawcard_step1({ navigation }) {
     <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
       <View style = {styles.burgermanSpeech}>
-        <View style={styles.speechBubble}>
-          <SpeechBubble_2line_toRight/>
-        </View>
-        <View style={styles.bugermanSmall}>
-          <Image source={require('../assets/burgerman.png')}
-           style={styles.bugermanpic} />
-        </View>
+       
+          <Image source={require('../assets/speechAndBurgerman-drawcard-step1.png')}
+           style={styles.bugermanSpeechImg} />
+        
 
       {/* <SvgUri width="100%" jeight="100%"
         source={require('../assets/speech_bubble-2line-toright.svg')}
@@ -92,7 +89,6 @@ const styles = StyleSheet.create({
   },
   burgermanSpeech:{
     flex:1,
-    flexDirection: 'row',
   
   },
   speechBubble:{
@@ -103,12 +99,11 @@ const styles = StyleSheet.create({
   bugermanSmall:{
     flex: 1,
   },
-  bugermanpic:{
+  bugermanSpeechImg:{
     width: '90%',
     height: '90%',
     resizeMode: 'contain',
-    transform:[{rotate: '8.36deg'}],
-  }
+  },
 
 
 
