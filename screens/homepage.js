@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ImageBackground } from 'react-native'
 import React from 'react'
 
+import { globalStyles } from '../components/global_style'
+
 export default function Homepage({navigation}) {
   return (
     <ImageBackground source={require('../assets/homepage-bg.jpg')}
@@ -15,22 +17,22 @@ export default function Homepage({navigation}) {
       
         <View style = {styles.appTitle}>
         <Image source={require('../assets/appname.png')}
-            style={{width: 230, height: 98, alignSelf: 'center'}}
+            style={{width: 270, height: 110, alignSelf: 'center', resizeMode: 'contain'}}
         />
 
         </View>
         <View style = {styles.btnsection}>
           <TouchableOpacity style = {styles.homepageBtn}
               onPress={()=> navigation.navigate("Draw Card")}>
-            <Text>Draw Card</Text>
+            <Text style={globalStyles.btnYellowTitle} >Draw Card</Text>
           </TouchableOpacity>
           <TouchableOpacity style = {styles.homepageBtn}
               onPress={()=> navigation.navigate("My Card")}>
-            <Text>My Card</Text>
+            <Text style={globalStyles.btnYellowTitle}>My Card</Text>
           </TouchableOpacity>
           <TouchableOpacity style = {styles.homepageBtn}
               onPress={()=> navigation.navigate("ViewWallpaper")}>
-            <Text>Burger Wallpaper</Text>
+            <Text style={styles.wallpaperBtn}>Burger Wallpaper</Text>
           </TouchableOpacity>
         </View>
 
@@ -105,6 +107,12 @@ const styles = StyleSheet.create({
     height: 51,
     alignSelf: 'center',
     marginVertical: 5,
+  },
+  wallpaperBtn:{
+    textAlign: 'center',
+        color: '#FDFCED',
+        fontFamily: 'lazy-dog',
+        fontSize: 33,
   }
 
 

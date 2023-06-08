@@ -1,6 +1,7 @@
 import { StyleSheet, Image, Text, View, Button, TouchableOpacity,ImageBackground } from 'react-native'
 import React from 'react'
 import {globalStyles} from '../components/global_style'
+import {drawcardStyles} from '../components/drawcard_style'
 
 export default function Drawcard_step2({ navigation }) {
   return (
@@ -10,9 +11,9 @@ export default function Drawcard_step2({ navigation }) {
     <View style={styles.container}>
     <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
-      <View style = {styles.burgermanSpeech}>
+      <View style = {drawcardStyles.burgermanSpeech}>
         <Image source={require('../assets/speechAndBurgerman-drawcard-step2.png')}
-           style={styles.bugermanSpeechImg} />
+           style={drawcardStyles.bugermanSpeechImg} />
 
       </View>
     </View>
@@ -21,22 +22,22 @@ export default function Drawcard_step2({ navigation }) {
         
         <View style={globalStyles.greenBtnFrameLarge}>
          <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
-          onPress={()=> navigation.navigate('Draw card step 2')}>
+          onPress={()=> navigation.navigate('Draw card animation')}>
           <Image source = {require('../assets/walk.png')}
             style={globalStyles.greenCircleBtnIconLarge}
           />
          </TouchableOpacity>
-        <Text style = {globalStyles.greenBtnTextLarge}>走路</Text>
+        <Text style = {globalStyles.btnTextMedium}>走路</Text>
         </View>
         
         <View style={globalStyles.greenBtnFrameLarge}>
          <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
-          onPress={()=> navigation.navigate('Draw card step 2')}>
+          onPress={()=> navigation.navigate('Draw card animation')}>
           <Image source = {require('../assets/car.png')}
               style={globalStyles.greenCircleBtnIconLarge}
           />
          </TouchableOpacity>
-        <Text style = {globalStyles.greenBtnTextLarge}>騎車/開車</Text>
+        <Text style = {globalStyles.btnTextMedium}>騎車/開車</Text>
         </View>
       </View>
 
@@ -72,16 +73,8 @@ const styles = StyleSheet.create({
     flex:1,
 
   },
-  burgermanSpeech:{
-    flex:1,
-
-  },
-  bugermanSpeechImg:{
-    width: '90%',
-    height: '90%',
-    resizeMode: 'contain',
-  },
-
+ 
 
 
 })
+

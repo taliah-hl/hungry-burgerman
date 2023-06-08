@@ -3,6 +3,9 @@ import React from 'react'
 import { SvgUri } from 'react-native-svg';
 import {globalStyles} from '../components/global_style'
 import SpeechBubble_2line_toRight from '../components/speechBubble_2line_toRight'
+import {drawcardStyles} from '../components/drawcard_style'
+import {BtnTextMedium} from '../components/typography'
+
 
 export default function Drawcard_step1({ navigation }) {
   return (
@@ -12,16 +15,11 @@ export default function Drawcard_step1({ navigation }) {
     <View style={styles.container}>
     <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
-      <View style = {styles.burgermanSpeech}>
+      <View style = {drawcardStyles.burgermanSpeech}>
        
           <Image source={require('../assets/speechAndBurgerman-drawcard-step1.png')}
-           style={styles.bugermanSpeechImg} />
+           style={drawcardStyles.bugermanSpeechImg} />
         
-
-      {/* <SvgUri width="100%" jeight="100%"
-        source={require('../assets/speech_bubble-2line-toright.svg')}
-      /> */}
-
       
       </View>
     </View>
@@ -35,7 +33,7 @@ export default function Drawcard_step1({ navigation }) {
             style={globalStyles.greenCircleBtnIconLarge}
           />
          </TouchableOpacity>
-        <Text style = {globalStyles.greenBtnTextLarge}>吃的</Text>
+        <Text style = {globalStyles.btnTextMedium}>吃的</Text>
         </View>
         
         <View style={globalStyles.greenBtnFrameLarge}>
@@ -45,7 +43,7 @@ export default function Drawcard_step1({ navigation }) {
               style={globalStyles.greenCircleBtnIconLarge}
           />
          </TouchableOpacity>
-        <Text style = {globalStyles.greenBtnTextLarge}>喝的</Text>
+        <Text style = {globalStyles.btnTextMedium}>喝的</Text>
         </View>
       </View>
 
@@ -72,39 +70,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-end',
-    borderWidth: 2,
-    borderColor: 'red',
+    // borderWidth: 2,
+    // borderColor: 'red',
   },
   lowersection:{
     flex:3,
     justifyContent: 'center',
     alignItem: 'flex-start',
-    borderWidth: 2,
-    borderColor: 'red',
+    // borderWidth: 2,
+    // borderColor: 'red',
   },
   progressBar:{
     flex:1,
     
 
   },
-  burgermanSpeech:{
-    flex:1,
-  
-  },
-  speechBubble:{
-    flex: 4,
-    borderWidth: 2,
-    borderColor: 'green',
-  },
-  bugermanSmall:{
-    flex: 1,
-  },
-  bugermanSpeechImg:{
-    width: '90%',
-    height: '90%',
-    resizeMode: 'contain',
-  },
-
-
 
 })

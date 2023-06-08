@@ -32,11 +32,19 @@ export const globalStyles = StyleSheet.create({
         alignSelf: 'center',
 
     },
-    greenBtnTextLarge: { 
+    btnTextMedium: { 
         textAlign: 'center',
         color: '#4a4848',
         fontSize: 20,
+        fontFamily: 'NotoSansTC-Regular',
         margin: 5,
+
+    },
+    btnYellowTitle:{
+        textAlign: 'center',
+        color: '#FDFCED',
+        fontFamily: 'lazy-dog',
+        fontSize: 38,
     },
     greenCircleBtnIconLarge:{
         width: 93,

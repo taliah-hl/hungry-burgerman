@@ -16,8 +16,8 @@ const Tab = createBottomTabNavigator();
 const BottomTab=() =>{
     return(
     <Tab.Navigator>
-        <Tab.Screen name="Home" component={Homepage}/>
-        <Tab.Screen name="Draw Card" component={Drawcard_stack}/>
+        <Tab.Screen name="Home" component={Homepage} options={{headerShown: false}}/>
+        <Tab.Screen name="Draw Card" component={Drawcard_stack} options={{headerShown: false}}/>
          <Tab.Screen name="My Card" component={Viewcard_stack}/>
        <Tab.Screen name="Burger Wallpaper" component={ViewWallpaper_stack}/> 
 
