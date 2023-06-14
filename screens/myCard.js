@@ -40,21 +40,32 @@ const DATA = [
   }
 ];
 
-const Item = ({title, img, navigation, selectAll, editMode}) => (
-  <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate("view saved card")} disabled={editMode}>
+const Item = ({title, img, navigation, selectAll, editMode, setSelectAll}) => (
+  <View style={styles.card}>
+    <TouchableOpacity
+      onPress={()=>{
+        navigation.navigate("view saved card", {
+          title: title,
+          img: img
+        });
+      }}
+      disabled={editMode}
+    >
+      <View style={styles.cardHeader}>
+        <Text style={styles.cardText}>{title}</Text>
+      </View>
+      <View style={styles.cardBody}>
+        <Image style={styles.cardImg} source={require(`../assets/${img}`)}/>
+      </View>
+    </TouchableOpacity>
+
     {
       (editMode) ?
-        <CheckBox style={styles.check} value={selectAll}></CheckBox>
+        <CheckBox style={styles.check} value={selectAll} onValueChange={()=>setSelectAll(!selectAll)}></CheckBox>
       :
         null
     }
-    <View style={styles.cardHeader}>
-      <Text style={styles.cardText}>{title}</Text>
-    </View>
-    <View style={styles.cardBody}>
-      <Image style={styles.cardImg} source={require(`../assets/${img}`)}/>
-    </View>
-  </TouchableOpacity>
+  </View>
 );
 
 export default function MyCard({ navigation }) {
@@ -68,7 +79,7 @@ export default function MyCard({ navigation }) {
     <View style={styles.page}>
 
       <View style={styles.header}>
-        <Text style={styles.headerText}>My card</Text>
+        <Text style={styles.headerText}>{"My card"}</Text>
         {
           (editMode) ?
             <TouchableOpacity style={styles.cancel} onPress={()=>(setEditMode(false) + setSelectAll(false))}>
@@ -95,7 +106,16 @@ export default function MyCard({ navigation }) {
           <FlatList
             numColumns={2}
             data={DATA}
-            renderItem={({item})=><Item title={item.title} img={item.img} navigation={navigation} selectAll={selectAll} editMode={editMode}></Item>}
+            renderItem={({item})=>(
+              <Item
+                title={item.title}
+                img={item.img}
+                navigation={navigation}
+                selectAll={selectAll}
+                editMode={editMode}
+                setSelectAll={setSelectAll}
+              />
+            )}
           />
         </ScrollView>
 
@@ -112,7 +132,7 @@ export default function MyCard({ navigation }) {
 
       </View>
 
-      <Modal visible={modalVisible} transparent={true} animationType='slide'>
+      <Modal visible={modalVisible} transparent={true}>
         <View style={styles.modal}>
           
           <View style={styles.modalBody}>
