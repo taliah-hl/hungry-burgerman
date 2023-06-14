@@ -5,12 +5,12 @@ import { globalStyles } from '../components/global_style'
 
 export default function Homepage({navigation}) {
   return (
-    <ImageBackground source={require('../assets/homepage-bg.jpg')}
+    <ImageBackground source={require('../assets/bg/homepage-bg.jpg')}
       resizeMode="cover"
       style={{flex: 1, justifyContent: 'center'}}>
     
        <View style = {styles.uppersection}>
-       <Image source={require('../assets/burgerman.png')}
+       <Image source={require('../assets/icon/burgerman.png')}
            style={styles.bugermanpic} />
 
       </View>

@@ -9,7 +9,7 @@ import {BtnTextMedium} from '../components/typography'
 
 export default function Drawcard_step1({ navigation }) {
   return (
-    <ImageBackground source={require('../assets/drawcard-bg.jpg')}
+    <ImageBackground source={require('../assets/bg/drawcard-bg.jpg')}
       resizeMode="cover"
       style={{flex: 1, justifyContent: 'center'}}>
     <View style={styles.container}>
@@ -17,7 +17,7 @@ export default function Drawcard_step1({ navigation }) {
       <View style = {styles.progressBar}></View>
       <View style = {drawcardStyles.burgermanSpeech}>
        
-          <Image source={require('../assets/speechAndBurgerman-drawcard-step1.png')}
+          <Image source={require('../assets/conversation/speechAndBurgerman-drawcard-step1.png')}
            style={drawcardStyles.bugermanSpeechImg} />
         
       
@@ -29,7 +29,7 @@ export default function Drawcard_step1({ navigation }) {
         <View style={globalStyles.greenBtnFrameLarge}>
          <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
           onPress={()=> navigation.navigate('Draw card step 2')}>
-          <Image source = {require('../assets/meal.png')}
+          <Image source = {require('../assets/icon/meal.png')}
             style={globalStyles.greenCircleBtnIconLarge}
           />
          </TouchableOpacity>
@@ -39,7 +39,7 @@ export default function Drawcard_step1({ navigation }) {
         <View style={globalStyles.greenBtnFrameLarge}>
          <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
           onPress={()=> navigation.navigate('Draw card step 2')}>
-          <Image source = {require('../assets/soda.png')}
+          <Image source = {require('../assets/icon/soda.png')}
               style={globalStyles.greenCircleBtnIconLarge}
           />
          </TouchableOpacity>

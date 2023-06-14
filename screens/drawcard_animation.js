@@ -5,14 +5,14 @@ import {drawcardStyles} from '../components/drawcard_style'
 
 export default function Drawcard_animation({navigation}) {
   return (
-    <ImageBackground source={require('../assets/drawcard-bg.jpg')}
+    <ImageBackground source={require('../assets/bg/drawcard-bg.jpg')}
       resizeMode="cover"
       style={{flex: 1, justifyContent: 'center'}}>
       <View style={styles.container}>
       <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
         <View style = {drawcardStyles.burgermanSpeech}>
-          <Image source={require('../assets/speechAndBurgerman-drawcard-animation.png')}
+          <Image source={require('../assets/conversation/speechAndBurgerman-drawcard-animation.png')}
            style={drawcardStyles.bugermanSpeechImg} />
 
         </View>
