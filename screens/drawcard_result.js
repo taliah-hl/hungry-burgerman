@@ -5,6 +5,7 @@ import {drawcardStyles} from '../components/drawcard_style'
 import {globalStyles} from '../components/global_style'
 import  {setGlobalState, useGlobalState} from '../shared/states'
 
+
 const CardsCandidate =[
   {
     shopId:0,
