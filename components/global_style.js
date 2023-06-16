@@ -22,6 +22,21 @@ export const globalStyles = StyleSheet.create({
         alignItem:  'space-between',
         justifyContent: 'space-between',
     },
+    pairGreenBtnsMedium:{
+        height: 150,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+    },
+    greenBtnFrameMedium: {
+        height: 150,
+        width: 120,
+        flex: 1,
+        alignItem:  'space-between',
+        justifyContent: 'space-between',
+    
+    },
 
     greenCircleBtnLarge:{
         borderRadius: 100,
@@ -29,6 +44,16 @@ export const globalStyles = StyleSheet.create({
         width: 145,
         backgroundColor: '#52c69c',
         padding: 24,
+        alignSelf: 'center',
+
+    },
+
+    greenCircleBtnMedium:{
+        borderRadius: 100,
+        height: 102,
+        width: 102,
+        backgroundColor: '#52c69c',
+        padding: 20,
         alignSelf: 'center',
 
     },
@@ -54,6 +79,11 @@ export const globalStyles = StyleSheet.create({
         fontSize: 38,
     },
     greenCircleBtnIconLarge:{
+        width: 93,
+        height: 93,
+        resizeMode: 'contain',
+    },
+    greenCircleBtnIconMedium:{
         width: 93,
         height: 93,
         resizeMode: 'contain',

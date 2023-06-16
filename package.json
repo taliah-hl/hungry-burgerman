@@ -28,7 +28,8 @@
     "react-native-star-rating": "^1.1.0",
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.11",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "react-stars": "^2.2.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

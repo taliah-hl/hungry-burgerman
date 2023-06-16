@@ -1,25 +1,44 @@
 import { Text, View, StyleSheet, Image } from 'react-native'
 import React, { Component } from 'react'
-//import StarRating from 'react-native-star-rating';
-import {globalStyles} from '../components/global_style'
+import ReactStars from 'react-stars'
 
+import {globalStyles} from '../components/global_style'
 
 const textGglmap= "在google map查看>>";
 
-// class generateStars extends Component{
-//   constructor(props){
-//     super(props);
-//     const starcnt = props.pickedCard.shopGglstar;
-//   }
-//   render(){
-//     return(
-//       <StarRating
-//         maxStars={5}
-        
-//       />
-//     )
-//   }
-// }
+
+
+const GenerateStars = (props)=>{
+    const starCnt = props.starcnt;
+    return(
+      <ReactStars
+        count={5}
+        value = {starCnt}
+        edit={false}
+        color1={'#595959'}
+        color2={'#FEF400'}
+        size={20}
+      />
+    );
+  
+}
+
+const GeneratePriceSymb = (props)=>{
+  const priceCnt = props.pricecnt;
+  return(
+    <ReactStars
+      count={priceCnt}
+      value = {priceCnt}
+      char={'$'}
+      edit={false}
+      color1={'black'}
+      color2={'black'}
+      size={20}
+
+    />
+  );
+
+}
 
 export const ShopCard=(props)=>{
   const drwanCard = props.pickedCard;
@@ -28,8 +47,15 @@ export const ShopCard=(props)=>{
     return (
       <View style={styles.shopCardBg}>
         <View style={styles.cardBody}>
-          <View style={styles.googleInfo}>
-            <Text style={[globalStyles.contentText,styles.googleStar]}> {drwanCard.shopGglstar} {drwanCard.shopGglprice} </Text>
+          <View style={styles.googleInfoRow}>
+            {/* <Text style={[globalStyles.contentText,styles.googleStar]}> {drwanCard.shopGglstar} {drwanCard.shopGglprice} </Text> */}
+            <View style={styles.googleInfoGrid}>
+              <Text style={[ globalStyles.contentText, styles.googleStarText]}> {drwanCard.shopGglstar} </Text>
+              <GenerateStars starcnt={drwanCard.shopGglstar}/>
+              <GeneratePriceSymb pricecnt={drwanCard.shopGglprice}/>
+            </View>
+            
+            
             
 
           </View>
@@ -102,19 +128,28 @@ const styles = StyleSheet.create({
 
 
     },
-    googleInfo:{
+    googleInfoRow:{
 
       flex:1,
       backgroundColor:'#eab676',
+      flexDirection: 'row',
       justifyContent: 'flex-end',
-      flexDirection: 'column',
+      alignSelft: 'flex-end',
       width: '100%',
 
     },
-    googleStar:{
+    googleStarText:{
       fontSize: 16,
       textAlign: 'flex-end',
       alignSelf: 'flex-end',
+    },
+    googleInfoGrid:{
+      flex: 1,
+      alignSelf: 'flex-end',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignSelft: 'flex-end',
+
     },
 
     shopPhoto:{
