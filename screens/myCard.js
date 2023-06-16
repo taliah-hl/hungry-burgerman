@@ -6,60 +6,78 @@ const DATA = [
   {
     id: 'card1',
     title: '豬多好事1',
-    img: "my_card.jpg"
+    img: "my_card.jpg",
+    checked: false
   },
   {
     id: 'card2',
     title: '豬多好事2',
-    img: "my_card.jpg"
+    img: "my_card.jpg",
+    checked: false
   },
   {
     id: 'card3',
     title: '豬多好事3',
-    img: "my_card.jpg"
+    img: "my_card.jpg",
+    checked: false
   },
   {
     id: 'card4',
     title: '豬多好事4',
-    img: "my_card.jpg"
+    img: "my_card.jpg",
+    checked: false
   },
   {
     id: 'card5',
     title: '豬多好事5',
-    img: "my_card.jpg"
+    img: "my_card.jpg",
+    checked: false
   },
   {
     id: 'card6',
     title: '豬多好事6',
-    img: "my_card.jpg"
+    img: "my_card.jpg",
+    checked: false
   },
   {
     id: 'card7',
     title: '豬多好事7',
-    img: "my_card.jpg"
+    img: "my_card.jpg",
+    checked: false
   }
 ];
 
-const Item = ({title, img, navigation, selectAll, editMode}) => (
-  <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate("view saved card")} disabled={editMode}>
+const Item = ({item, index, navigation, editMode}) => (
+  <View style={styles.card}>
+    <TouchableOpacity
+      onPress={()=>{
+        navigation.navigate("view saved card", {
+          title: item.title,
+          img: item.img
+        });
+      }}
+      disabled={editMode}
+    >
+      <View style={styles.cardHeader}>
+        <Text style={styles.cardText}>{item.title}</Text>
+      </View>
+      <View style={styles.cardBody}>
+        <Image style={styles.cardImg} source={require(`../assets/${item.img}`)}/>
+      </View>
+    </TouchableOpacity>
+
     {
       (editMode) ?
-        <CheckBox style={styles.check} value={selectAll}></CheckBox>
+        <CheckBox style={styles.check} value={DATA[index].checked} onValueChange={()=>(DATA[index].checked = !DATA[index].checked)}></CheckBox>
       :
         null
     }
-    <View style={styles.cardHeader}>
-      <Text style={styles.cardText}>{title}</Text>
-    </View>
-    <View style={styles.cardBody}>
-      <Image style={styles.cardImg} source={require(`../assets/${img}`)}/>
-    </View>
-  </TouchableOpacity>
+  </View>
 );
 
 export default function MyCard({ navigation }) {
   
-  const [SelectOne, setSelectOne] = useState([]);
+  const [SelectOne, setSelectOne] = useState([{isSelected: false}]);
   const [selectAll, setSelectAll] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -68,7 +86,7 @@ export default function MyCard({ navigation }) {
     <View style={styles.page}>
 
       <View style={styles.header}>
-        <Text style={styles.headerText}>My Card</Text>
+        <Text style={styles.headerText}>{"My card"}</Text>
         {
           (editMode) ?
             <TouchableOpacity style={styles.cancel} onPress={()=>(setEditMode(false) + setSelectAll(false))}>
@@ -95,7 +113,14 @@ export default function MyCard({ navigation }) {
           <FlatList
             numColumns={2}
             data={DATA}
-            renderItem={({item})=><Item title={item.title} img={item.img} navigation={navigation} selectAll={selectAll} editMode={editMode}></Item>}
+            renderItem={({item, index})=>(
+              <Item
+                item={item}
+                index={index}
+                navigation={navigation}
+                editMode={editMode}
+              />
+            )}
           />
         </ScrollView>
 
@@ -112,7 +137,7 @@ export default function MyCard({ navigation }) {
 
       </View>
 
-      <Modal visible={modalVisible} transparent={true} animationType='slide'>
+      <Modal visible={modalVisible} transparent={true}>
         <View style={styles.modal}>
           
           <View style={styles.modalBody}>
