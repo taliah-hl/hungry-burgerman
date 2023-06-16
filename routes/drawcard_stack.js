@@ -6,9 +6,6 @@ import Drawcard_step1 from '../screens/drawcard_step1';
 import Drawcard_step2 from '../screens/drawcard_step2';
 import Drawcard_animation from '../screens/drawcard_animation';
 
-
-
-
 const Stack = createNativeStackNavigator();
 
 export default function Drawcard_stack(){

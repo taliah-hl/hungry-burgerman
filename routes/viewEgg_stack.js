@@ -11,10 +11,8 @@ const Stack = createNativeStackNavigator();
 export default function ViewEgg_stack(){
     <Stack.Navigator>
         <Stack.Navigator>
-            <Stack.Sreen name="wallpaper set" component = {WallpaperSet}/>
-            <Stack.Sreen name="view egg hatching" component = {View_egg_hatching}/>
+            <Stack.Screen name="wallpaper set" component = {WallpaperSet}/>
+            <Stack.Screen name="view egg hatching" component = {View_egg_hatching}/>
         </Stack.Navigator>
-
-
     </Stack.Navigator>
 }
