@@ -40,6 +40,13 @@ export const globalStyles = StyleSheet.create({
         margin: 5,
 
     },
+    contentText:{
+        textAlign: 'flex-start',
+        color: '#000000',
+        fontSize: 20,
+        fontFamily: 'NotoSansTC-Regular',
+
+    },
     btnYellowTitle:{
         textAlign: 'center',
         color: '#FDFCED',
@@ -50,10 +57,17 @@ export const globalStyles = StyleSheet.create({
         width: 93,
         height: 93,
         resizeMode: 'contain',
-    }
+    },
+    contentIcon:{
+        height: 30,
+        width:'100%',
+        resizeMode: 'contain',
+        alignSelf: 'center',
+    },
 
 
 
 })
 
 //to be export to everypage for global style
+
