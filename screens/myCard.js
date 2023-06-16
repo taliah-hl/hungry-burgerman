@@ -168,12 +168,16 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#38C097",
     height: 100,
-    padding: 15
+    padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerText: {
     color: "#FFFFFF",
     fontSize: 45,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'lazy-dog',
+    alignSelf: 'center',
   },
   editbtn: {
     position: 'absolute',
@@ -186,7 +190,8 @@ const styles = StyleSheet.create({
     right: 10,
     backgroundColor: '#E35A5A',
     borderRadius: 5,
-    padding: 2
+    padding: 2,
+
   },
   cancelText: {
     color: "#FFFFFF",

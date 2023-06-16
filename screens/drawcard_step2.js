@@ -3,7 +3,10 @@ import React from 'react'
 import {globalStyles} from '../components/global_style'
 import {drawcardStyles} from '../components/drawcard_style'
 
-export default function Drawcard_step2({ navigation }) {
+export default function Drawcard_step2({ route, navigation }) {
+
+  const {foodOrDrink} = route.params;
+  console.log(foodOrDrink);
   return (
     <ImageBackground source={require('../assets/bg/drawcard-bg.jpg')}
       resizeMode="cover"
@@ -22,7 +25,7 @@ export default function Drawcard_step2({ navigation }) {
         
         <View style={globalStyles.greenBtnFrameLarge}>
          <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
-          onPress={()=> navigation.navigate('Draw card animation')}>
+          onPress={()=> navigation.navigate('Draw card animation', {foodOrDrink: foodOrDrink, walkOrDrive: 'walk'})}>
           <Image source = {require('../assets/icon/walk.png')}
             style={globalStyles.greenCircleBtnIconLarge}
           />
@@ -32,13 +35,14 @@ export default function Drawcard_step2({ navigation }) {
         
         <View style={globalStyles.greenBtnFrameLarge}>
          <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
-          onPress={()=> navigation.navigate('Draw card animation')}>
+          onPress={()=> navigation.navigate('Draw card animation', {foodOrDrink: foodOrDrink, walkOrDrive: 'drive'})}>
           <Image source = {require('../assets/icon/car.png')}
               style={globalStyles.greenCircleBtnIconLarge}
           />
          </TouchableOpacity>
         <Text style = {globalStyles.btnTextMedium}>騎車/開車</Text>
         </View>
+        {/* <Text> food or drink: {foodOrDrink} </Text> */}
       </View>
 
 

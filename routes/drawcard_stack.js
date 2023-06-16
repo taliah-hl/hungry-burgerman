@@ -9,9 +9,6 @@ import Drawcard_result from '../screens/drawcard_result'
 import GotNewEgg from '../screens/gotNewEgg'
 import DrawnCard from '../screens/drawnCard'
 
-
-
-
 const Stack = createNativeStackNavigator();
 
 export default function Drawcard_stack(){

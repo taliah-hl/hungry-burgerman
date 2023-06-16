@@ -1,10 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import {ShopCard} from '../components/shopCard'
+import  {setGlobalState, useGlobalState} from '../shared/states'
 
-export default function DrawnCard() {
+export default function DrawnCard({navigation}) {
+  console.log('card drawn here');
   return (
     <View>
-      <Text></Text>
+     <Text>Drawn Card here</Text> 
+    
     </View>
   )
 }
