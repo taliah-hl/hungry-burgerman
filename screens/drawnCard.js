@@ -1,16 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import {ShopCard} from '../components/shopCard'
 import  {setGlobalState, useGlobalState} from '../shared/states'
 
-export default function GotNewEgg() {
-
-  setGlobalState('eggStatus', 1);
-  console.log(useGlobalState('eggStatus'))
-  console.log('egg got here');
+export default function DrawnCard({navigation}) {
+  console.log('card drawn here');
   return (
     <View>
-      <Text>GotNewEgg</Text>
-      
+     <Text>Drawn Card here</Text> 
+    
     </View>
   )
 }

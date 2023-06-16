@@ -11,7 +11,7 @@ import View_wallpaper_1_3 from '../screens/view_wallpaper_1_3'
 import View_wallpaper_1_4 from '../screens/view_wallpaper_1_4'
 import View_wallpaper_1_5 from '../screens/view_wallpaper_1_5'
 
-import View_egg_hatching from '../screens/view_egg_hatching'
+import View_egg_hatching from '../screens/egg_hatching'
 
 const Stack = createNativeStackNavigator();
 
