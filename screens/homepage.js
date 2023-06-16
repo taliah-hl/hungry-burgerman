@@ -31,7 +31,7 @@ export default function Homepage({navigation}) {
             <Text style={globalStyles.btnYellowTitle}>My Card</Text>
           </TouchableOpacity>
           <TouchableOpacity style = {styles.homepageBtn}
-              onPress={()=> navigation.navigate("ViewWallpaper")}>
+              onPress={()=> navigation.navigate("Burger Wallpaper")}>
             <Text style={styles.wallpaperBtn}>Burger Wallpaper</Text>
           </TouchableOpacity>
         </View>
