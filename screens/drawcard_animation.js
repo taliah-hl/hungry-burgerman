@@ -3,7 +3,12 @@ import React from 'react'
 import {globalStyles} from '../components/global_style'
 import {drawcardStyles} from '../components/drawcard_style'
 
-export default function Drawcard_animation({navigation}) {
+export default function Drawcard_animation({route, navigation}) {
+
+  const {foodOrDrink, walkOrDrive} = route.params;
+  console.log(foodOrDrink);
+  console.log(walkOrDrive);
+
   return (
     <ImageBackground source={require('../assets/bg/drawcard-bg.jpg')}
       resizeMode="cover"
@@ -22,7 +27,7 @@ export default function Drawcard_animation({navigation}) {
       
       <View style = {styles.lowersection}>
         <TouchableOpacity 
-        onPress={()=> navigation.navigate("Draw card result")}
+        onPress={()=> navigation.navigate("Draw card result", {foodOrDrink: foodOrDrink, walkOrDrive: walkOrDrive}) }
         style={styles.tmpPickCardBtn}
         >
           <Text>click here</Text>
@@ -31,6 +36,7 @@ export default function Drawcard_animation({navigation}) {
           />
         </TouchableOpacity>
       </View>
+      {/* <Text> {userChoice('foodOrDrink')} {userChoice('walkOrDrive')} </Text> */}
       </View>
       </ImageBackground>
     

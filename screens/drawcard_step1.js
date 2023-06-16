@@ -28,7 +28,7 @@ export default function Drawcard_step1({ navigation }) {
         
         <View style={globalStyles.greenBtnFrameLarge}>
          <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
-          onPress={()=> navigation.navigate('Draw card step 2')}>
+          onPress={()=> navigation.navigate('Draw card step 2',  {foodOrDrink: 'food'})}>
           <Image source = {require('../assets/icon/meal.png')}
             style={globalStyles.greenCircleBtnIconLarge}
           />
@@ -38,7 +38,7 @@ export default function Drawcard_step1({ navigation }) {
         
         <View style={globalStyles.greenBtnFrameLarge}>
          <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
-          onPress={()=> navigation.navigate('Draw card step 2')}>
+          onPress={()=> navigation.navigate('Draw card step 2', {foodOrDrink: 'drink'})}>
           <Image source = {require('../assets/icon/soda.png')}
               style={globalStyles.greenCircleBtnIconLarge}
           />

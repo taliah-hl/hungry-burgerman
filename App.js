@@ -37,6 +37,16 @@ export default function App() {
 
     )
   }
+
+  // const [eggStatus, setEggStatus] = useState('none');
+
+  // const GlobalState ={
+  //   eggStatus, setEggStatus
+  // }
+  const handleCardPicked = ()=>{
+
+
+  }
   return (
     <NavigationContainer>
    
