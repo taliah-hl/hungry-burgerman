@@ -70,7 +70,7 @@ export const globalStyles = StyleSheet.create({
         color: '#000000',
         fontSize: 20,
         fontFamily: 'NotoSansTC-Regular',
-        lineHeight: 15,
+        lineHeight: 18,
         justifyContent: 'space-around',
     },
     btnYellowTitle:{

@@ -194,9 +194,20 @@ export default function Drawcard_result({ route, navigation }) {
 
   const handleGotNewEgg=(eggCurStatus)=>{
     
-    console.log('press handler got');
-    console.log(eggCurStatus);
-    eggCurStatus?   navigation.navigate('Drawn card') : navigation.navigate('Got new egg');
+    console.log(`in drawcard, egg status: ${eggCurStatus}`);
+    
+    eggCurStatus?   navigation.navigate('Drawn card', {drawnCard: drawnCard, gglPhoto: gglPhoto})
+      : 
+      navigation.reset({
+        index: 0,
+        routes:[{
+          name: "Got new egg",
+          params: {drawnCard: drawnCard, gglPhoto: gglPhoto}
+        }
+        ]
+      })
+
+      //navigation.navigate('Got new egg', {drawnCard: drawnCard, gglPhoto: gglPhoto} );
     
   
   }
@@ -205,7 +216,7 @@ export default function Drawcard_result({ route, navigation }) {
   }
   
   const handleRedrawBtn=()=>{
-  navigation.navigate('Draw card animation')
+  navigation.navigate('Draw card animation', {foodOrDrink: foodOrDrink, walkOrDrive: walkOrDrive})
   }
 
  
@@ -218,17 +229,18 @@ export default function Drawcard_result({ route, navigation }) {
       <View style={styles.secCard}>
         <View style={{alignSelf: 'center'}}>
           {isLoading? (<View style={{height: 380, justifyContent: 'center'}}>
-            <Text> {loadingText} </Text>
+            <Text style={{fontSize: 30, fontFamily: 'NotoSansTC-Regular',color: '#4a4848'}}> {loadingText} </Text>
           </View>)
           
           :(<ShopCard 
               drawnCard = {drawnCard} 
-              cardtype={cardType} 
               gglPhoto = {gglPhoto} /> )
           }
         </View>
       </View>
-      <View style={styles.lowerSec}>
+      {isLoading? 
+        (<></>)
+        :( <View style={styles.lowerSec}>
         <View style={styles.burgermanSpeech}>
           <Image source={require('../assets/conversation/speechAndBurgerman-drawcard-result.png')}
             style={drawcardStyles.bugermanSpeechImg} />
@@ -259,7 +271,8 @@ export default function Drawcard_result({ route, navigation }) {
         </View>
       </View>
       
-
+      )}
+     
      
     </View>
   )

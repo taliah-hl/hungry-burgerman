@@ -32,7 +32,7 @@ export default function Drawcard_animation({route, navigation}) {
         onPress={()=> navigation.navigate("Draw card result", {foodOrDrink: foodOrDrink, walkOrDrive: walkOrDrive}) }
         style={styles.tmpPickCardBtn}
         >
-          <Text>click here</Text>
+          <Text style={{alignSelf: 'center'}}>click here</Text>
           <Image source={require('../assets/tarots-4pcs.png')}
             style={styles.tarotsImg}
           />
@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
   
   },
   tmpPickCardBtn:{
-    backgroundColor: '#FFF7E4',
     
     justifyContent: 'center',
     alignItem: 'center',

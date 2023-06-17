@@ -123,7 +123,7 @@ export const ShopCard=(props)=>{
 
           </View>
           <View style={styles.shopPhoto}>
-            <Image source={gglPhoto} style={{width: 300, height: '100%', resizeMode:'contain'}} ></Image>
+            <Image source={gglPhoto} style={{width: 300, height: '100%', maxWidth: 370, resizeMode:'contain'}} ></Image>
 
           </View>
           <View style={styles.shopInfoRow}>
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
 
     },
     shopcardContentText:{
-      fontSize: 15,
+      fontSize: 18,
     },
     plainBtn:{
 
