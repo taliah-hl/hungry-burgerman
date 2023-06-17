@@ -12,6 +12,7 @@ import View_wallpaper_1_4 from '../screens/view_wallpaper_1_4'
 import View_wallpaper_1_5 from '../screens/view_wallpaper_1_5'
 
 import View_egg_hatching from '../screens/egg_hatching'
+import {Egg} from '../screens/egg'
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function ViewWallpaper_stack(){
         <Stack.Screen name = "view wallpaper 5" component={ View_wallpaper_1_5 } options={{headerShown: false}}/>
 
         <Stack.Screen name = "view egg hatching" component={ View_egg_hatching } />
+        <Stack.Screen name = "egg" component={ Egg } />
     </Stack.Navigator>
   )
 }

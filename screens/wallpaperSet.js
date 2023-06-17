@@ -135,7 +135,7 @@ export default function WallpaperSet( {navigation} ) {
         </View>
         );
     const onPressFunction = () => {
-        navigation.navigate("view egg")
+        navigation.navigate("egg")
     }
     const onPressFunction2 = () => {
         console.log("hihi2")

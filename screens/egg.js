@@ -5,32 +5,37 @@ import  {setGlobalState, useGlobalState} from '../shared/states'
 
 
 //egg status: 0: no egg, 1: hathcing, 2: hatched
-export const Egg=(props)=>{
+export const Egg=()=>{
 
   const [localEggStatus, setLocalEggStatus] = useState(1);
+  const globalEggStatus = useGlobalState('eggStatus');
   useEffect(()=>{
     
-    setLocalEggStatus(useGlobalState('eggStatus'[0]));
+    setLocalEggStatus(globalEggStatus[0]);
     
     console.log(`in egg, egg status: ${localEggStatus}`);
     
 
   })
     
-    if(useGlobalState('eggStatus'[0])===0){
+    if(localEggStatus===0){
       return(
         <View style={styles.container}>
           <Text> U HAVE NO EGG</Text>
         </View>
       )
-    }else if(useGlobalState('eggStatus'[0])===2){
+    }else if(localEggStatus===2){
+      return(
       <View style={styles.container}>
           <Text> egg hatched !</Text>
         </View>
+      )
     }else{
+      return(
       <View style={styles.container}>
       <Text> egg hatching !</Text>
     </View>
+    )
     }
 }
 
