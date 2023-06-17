@@ -56,6 +56,7 @@ const CardsCandidate =[
 export default function Drawcard_result({ route, navigation }) {
  
   const {foodOrDrink, walkOrDrive} = route.params;
+  const loadingText = 'Loading... :)';
   
   const eggCurStatus = useGlobalState('eggStatus')[0];
   
@@ -122,7 +123,7 @@ export default function Drawcard_result({ route, navigation }) {
   const places_photoUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='; 
 
   useEffect(() => {
-    setLoading(false);
+    setLoading(true);
     let randNum = Math.floor(Math.random() * 19);
     fetch(
       `${CORS_ANYWHERE_HOST}${drawShopUrls[cardType]}`
@@ -145,7 +146,7 @@ export default function Drawcard_result({ route, navigation }) {
         loadImage(json?.results[randNum]?.photos[0].photo_reference);
       })
       .catch((error) => console.error(`error in places api: ${error}`))
-      .finally(() => setLoading(true));
+      .finally(() => setLoading(false));
   }, []);
 
   const loadImage = async (photo_reference) => {
@@ -216,11 +217,15 @@ export default function Drawcard_result({ route, navigation }) {
       
       <View style={styles.secCard}>
         <View style={{alignSelf: 'center'}}>
-          {/* <ShopCard 
-            drawnCard = {drawnCard}
-            cardtype={cardType}
-            gglPhoto = {gglPhoto}
-          /> */}
+          {isLoading? (<View style={{height: 380, justifyContent: 'center'}}>
+            <Text> {loadingText} </Text>
+          </View>)
+          
+          :(<ShopCard 
+              drawnCard = {drawnCard} 
+              cardtype={cardType} 
+              gglPhoto = {gglPhoto} /> )
+          }
         </View>
       </View>
       <View style={styles.lowerSec}>

@@ -1,8 +1,9 @@
-import { Text, View, StyleSheet, Image } from 'react-native'
-import React, { Component, useState, useEffect } from 'react'
+import { Text, View, StyleSheet, Image, Button, Linking, TouchableOpacity } from 'react-native'
+import React, { Component, useState, useEffec, useCallback } from 'react'
 import ReactStars from 'react-stars'
 
 import {globalStyles} from '../components/global_style'
+import { TouchableHighlight } from 'react-native-web';
 
 const textGglmap= "在google map查看>>";
 
@@ -80,16 +81,6 @@ export const ShopCard=(props)=>{
   })();
   const CORS_ANYWHERE_HOST = 'https://cors-anywhere.herokuapp.com/';
 
-  // const apiKey= 'AIzaSyBF43lMa8RkSkIm0l4fbaioe-SR5LoiUdc';
-  // const userLocation = '24.80,120.99';
-
-  // const getShopUrl = [
-  // `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation}&radius=1500&keyword=餐廳&language=zh-TW&key=${apiKey}`,
-  // `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation}&radius=20000&keyword=餐廳&language=zh-TW&key=${apiKey}`,
-  // `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation}&radius=1500&keyword=飲料&language=zh-TW&key=${apiKey}`,
-  // `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation}&radius=10000&keyword=飲料&language=zh-TW&key=${apiKey}`,
-  // ]
-  // const places_photoUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='; 
 
   const OpenURLButton = ({url, children}) => {
     const handlePress = useCallback(async () => {
@@ -105,8 +96,10 @@ export const ShopCard=(props)=>{
       }
     }, [url]);
   
-    return <Button title={children} onPress={handlePress} 
-      style={[globalStyles.contentText, styles.gglmapText]}  />;
+    return (<TouchableOpacity  onPress={handlePress}  >
+        <Text style={[globalStyles.contentText, styles.gglmapText]}> {children} </Text>
+       </TouchableOpacity>
+       );
   };
 
 
@@ -121,7 +114,7 @@ export const ShopCard=(props)=>{
             
             <View style={styles.googleInfoGrid}>
               <Text style={[ globalStyles.contentText, styles.googleStarText]}> {drawnCard.gglStar} </Text>
-              <GenerateStars starcnt={drawnCard.gglstar}/>
+              <GenerateStars starcnt={drawnCard.gglStar}/>
               <GeneratePriceSymb pricecnt={drawnCard.gglPrice}/>
             </View>
             
@@ -148,9 +141,7 @@ export const ShopCard=(props)=>{
           </View>
           
               <OpenURLButton url={gglmapLink}>{textGglmap}</OpenURLButton>
-              
 
-          
         </View>
       </View>
     )
@@ -228,19 +219,27 @@ const styles = StyleSheet.create({
       flex: 2,
       marginTop: 10,
       justifyContent: 'center',
-      alignContent: 'stretch',
+      alignContent: 'center',
       flexDirection:'row',
       width: '100%',
+      
 
     },
     shopInfoIcon:{
       flex: 2,
       borderColor: '#000000',
+      justifyContent: 'center',
+      alignItem: 'center',
 
     },
     shopInfoText:{
       flex: 12,
       borderColor: '#000000',
+      alignItems: 'stretch',
+      alignSelf: 'stretch',
+      justifyContent: 'center',
+      
+      
     },
 
     secGooglemap:{
@@ -256,6 +255,12 @@ const styles = StyleSheet.create({
       textDecorationLine:'underline',
       
       marginVertical: 5,
+
+    },
+    shopcardContentText:{
+      fontSize: 15,
+    },
+    plainBtn:{
 
     }
     

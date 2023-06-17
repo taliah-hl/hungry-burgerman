@@ -6,78 +6,6 @@ import { globalStyles } from '../components/global_style'
 
 export default function Homepage({navigation}) {
 
-  const [isLoading, setLoading] = useState(true);
-  const [info, setInfo] = useState([]);
-
-  const [imagePlace, setImage] = useState(""); // initialize it to an empty string
-  const [isLoadImage, setLoadImage] = useState(true);
-
-
-  let headers = new Headers();
-
-  headers.append('Content-Type', 'application/json');
-  headers.append('Accept', 'application/json');
-
-  headers.append('Access-Control-Allow-Origin', 'http://localhost:8080');
-  headers.append('Access-Control-Allow-Credentials', 'true');
-
-  headers.append('GET', 'POST', 'OPTIONS');
-
-  (function() {
-      var cors_api_host = 'cors-anywhere.herokuapp.com';
-      var cors_api_url = 'https://' + cors_api_host + '/';
-      var slice = [].slice;
-      var origin = window.location.protocol + '//' + window.location.host;
-      var open = XMLHttpRequest.prototype.open;
-      XMLHttpRequest.prototype.open = function() {
-          var args = slice.call(arguments);
-          var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
-          if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
-              targetOrigin[1] !== cors_api_host) {
-              args[1] = cors_api_url + args[1];
-          }
-          return open.apply(this, args);
-      };
-  })();
-  const CORS_ANYWHERE_HOST = 'https://cors-anywhere.herokuapp.com/';
-
-  const apiKey= 'AIzaSyBF43lMa8RkSkIm0l4fbaioe-SR5LoiUdc';
-  const userLocation = '24.80,120.99';
-
-  useEffect(() => {
-    setLoading(false);
-    fetch(
-      `${CORS_ANYWHERE_HOST}https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation}&radius=1500&keyword=餐廳&language=zh-TW&key=${apiKey}`
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        setInfo(json);
-        console.log(json)
-        console.log(json?.results[0]?.photos[0].photo_reference);
-        loadImage(json?.results[0]?.photos[0].photo_reference);
-      })
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(true));
-  }, []);
-
-  const loadImage = async (photo_reference) => {
-    try {
-      const res = await fetch(
-        `${CORS_ANYWHERE_HOST}https://maps.googleapis.com/maps/api/place/photo?maxwidth=100&photo_reference=${photo_reference}&key=${apiKey}`
-      );
-      const data = await res.blob();
-      setImage(URL.createObjectURL(data));
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-
-  
-console.log('in home page')
-
-
-
 
   return (
     <ImageBackground source={require('../assets/bg/homepage-bg.jpg')}
@@ -110,11 +38,7 @@ console.log('in home page')
             <Text style={styles.wallpaperBtn}>Burger Wallpaper</Text>
           </TouchableOpacity>
         </View>
-        {imagePlace ? (
-            <Image source={{ uri: imagePlace }} style={{ width: 200, height: 200 }} />
-          ) : (
-            <></>
-          )}
+       
       </ImageBackground>
     
   )
