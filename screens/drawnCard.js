@@ -7,7 +7,7 @@ export default function DrawnCard({navigation}) {
   console.log('card drawn here');
   return (
     <View>
-     <Text>Drawn Card here</Text> 
+     <Text>Picked Card here</Text> 
     
     </View>
   )

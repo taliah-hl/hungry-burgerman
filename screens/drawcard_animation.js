@@ -6,8 +6,10 @@ import {drawcardStyles} from '../components/drawcard_style'
 export default function Drawcard_animation({route, navigation}) {
 
   const {foodOrDrink, walkOrDrive} = route.params;
-  console.log(foodOrDrink);
-  console.log(walkOrDrive);
+  
+  
+
+    
 
   return (
     <ImageBackground source={require('../assets/bg/drawcard-bg.jpg')}
