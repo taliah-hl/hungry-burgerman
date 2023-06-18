@@ -121,6 +121,7 @@ let DATA = [{
 
 const numColumns = 3;
 export default function WallpaperSet( {navigation} ) {
+  
   const [counter, setCounter] = useState(0);
   
   let counter_new = {...counter};

@@ -23,14 +23,14 @@ export const globalStyles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     pairGreenBtnsMedium:{
-        height: 150,
+        height: 120,
         width: '100%',
         flexDirection: 'row',
         alignItems: 'flex-start',
         justifyContent: 'center',
     },
     greenBtnFrameMedium: {
-        height: 150,
+        height: 120,
         width: 120,
         flex: 1,
         alignItem:  'space-between',
@@ -70,7 +70,8 @@ export const globalStyles = StyleSheet.create({
         color: '#000000',
         fontSize: 20,
         fontFamily: 'NotoSansTC-Regular',
-
+        lineHeight: 18,
+        justifyContent: 'space-around',
     },
     btnYellowTitle:{
         textAlign: 'center',

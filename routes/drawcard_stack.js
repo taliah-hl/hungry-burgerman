@@ -19,7 +19,7 @@ export default function Drawcard_stack(){
             <Stack.Screen name="Draw card step 2" component = {Drawcard_step2}/>
             <Stack.Screen name="Draw card animation" component = {Drawcard_animation}/>
             <Stack.Screen name="Draw card result"  component ={Drawcard_result}/>
-            <Stack.Screen name="Got new egg" component={GotNewEgg}/>
+            <Stack.Screen name="Got new egg" component={GotNewEgg}  options={{headerShown: false}}/>
             <Stack.Screen name="Drawn card" component={DrawnCard}/>
         </Stack.Navigator>
        
