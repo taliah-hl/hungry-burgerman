@@ -12,61 +12,43 @@ import {
   Button,
   Pressable,
 } from 'react-native';
+import {useEffect, useState} from 'react';
+import View_wallpaper from './view_wallpaper';
+// import 'babel-polyfill';
 
+const size = 72;
 const logo = {
     uri: 'https://reactnative.dev/img/tiny_logo.png',
-    width: 64,
-    height: 64,
+    width: size,
+    height: size,
   };  
-
 const logo1 = {
     uri: require('../assets/wallpaper_writer1/wallpaper_1.PNG'),
-    width: 64,
-    height: 64,
+    width: size,
+    height: size,
   };  
-
 const logo2 = {
     uri: require('../assets/wallpaper_writer1/wallpaper_2.jpg'),
-    width: 64,
-    height: 64,
+    width: size,
+    height: size,
   };  
-
 const logo3 = {
     uri: require('../assets/wallpaper_writer1/wallpaper_3.jpg'),
-    width: 64,
-    height: 64,
+    width: size,
+    height: size,
   };  
-
 const logo4 = {
     uri: require('../assets/wallpaper_writer1/wallpaper_4.jpg'),
-    width: 64,
-    height: 64,
+    width: size,
+    height: size,
   };  
-
 const logo5 = {
     uri: require('../assets/wallpaper_writer1/wallpaper_5.jpg'),
-    width: 64,
-    height: 64,
+    width: size,
+    height: size,
   };  
 
-
-const data = [
-    { key: '1', name: 'item 1' },
-    { key: '2', name: 'item 2' },
-    { key: '3', name: 'item 3' },
-    { key: '4', name: 'item 4' },
-    { key: '5', name: 'item 5' },
-    { key: '6', name: 'item 6' },
-    { key: '7', name: 'item 7' },
-    { key: '8', name: 'item 8' },
-    { key: '9', name: 'item 9' },
-    { key: '10', name: 'item 10' },
-    // { key: '11', name: 'item 11' },
-    // { key: '12', name: 'item 12' },
-];
-
-const DATA_origin = [
-    {
+const DATA_origin = [{
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'co-branding-1',
       img:  logo
@@ -93,35 +75,45 @@ const DATA_origin = [
     },
   ];
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+let DATA = [{
+    id: 'co-branding-1',
     title: 'co-branding-1',
+    navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
     navigateTo: "view wallpaper 1",
+    // hidden: (counter>5) ? true:false,
+    // hidden: false,
     img:  logo1
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    id: 'co-branding-2',
     title: 'co-branding-2',
+    navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin2.jpg'),
     navigateTo: "view wallpaper 2",
+    hidden: false,
     img: logo2
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: 'co-branding-3',
     title: 'co-branding-3',
+    navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin3.jpg'),
     navigateTo: "view wallpaper 3",
+    hidden: false,
     img: logo3
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'co-branding-4',
     title: 'co-branding-4',
+    navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin4.jpg'),
     navigateTo: "view wallpaper 4",
+    hidden: false,
     img: logo4
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    id: 'co-branding-5',
     title: 'co-branding-5',
+    navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin5.jpg'),
     navigateTo:"view wallpaper 5",
+    hidden: false,
     img: logo5
   },
 ];
@@ -129,37 +121,69 @@ const DATA = [
 
 const numColumns = 3;
 export default function WallpaperSet( {navigation} ) {
-    const renderItem = ({ item }) => (
-        <View style={{ flex: 1, margin: 10, backgroundColor: '#f0f0f0', justifyContent: 'center', alignItems: 'center' }}>
-            <Text>{item.name}</Text>
-        </View>
-        );
-    const onPressFunction = () => {
-        navigation.navigate("view egg hatching")
-    }
-    const onPressFunction2 = () => {
-        console.log("hihi2")
-    }
+  const [counter, setCounter] = useState(0);
+  
+  let counter_new = {...counter};
+  useEffect(() => {
+    (async () => {
+      if(counter >=5) {
+        console.log('get first wallpaper!');
+        DATA[0]['hidden'] = true;
+      }
+      if(counter >=10) {
+        console.log('get second wallpaper!');
+        DATA[1]['hidden'] = true;
+      }
+      if(counter >=15) {
+        console.log('get third wallpaper!');
+        DATA[2]['hidden'] = true;
+      }
+      if(counter >=25) {
+        console.log('get fourth wallpaper!');
+        DATA[3]['hidden'] = true;
+      }
+      if(counter >=40) {
+        console.log('get fifth wallpaper!');
+        DATA[4]['hidden'] = true;
+      }
+    })();
+  }, [counter_new]);
 
-    const Item = ({ img, navigation, navigateTo }) => (
-        <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate(navigateTo)} >
-          <View style={styles.cardBody}>
-            <Image style={styles.cardImg} source={img}/>
-          </View>
-        </TouchableOpacity>
-      );
+  const onPressFunction = () => {
+      navigation.navigate("view egg hatching")
+  };
+  
+  const Item = ({ img, hidden, navigation, navigateTo, navigateURL }) => (
+    (hidden)?
+    <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate(navigateTo)} >
+    {/* <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate((View_wallpaper, {'navigateURL': navigateURL}))} > */}
+      <View style={styles.cardBody}>
+        <Image style={styles.cardImg} source={img}/>
+      </View>
+    </TouchableOpacity>
+    :
+    <View style={styles.card}>
+      <Image style={styles.cardImg} source={logo}/>
+    </View>
+    );
 
-    return (
-        <View style={styles.page}>
-            {/* ----- header ----- */}
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Burger Wallpaper</Text>                    
-            </View>
+    // render() {
+      return (  
+          <View style={styles.page}>
+              {/* ----- header ----- */}
+              <View style={styles.header}>
+                  <Text style={styles.headerText}>Burger Wallpaper</Text>                    
+              </View>
 
-            {/* ----- body ----- */}
-            <View style={styles.body}>
-                <ScrollView style={styles.scrollView}>
-                  <View style={styles.bar}>
+              {/* ----- body ----- */}
+              <View style={styles.body}>
+                  <ScrollView style={styles.scrollView}>
+                    <Text style={styles.count}> {counter} </Text>
+                    <Text style={styles.time}> time </Text>
+                    {/* <Countdown func={time_data}/> */}
+                    {/* <Text style={styles.time}> {timeLeft.hours}:{timeLeft.minutes}:{" "}{timeLeft.seconds} </Text> */}
+
+                    <View style={styles.bar}>
                       <Image style={{ height: 70, margin: 10, flex:3, resizeMode:'contain'}} source={require('../assets/acheivementBar_ver2.png')}/>
                       <View style={styles.container}>
                         <Pressable onPress={onPressFunction}>
@@ -168,113 +192,194 @@ export default function WallpaperSet( {navigation} ) {
                               source={require('../assets/egg_notHatched.png')}/>
                         </Pressable>
                       </View>
-                  </View>
-                  <View style={styles.speech}>
-                      <Image style={{  height: 70, margin: 10, flex:5, resizeMode:'contain'}} source={require('../assets/section_hamburger_speech.png')} />
+                    </View>
+                    <View style={styles.speech}>
+                      <Image style={{ height: 70, margin: 10, flex:5, resizeMode:'contain'}} source={require('../assets/section_hamburger_speech.png')} />
                       <Text style={{flex:1}} />
-                  </View>
-                      <View style={styles.drawer}>
-                          <Text style={styles.drawerTitle}>2023 March burgerman x 小亣</Text>
-                          <FlatList
-                              numColumns={3}
-                              data={DATA} 
-                              renderItem={({item}) => <Item img={item.img} navigation={navigation} navigateTo={item.navigateTo}></Item>}
-                          />
-                      </View>
+                    </View>
 
-                      <View style={styles.drawer}>
-                          <Text style={styles.drawerTitle}>2023 February burgerman x 小媄</Text>
-                          <FlatList
-                              numColumns={3}
-                              data={DATA_origin} 
-                              renderItem={({item}) => <Item title={item.title} img={item.img} navigation={navigation}></Item>}
-                          />
-                      </View>
+                    {/* ----- Test ----- */}
+                    <View> 
+                      <button style={{ margin: 10}} onClick={() => setCounter(counter + 1)}>Increment</button>
+                    </View>
+                    {/* ----------------- */}
+
+                    <View style={styles.drawer}>
+                      <Text>
+                        <Text style={styles.drawerTitle}>2023 Mar. </Text>
+                        <Text style={ {fontSize: 20, fontFamily: 'lazy-dog'} } >burgerman</Text>
+                        <Text style={ {fontSize: 18, fontFamily: 'NotoSansTC-Regular', fontWeight: 'bold'} } > x </Text>
+                        <Text style={ styles.writer1 } >Gummy bear</Text>
+                      </Text>
                       
-                      <View style={styles.drawer}>
-                      <Text style={styles.drawerTitle}>2023 January burgerman x 小莉</Text>
-                          <FlatList
-                              numColumns={3}
-                              data={DATA_origin} 
-                              renderItem={({item}) => <Item title={item.title} img={item.img} navigation={navigation}></Item>}
-                          />
-                      </View>
-                </ScrollView>
-            </View>
-        </View>
-    );
+                      <FlatList
+                        numColumns={3}
+                        data={DATA} 
+                        renderItem={({item}) => <Item img={item.img} hidden={item.hidden} navigation={navigation} navigateTo={item.navigateTo} navigateURL={item.navigateURL}></Item>}
+                      />
+                    </View>
+
+                    <View style={styles.drawer}>
+                      <Text>
+                        <Text style={styles.drawerTitle}>2023 Feb. </Text>
+                        <Text style={ {fontSize: 20, fontFamily: 'lazy-dog'} } >burgerman</Text>
+                        <Text style={ {fontSize: 18, fontFamily: 'NotoSansTC-Regular', fontWeight: 'bold'} } > x </Text>
+                        <Text style={ styles.writer2 } >Shan Hung</Text>
+                      </Text>
+                      <FlatList
+                        numColumns={3}
+                        data={DATA_origin} 
+                        renderItem={({item}) => <Item title={item.title} hidden={item.hidden} img={item.img} navigation={navigation} navigateURL={item.navigateURL}></Item>}
+                      />
+                    </View>
+                    
+                    <View style={styles.drawer}>
+                      <Text>
+                        <Text style={styles.drawerTitle}>2023 Jan. </Text>
+                        <Text style={ {fontSize: 20, fontFamily: 'lazy-dog'} } >burgerman</Text>
+                        <Text style={ {fontSize: 18, fontFamily: 'NotoSansTC-Regular', fontWeight: 'bold'} } > x </Text>
+                        <Text style={ styles.writer3 } >ALI ( JP ) </Text>
+                      </Text>
+                      <FlatList
+                          numColumns={3}
+                          data={DATA_origin} 
+                          renderItem={({item}) => <Item title={item.title} hidden={item.hidden} img={item.img} navigation={navigation} navigateURL={item.navigateURL}></Item>}
+                      />
+                    </View>
+                  </ScrollView>
+              </View>
+          </View>
+      );
+  // }
 }
 
 const styles = StyleSheet.create({
+    writer1: {
+      fontSize: 12, 
+      fontFamily: 'NotoSansTC-Regular', 
+      backgroundColor: '#E2C6C4', 
+      // padding: (7, 7, 5, 5), 
+      paddingTop: 5,
+      paddingRight: 10,
+      paddingBottom: 5,
+      paddingLeft: 10,
+      border: 15, 
+      borderRadius: 15,
+    },
+    writer2: {
+      fontSize: 12, 
+      fontFamily: 'NotoSansTC-Regular', 
+      backgroundColor: 'rgba(181, 196, 177, 0.8)',
+      paddingTop: 5,
+      paddingRight: 10,
+      paddingBottom: 5,
+      paddingLeft: 10,
+      border: 15, 
+      borderRadius: 15,
+    },
+    writer3: {
+      fontSize: 12, 
+      fontFamily: 'NotoSansTC-Regular', 
+      backgroundColor: 'rgba(248, 226, 87, 0.7)',
+      paddingTop: 5,
+      paddingRight: 10,
+      paddingBottom: 5,
+      paddingLeft: 10,
+      border: 15, 
+      borderRadius: 15,
+      borderWidth: 2,
+      borderColor: 'rgba(241, 173, 95, 0.7)',
+    },
     bar: {
-        flexDirection: 'row',
+      flexDirection: 'row',
     },
     speech: {
       flexDirection: 'row',
       justifyContent: 'left',
     },
     bugercounts_header: {
-        fontSize: 24,
+      fontSize: 24,
     },
     container: {
-        flex: 1,
-        flexDirection: "row",
+      flex: 1,
+      flexDirection: "row",
     },
     acheivementBar: {
-        justifyContent: 'center',
-        alignItems: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    header: {
+      backgroundColor: "#38C097",
+      height: 100,
+      padding: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     headerText: {
-        color: "#FFFFFF",
-        fontSize: 40,
-        textAlign: 'center'
-      },
+      color: "#FFFFFF",
+      fontSize: 40,
+      textAlign: 'center',
+      fontFamily: 'lazy-dog',
+      alignSelf: 'center',
+    },
     probarStyle: {
-        width: 162,
-        height: 8,
-        backgroundColor: "#E0E0E0"
+      width: 162,
+      height: 8,
+      backgroundColor: "#E0E0E0"
     },
     page: {
-        flex: 1
+      flex: 1
     },    
-    header: {
-        backgroundColor: "#38C097",
-        height: 120,
-        padding: 15
-    },
     body: {
-        padding: 10,
-        backgroundColor: "#FFE7D9",
-        flex: 1
+      padding: 10,
+      backgroundColor: "#FFE7D9",
+      flex: 1
     },
     cardHeader: {
-        fontSize: 20,
-        flexDirection: 'row-reverse',
-        
+      // margin: 10,
+      fontSize: 20,
+      flexDirection: 'row-reverse',     
     },    
     card: {
-        margin: 10,
-        maxWidth: '43.5%',
-        borderRadius: 13,
-        borderWidth: 2,
-        borderColor: '#7A8186',
-      },
+      margin: 10,
+      maxWidth: '43.5%',
+      borderRadius: 13,
+      borderWidth: 2,
+      borderColor: '#7A8186',
+    },
     cardImg: {
-        borderRadius: 11,
+      borderRadius: 11,
     },
     progressBar: {
-        height: 20,
-        width: '100%',
-        backgroundColor: 'white',
-        borderColor: '#000',
-        borderWidth: 2,
-        borderRadius: 5
-      },
+      height: 20,
+      width: '100%',
+      backgroundColor: 'white',
+      borderColor: '#000',
+      borderWidth: 2,
+      borderRadius: 5
+    },
     drawer: {
-        marginLeft: 30,
+      paddingTop: 10,
+      marginLeft: 20,
+      // alignItems: 'center',
     },
     drawerTitle: {
-        padding: 10,
-        fontSize: 15,
+      fontFamily: 'NotoSansTC-Regular',
+      padding: 10,
+      fontSize: 15,
+    },
+    time: {
+      position: 'absolute',
+      top: 80,
+      right: 30,
+      fontSize: 16,
+      fontFamily: 'lazy-dog',
+    },
+    count: {
+      position: 'absolute',
+      top: 8,
+      right: 213,
+      fontSize: 24,
+      fontFamily: 'lazy-dog',
     },
   });
