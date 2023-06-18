@@ -158,6 +158,13 @@ export default function MyCard({ navigation }) {
 
       <View style={styles.body}>
 
+        {
+          (editMode) ?
+            <Image style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-select-to-delete.png`)}/>
+          :
+            null
+        }
+
         <ScrollView>
           <FlatList
             numColumns={2}
@@ -265,6 +272,13 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#D7F8F0',
     flex: 1
+  },
+
+  conversationImg: {
+    height: 70,
+    width: 300,
+    alignSelf: 'center',
+    marginBottom: 10
   },
 
   card: {
