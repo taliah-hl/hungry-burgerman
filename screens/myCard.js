@@ -47,7 +47,15 @@ const DATA = [
   }
 ];
 
-const Item = ({item, index, navigation, editMode}) => (
+const handleOnValueChange = (index, selectOne, setSelectOne) => {
+  const newSelectOne = selectOne.map((val, idx) => (
+    (idx === index) ? !val : val
+  ));
+
+  setSelectOne(newSelectOne);
+};
+
+const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
   <View style={styles.card}>
     <TouchableOpacity
       onPress={()=>{
@@ -68,7 +76,11 @@ const Item = ({item, index, navigation, editMode}) => (
 
     {
       (editMode) ?
-        <CheckBox style={styles.check} value={DATA[index].checked} onValueChange={()=>(DATA[index].checked = !DATA[index].checked)}></CheckBox>
+        <CheckBox
+          style={styles.check}
+          value={selectOne[index]}
+          onValueChange={()=>(handleOnValueChange(index, selectOne, setSelectOne))}
+        />
       :
         null
     }
@@ -77,7 +89,7 @@ const Item = ({item, index, navigation, editMode}) => (
 
 export default function MyCard({ navigation }) {
   
-  const [SelectOne, setSelectOne] = useState([{isSelected: false}]);
+  const [selectOne, setSelectOne] = useState(new Array(DATA.length).fill(false));
   const [selectAll, setSelectAll] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -117,6 +129,8 @@ export default function MyCard({ navigation }) {
               <Item
                 item={item}
                 index={index}
+                selectOne={selectOne}
+                setSelectOne={setSelectOne}
                 navigation={navigation}
                 editMode={editMode}
               />
