@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ImageBackground } from 'react-native'
-import React from 'react'
+import React ,{useState, useEffect} from 'react'
+
 
 import { globalStyles } from '../components/global_style'
 
 export default function Homepage({navigation}) {
+
+
   return (
     <ImageBackground source={require('../assets/bg/homepage-bg.jpg')}
       resizeMode="cover"
@@ -35,8 +38,7 @@ export default function Homepage({navigation}) {
             <Text style={styles.wallpaperBtn}>Burger Wallpaper</Text>
           </TouchableOpacity>
         </View>
-
-      
+       
       </ImageBackground>
     
   )
