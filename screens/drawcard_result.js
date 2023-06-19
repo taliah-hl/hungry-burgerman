@@ -143,6 +143,7 @@ export default function Drawcard_result({ route, navigation }) {
           gglStar: json?.results[randNum]?.rating,
           gglPrice: (json?.results[randNum]?.price_level)? (json?.results[randNum]?.price_level): 0,
           drawFromGgl: true,
+          isChecked: false,
           
     
         });
@@ -174,17 +175,7 @@ export default function Drawcard_result({ route, navigation }) {
 
   const loadDrawnCard=(info)=>{
     console.log('loaddrawnCard is excuted');
-    let updateVal = {
 
-      gglPalceId: info.place_id,
-      name: info.name,
-      photoUrl: gglPhoto,
-      addr: info.vicinity,
-      gglStar: rating,
-      gglPrice: info.price_level? info.price_level: 0,
-      drawFromGgl: true,
-
-    };
     setDrawncard({
       cardId: 0,
       name: info.name,
@@ -194,6 +185,7 @@ export default function Drawcard_result({ route, navigation }) {
       gglPrice: info.price_level? info.price_level: 0,
       drawFromGgl: true,
       gglPalceId: info.place_id,
+      isChecked: false,
 
     });
 
