@@ -34,47 +34,53 @@ const handleDelete = (selectOne, setSelectOne, setSelectAll, setEditMode, setMod
 }
 
 const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable) => {
-  const newSelectOne = selectOne.map((val, idx) => (
-    {
-      name: selectOne[idx].name,
-      img: selectOne[idx].img,
-      isChecked: (selectAll) ? false : true
-    }
-  ));
+  // let newSelectOne = selectOne.map((val) => (
+  //   {
+  //     return{
+  //       ...val, isChecked: !isChecked
+  //     }
+  //   }
+  // ));
 
   setSelectOne(newSelectOne);
   setSelectAll(!selectAll);
   setDeleteBtnAvailable((selectAll) ? false : true);
 }
 
-const handleOnValueChange = (index, selectOne, setSelectOne) => {
-  const newSelectOne = selectOne.map((val, idx) => (
-    {
-      name: selectOne[idx].name,
-      img: selectOne[idx].img,
-      isChecked: (idx === index) ? !selectOne[idx].isChecked : selectOne[idx].isChecked
-    }
-  ));
+// const handleOnValueChange = (index, selectOne, setSelectOne) => {
+//   let newSelectOne = selectOne.map((val,idx) =>{
+//     if(index===idx)
+//       return{...val, isChecked: ! isChecked}
+//     }
+//   })
 
-  setSelectOne(newSelectOne);
+//   setSelectOne(newSelectOne);
+// };
+
+const handleCheckboxChange=(gglid,selectOne, setSelectOne )=>{
+
+  //to do
+  console.log('check box changed')
+  let tmp = selectOne.map((card)=>{
+    if(gglid=== card.gglPalceId) {
+      return {...card,  isChecked: !card.isChecke}
+    } return card
+  })
+  setSelectOne(tmp);
 };
 
 const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
   <View style={styles.card}>
     <TouchableOpacity
-      onPress={()=>{
-        navigation.navigate("view saved card", {
-          name: item.name,
-          img: item.img
-        });
-      }}
+   
+
       disabled={editMode}
     >
       <View style={styles.cardHeader}>
         <Text style={styles.cardText}>{item.name}</Text>
       </View>
       <View style={styles.cardBody}>
-        <Image style={styles.cardImg} source={require(`../assets/${item.img}`)}/>
+        <Image style={styles.cardImg} source={require(`../assets/my_card.jpg`)}/>
       </View>
     </TouchableOpacity>
 
@@ -83,7 +89,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
         <CheckBox
           style={styles.check}
           value={selectOne[index].isChecked}
-          onValueChange={()=>(handleOnValueChange(index, selectOne, setSelectOne))}
+          onValueChange={()=>(handleCheckboxChange(item.gglPalceId, selectOne, setSelectOne))}
         />
       :
         null
@@ -98,18 +104,17 @@ export default function MyCard({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteBtnAvailable, setDeleteBtnAvailable] = useState(false);
 
-  CardData.ReturnallCards().then((allData) => {
-    console.log(allData);
-    // const newAllData = allData.map((val, idx) => (
-    //   {
-    //     name: val.name,
-    //     img: "my_card.jpg",
-    //     isChecked: false
-    //   }
-    // ));
-    // console.log(newAllData);
-    // setSelectOne(allData);
-  });
+  useEffect(()=>{
+    const getCards = async()=>{
+      await CardData.GetallCards(setSelectOne);
+      
+    }
+    getCards();
+    console.log('useEffect executed')
+    
+    
+
+  },[])
 
   useEffect(() => {
     if(editMode) {
@@ -125,7 +130,9 @@ export default function MyCard({ navigation }) {
       setDeleteBtnAvailable(newDeleteBtnAvailable);
       setSelectAll(newSelectAll);
     }
-  }, [selectOne]);
+  }, []);
+
+  console.log(selectOne);
   
   return (
     <View style={styles.page}>
@@ -134,7 +141,7 @@ export default function MyCard({ navigation }) {
         <Text style={styles.headerText}>{"My card"}</Text>
         {
           (editMode) ?
-            <TouchableOpacity style={styles.cancel} onPress={()=>(handleReset(selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable))}>
+            <TouchableOpacity style={styles.cancel} >
               <Text style={styles.cancelText}>{"X取消"}</Text>
             </TouchableOpacity>
           :
@@ -173,6 +180,7 @@ export default function MyCard({ navigation }) {
                 setSelectOne={setSelectOne}
                 navigation={navigation}
                 editMode={editMode}
+                keyExtractor={(item) => item.gglPalceId}
               />
             )}
           />
@@ -186,13 +194,7 @@ export default function MyCard({ navigation }) {
           :
             <TouchableOpacity
               style={styles.drawbtn}
-              onPress={()=>(
-                setSelectOne(selectOne.concat([{
-                  name: '豬多好事' + (cnt++).toString(),
-                  img: "my_card.jpg",
-                  isChecked: false
-                }]))
-              )}
+              
             >
               <Text style={styles.drawbtnText}>{"從My Card抽卡"}</Text>
             </TouchableOpacity>

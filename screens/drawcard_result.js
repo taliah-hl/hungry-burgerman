@@ -145,6 +145,7 @@ export default function Drawcard_result({ route, navigation }) {
           drawFromGgl: true,
           isChecked: false,
           
+          
     
         });
         console.log(`shop photo reference: ${json?.results[randNum]?.photos[0].photo_reference}`);

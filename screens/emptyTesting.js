@@ -61,6 +61,7 @@ export default function EmptyTesting({navigation}) {
         setLoading(false)
       }
       getCards();
+      console.log('useEffect executed')
       
       
 
