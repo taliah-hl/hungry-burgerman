@@ -51,6 +51,7 @@ export default function View_savedCard({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container:{
+    backgroundColor: '#D7F8F0'
    
   }
 })

@@ -43,7 +43,20 @@ export default function ViewWallpaper_stack({navigation}){
             
           }}/>
 
-        <Stack.Screen name = "view egg hatching" component={ View_egg_hatching } options={{headerBackVisible:true, headerTransparent: true, headerTitle: ""}}/>
+        <Stack.Screen name = "view egg hatching" component={ View_egg_hatching } 
+        options={{
+            headerBackVisible:false,
+            headerBackVisible:true, headerTransparent: true, headerTitle: "",
+            headerLeft:()=>(
+              <TouchableOpacity onPress={()=>
+              {navigation.navigate("wallpaper set")
+              console.log('back pressed')}}>
+                <View style={{width:60, hegiht: 50, position: 'absolute',top: 0, left: 10}}>
+                <Iconicon name="chevron-back" size={60} color="#444444"/>
+                </View>
+              </TouchableOpacity>)
+            
+          }}/>
 
     </Stack.Navigator>
   )
