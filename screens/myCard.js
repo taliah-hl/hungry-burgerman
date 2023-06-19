@@ -5,26 +5,13 @@ import * as CardData from '../shared/myCard_data'
 
 var cnt = 1;
 
-const CORS_ANYWHERE_HOST = 'https://cors-anywhere.herokuapp.com/';
-const apiKey= 'AIzaSyBF43lMa8RkSkIm0l4fbaioe-SR5LoiUdc';
-const places_photoUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='; 
-
-var headers = new Headers();
-
-  headers.append('Content-Type', 'application/json');
-  headers.append('Accept', 'application/json');
-
-  headers.append('Access-Control-Allow-Origin', 'http://localhost:8080');
-  headers.append('Access-Control-Allow-Credentials', 'true');
-
-  headers.append('GET', 'POST', 'OPTIONS');
-
 const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
-      ...selectOne[idx],
+      name: selectOne[idx].name,
+      img: selectOne[idx].img,
       isChecked: false,
-      
+      gglPalceId: selectOne[idx].gglPalceId
     }
   ));
 
@@ -56,9 +43,10 @@ const handleDelete = (selectOne, setSelectOne, setSelectAll, setEditMode, setMod
 const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
-      ...selectOne[idx],
+      name: selectOne[idx].name,
+      img: selectOne[idx].img,
       isChecked: (selectAll) ? false : true,
-      
+      gglPalceId: selectOne[idx].gglPalceId
     }
   ));
 
@@ -70,9 +58,10 @@ const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDe
 const handleOnValueChange = (index, selectOne, setSelectOne) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
-      ...selectOne[idx],
+      name: selectOne[idx].name,
+      img: selectOne[idx].img,
       isChecked: (idx === index) ? !selectOne[idx].isChecked : selectOne[idx].isChecked,
-      
+      gglPalceId: selectOne[idx].gglPalceId
     }
   ));
 
@@ -82,7 +71,11 @@ const handleOnValueChange = (index, selectOne, setSelectOne) => {
 const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
   <View style={styles.card}>
     <TouchableOpacity
-      onPress={()=>{navigation.navigate("view saved card",{card: item}) 
+      onPress={()=>{
+        navigation.navigate("view saved card", {
+          name: item.name,
+          img: item.img
+        });
       }}
       disabled={editMode}
     >
@@ -90,7 +83,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
         <Text style={styles.cardText}>{item.name}</Text>
       </View>
       <View style={styles.cardBody}>
-        <Image style={styles.cardImg} source={item.photoUrl}/>
+        <Image style={styles.cardImg} source={require(`../assets/${item.img}`)}/>
       </View>
     </TouchableOpacity>
 
@@ -114,50 +107,9 @@ export default function MyCard({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteBtnAvailable, setDeleteBtnAvailable] = useState(false);
 
-  (function() {
-    var cors_api_host = 'cors-anywhere.herokuapp.com';
-    var cors_api_url = 'https://' + cors_api_host + '/';
-    var slice = [].slice;
-    var origin = window.location.protocol + '//' + window.location.host;
-    var open = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function() {
-        var args = slice.call(arguments);
-        var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
-        if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
-            targetOrigin[1] !== cors_api_host) {
-            args[1] = cors_api_url + args[1];
-        }
-        return open.apply(this, args);
-    };
-})();
-
-
-  const loadImage = async (newList) => {
-    try {
-      const res = await fetch(
-        `${CORS_ANYWHERE_HOST}${places_photoUrl}${item.photoRef}&key=${apiKey}`
-      );
-      const data = await res.blob();
-      console.log(URL.createObjectURL(data))
-      let tmp;
-      tmp = newList.map((val, idx) => (
-        {
-          ...newList[idx],
-          photoUrl: URL.createObjectURL(data)
-          
-        }
-      ));
-        
-      
-    } catch (error) {
-      console.error(`error in photo api: ${error}`);
-    }
-    return tmp;
-  }
-
   useEffect(() => {
     CardData.ReturnallCards().then((allData) => {
-            
+      // console.log(allData);
       setSelectOne(allData);
     });
   },[]);
@@ -237,7 +189,13 @@ export default function MyCard({ navigation }) {
           :
             <TouchableOpacity
               style={styles.drawbtn}
-              
+              onPress={()=>(
+                setSelectOne(selectOne.concat([{
+                  name: '豬多好事' + (cnt++).toString(),
+                  img: "my_card.jpg",
+                  isChecked: false
+                }]))
+              )}
             >
               <Text style={styles.drawbtnText}>{"從My Card抽卡"}</Text>
             </TouchableOpacity>
