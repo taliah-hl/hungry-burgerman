@@ -10,7 +10,8 @@ const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModa
     {
       name: selectOne[idx].name,
       img: selectOne[idx].img,
-      isChecked: false
+      isChecked: false,
+      gglPalceId: selectOne[idx].gglPalceId
     }
   ));
 
@@ -22,6 +23,12 @@ const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModa
 }
 
 const handleDelete = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
+  for(var i = 0; i < selectOne.length; i++) {
+    if(selectOne[i].isChecked) {
+      CardData.RemoveCard(selectOne[i].gglPalceId);
+    }
+  }
+
   const newSelectOne = selectOne.filter((item) => {
     return !item.isChecked
   });
@@ -38,7 +45,8 @@ const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDe
     {
       name: selectOne[idx].name,
       img: selectOne[idx].img,
-      isChecked: (selectAll) ? false : true
+      isChecked: (selectAll) ? false : true,
+      gglPalceId: selectOne[idx].gglPalceId
     }
   ));
 
@@ -52,7 +60,8 @@ const handleOnValueChange = (index, selectOne, setSelectOne) => {
     {
       name: selectOne[idx].name,
       img: selectOne[idx].img,
-      isChecked: (idx === index) ? !selectOne[idx].isChecked : selectOne[idx].isChecked
+      isChecked: (idx === index) ? !selectOne[idx].isChecked : selectOne[idx].isChecked,
+      gglPalceId: selectOne[idx].gglPalceId
     }
   ));
 
@@ -98,18 +107,12 @@ export default function MyCard({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteBtnAvailable, setDeleteBtnAvailable] = useState(false);
 
-  CardData.ReturnallCards().then((allData) => {
-    console.log(allData);
-    // const newAllData = allData.map((val, idx) => (
-    //   {
-    //     name: val.name,
-    //     img: "my_card.jpg",
-    //     isChecked: false
-    //   }
-    // ));
-    // console.log(newAllData);
-    // setSelectOne(allData);
-  });
+  useEffect(() => {
+    CardData.ReturnallCards().then((allData) => {
+      // console.log(allData);
+      setSelectOne(allData);
+    });
+  },[]);
 
   useEffect(() => {
     if(editMode) {

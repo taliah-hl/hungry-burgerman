@@ -144,6 +144,7 @@ export default function Drawcard_result({ route, navigation }) {
           gglPrice: (json?.results[randNum]?.price_level)? (json?.results[randNum]?.price_level): 0,
           drawFromGgl: true,
           isChecked: false,
+          img: "my_card.jpg"
           
     
         });

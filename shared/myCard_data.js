@@ -43,16 +43,19 @@ export const ReturnallCards = async () => {
         //pass
         console.error(err)
       }finally{
-        return allData
+        // console.log(allData)
+        
 
       }
     
     
     
   } 
+  return allData
 }catch (error) {
   console.error(error)
 }
+
 }
 
 export const RemoveCard =  async (item_id)=>{
