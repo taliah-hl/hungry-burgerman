@@ -3,7 +3,34 @@ import React, {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as CardData from '../shared/myCard_data'
 
-const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
+const handleDraw = (navigation, selectOne, setSelectOne, setSelectAll, setDrawMode, setModalVisible, setDrawBtnAvailable) => {
+  var selectedCards = [];
+  for(var i = 0; i < selectOne.length; i++) {
+    if(selectOne[i].isChecked) {
+      selectedCards.push(selectOne[i]);
+    }
+  }
+  const rstId = Math.floor(Math.random() * (selectedCards.length));
+  navigation.navigate("view saved card", {
+    card: selectedCards[rstId],
+    shown: true
+  });
+  
+  const newSelectOne = selectOne.map((val, idx) => (
+    {
+      ...selectOne[idx],
+      isChecked: false
+    }
+  ));
+
+  setSelectOne(newSelectOne);
+  setSelectAll(false);
+  setDrawMode(false);
+  setModalVisible(false);
+  setDrawBtnAvailable(false);
+}
+
+const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable, setDrawMode, setDrawBtnAvailable) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
       ...selectOne[idx],
@@ -16,6 +43,8 @@ const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModa
   setEditMode(false);
   setModalVisible(false);
   setDeleteBtnAvailable(false);
+  setDrawMode(false);
+  setDrawBtnAvailable(false);
 }
 
 const handleDelete = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
@@ -60,15 +89,16 @@ const handleOnValueChange = (index, selectOne, setSelectOne) => {
   setSelectOne(newSelectOne);
 };
 
-const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
+const Item = ({item, index, selectOne, setSelectOne, navigation, editMode, drawMode}) => (
   <View style={styles.card}>
     <TouchableOpacity
       onPress={()=>{
         navigation.navigate("view saved card", {
-          card: item
+          card: item,
+          shown: false
         });
       }}
-      disabled={editMode}
+      disabled={editMode || drawMode}
     >
       <View style={styles.cardHeader}>
         <Text style={styles.cardText}>{item.name}</Text>
@@ -79,7 +109,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
     </TouchableOpacity>
 
     {
-      (editMode) ?
+      (editMode || drawMode) ?
         <CheckBox
           style={styles.check}
           value={selectOne[index].isChecked}
@@ -95,8 +125,10 @@ export default function MyCard({ navigation }) {
   const [selectOne, setSelectOne] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [drawMode, setDrawMode] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteBtnAvailable, setDeleteBtnAvailable] = useState(false);
+  const [drawBtnAvailable, setDrawBtnAvailable] = useState(false);
 
   useEffect(() => {
     // CardData.clearData();
@@ -118,6 +150,18 @@ export default function MyCard({ navigation }) {
       }
       setDeleteBtnAvailable(newDeleteBtnAvailable);
       setSelectAll(newSelectAll);
+    }else if(drawMode) {
+      var newDrawBtnAvailable = false;
+      var newSelectAll = true;
+      for(var i = 0; i < selectOne.length; i++) {
+        if(selectOne[i].isChecked) {
+          newDrawBtnAvailable = true;
+        } else {
+          newSelectAll = false;
+        }
+      }
+      setDrawBtnAvailable(newDrawBtnAvailable);
+      setSelectAll(newSelectAll);
     }
   }, [selectOne]);
   
@@ -127,8 +171,8 @@ export default function MyCard({ navigation }) {
       <View style={styles.header}>
         <Text style={styles.headerText}>{"My card"}</Text>
         {
-          (editMode) ?
-            <TouchableOpacity style={styles.cancel} onPress={()=>(handleReset(selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable))}>
+          (editMode || drawMode) ?
+            <TouchableOpacity style={styles.cancel} onPress={()=>(handleReset(selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable, setDrawMode, setDrawBtnAvailable))}>
               <Text style={styles.cancelText}>{"X取消"}</Text>
             </TouchableOpacity>
           :
@@ -137,7 +181,7 @@ export default function MyCard({ navigation }) {
             </TouchableOpacity>
         }
         {
-          (editMode) ?
+          (editMode || drawMode) ?
             <TouchableOpacity style={styles.selectAll} onPress={()=>(handleSelectAll(selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable))}>
               <Text style={styles.selectAllText}>{(selectAll) ? "取消全選" : "全選"}</Text>
             </TouchableOpacity>
@@ -152,7 +196,12 @@ export default function MyCard({ navigation }) {
           (editMode) ?
             <Image style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-select-to-delete.png`)}/>
           :
-            null
+            (
+              (drawMode) ?
+                <Image style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-draw-from-mycard.png`)}/>
+              :
+                null
+            )
         }
 
         <ScrollView>
@@ -167,6 +216,7 @@ export default function MyCard({ navigation }) {
                 setSelectOne={setSelectOne}
                 navigation={navigation}
                 editMode={editMode}
+                drawMode={drawMode}
               />
             )}
           />
@@ -178,14 +228,16 @@ export default function MyCard({ navigation }) {
               <Text style={styles.deletebtnText}>{"刪除"}</Text>
             </TouchableOpacity>
           :
-            <TouchableOpacity
-              style={styles.drawbtn}
-              onPress={()=>(
-                console.log(1)
-              )}
-            >
-              <Text style={styles.drawbtnText}>{"從My Card抽卡"}</Text>
-            </TouchableOpacity>
+            (
+              (drawMode) ?
+                <TouchableOpacity style={(drawBtnAvailable) ? styles.startDrawbtnGreen : styles.startDrawbtnGray} onPress={()=>(handleDraw(navigation, selectOne, setSelectOne, setSelectAll, setDrawMode, setModalVisible, setDrawBtnAvailable))} disabled={!drawBtnAvailable}>
+                  <Text style={styles.startDrawbtnText}>{"抽卡!"}</Text>
+                </TouchableOpacity>
+              :
+                <TouchableOpacity style={styles.drawbtn} onPress={()=>(setDrawMode(true))}>
+                  <Text style={styles.drawbtnText}>{"從My Card抽卡"}</Text>
+                </TouchableOpacity>
+            )
         }
 
       </View>
@@ -336,6 +388,29 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   deletebtnText: {
+    color: "#FFFFFF",
+    fontSize: 20,
+    alignSelf: 'center'
+  },
+  startDrawbtnGreen: {
+    position: 'absolute',
+    bottom: 5,
+    width: 80,
+    alignSelf: 'center',
+    backgroundColor: '#0F9B68',
+    padding: 10,
+    borderRadius: 10
+  },
+  startDrawbtnGray: {
+    position: 'absolute',
+    bottom: 5,
+    width: 80,
+    alignSelf: 'center',
+    backgroundColor: '#878787',
+    padding: 10,
+    borderRadius: 10
+  },
+  startDrawbtnText: {
     color: "#FFFFFF",
     fontSize: 20,
     alignSelf: 'center'
