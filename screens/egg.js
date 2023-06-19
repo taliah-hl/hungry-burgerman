@@ -8,14 +8,10 @@ import  {setGlobalState, useGlobalState} from '../shared/states'
 export const Egg=()=>{
 
   const [localEggStatus, setLocalEggStatus] = useState(1);
-  const globalEggStatus = useGlobalState('eggStatus');
+  const globalEggStatus = useGlobalState('eggStatus')[0];
   useEffect(()=>{
-    
-    setLocalEggStatus(globalEggStatus[0]);
-    
+    setLocalEggStatus(globalEggStatus);
     console.log(`in egg, egg status: ${localEggStatus}`);
-    
-
   },[])
     
     if(localEggStatus===0){
