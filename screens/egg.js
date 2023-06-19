@@ -16,7 +16,7 @@ export const Egg=()=>{
     console.log(`in egg, egg status: ${localEggStatus}`);
     
 
-  })
+  },[])
     
     if(localEggStatus===0){
       return(

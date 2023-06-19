@@ -6,6 +6,8 @@ import Homepage from '../screens/homepage'
 import Drawcard_stack from './drawcard_stack'
 import ViewCard_stack from './viewCard_stack'
 import ViewWallpaper_stack from './viewWallpaper_stack'
+import EmptyTesting from '../screens/emptyTesting';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +18,7 @@ export default function Home_stack(){
         <Stack.Screen name = "Draw Card" component = {Drawcard_stack}/>
         <Stack.Screen name = "My Card" component = { ViewCard_stack }/>
         <Stack.Screen name = "ViewWallpaper" component = { ViewWallpaper_stack }/>
+        <Stack.Screen name = "empty" component = {EmptyTesting}/>
 
     </Stack.Navigator>
     )

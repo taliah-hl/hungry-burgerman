@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ImageBackground } from 'react-native'
 import React ,{useState, useEffect} from 'react'
-
+import { CommonActions } from '@react-navigation/native'
 
 import { globalStyles } from '../components/global_style'
 
 export default function Homepage({navigation}) {
+  
 
 
   return (
@@ -13,6 +14,7 @@ export default function Homepage({navigation}) {
       style={{flex: 1, justifyContent: 'center'}}>
     
        <View style = {styles.uppersection}>
+       <Button title={"TEST"} onclick={()=>navigation.navigate("empty")}></Button>
        <Image source={require('../assets/icon/burgerman.png')}
            style={styles.bugermanpic} />
 
@@ -25,8 +27,8 @@ export default function Homepage({navigation}) {
 
         </View>
         <View style = {styles.btnsection}>
-          <TouchableOpacity style = {styles.homepageBtn}
-              onPress={()=> navigation.navigate("Draw Card")}>
+        
+          <TouchableOpacity style = {styles.homepageBtn}onPress={()=>navigation.navigate("Draw Card")}>
             <Text style={globalStyles.btnYellowTitle} >Draw Card</Text>
           </TouchableOpacity>
           <TouchableOpacity style = {styles.homepageBtn}

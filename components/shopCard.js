@@ -1,6 +1,8 @@
 import { Text, View, StyleSheet, Image, Button, Linking, TouchableOpacity } from 'react-native'
 import React, { Component, useState, useEffec, useCallback } from 'react'
 import ReactStars from 'react-stars'
+import  IconFoundation from 'react-native-vector-icons/Foundation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {globalStyles} from '../components/global_style'
 import { TouchableHighlight } from 'react-native-web';
@@ -41,7 +43,6 @@ const GeneratePriceSymb = (props)=>{
 
 export const ShopCard=(props)=>{
   const drawnCard = props.drawnCard;
-  const gglPhoto = props.gglPhoto;
   const gglmapLink = `http://maps.google.com/maps?z=12&t=m&q=place_id:${drawnCard.gglPalceId}`
 
   const [isLoading, setLoading] = useState(true);
@@ -114,8 +115,12 @@ export const ShopCard=(props)=>{
             
             <View style={styles.googleInfoGrid}>
               <Text style={[ globalStyles.contentText, styles.googleStarText]}> {drawnCard.gglStar} </Text>
-              <GenerateStars starcnt={drawnCard.gglStar}/>
-              <GeneratePriceSymb pricecnt={drawnCard.gglPrice}/>
+              <Text style={[ styles.googleStarText]}>
+                <GenerateStars starcnt={drawnCard.gglStar}/>
+              </Text>
+              <Text style={[ styles.googleStarText]}>
+                <GeneratePriceSymb pricecnt={drawnCard.gglPrice}/>
+              </Text>
             </View>
             
             
@@ -123,18 +128,24 @@ export const ShopCard=(props)=>{
 
           </View>
           <View style={styles.shopPhoto}>
-            <Image source={gglPhoto} style={{width: 300, height: '100%', maxWidth: 370, resizeMode:'contain'}} ></Image>
+            <Image source={drawnCard.photoUrl} style={{width: 300, height: '100%', maxWidth: 370, resizeMode:'contain'}} ></Image>
 
           </View>
           <View style={styles.shopInfoRow}>
-            <View style={styles.shopInfoIcon}>  <Image source={require('../assets/icon/card_home_icon.png')} style={globalStyles.contentIcon}></Image> </View>
+            <View style={styles.shopInfoIcon}>
+              {/*   <Image source={require('../assets/icon/card_home_icon.png')} style={globalStyles.contentIcon}></Image>  */}
+                <IconFoundation name="home" size={30} color="#000000"/>
+            </View>
             <View style={styles.shopInfoText}>
               <Text style={[globalStyles.contentText, styles.shopcardContentText]}> {drawnCard.name}</Text>
             </View>
           </View>
 
           <View style={styles.shopInfoRow}>
-            <View style={styles.shopInfoIcon}> <Image source={require('../assets/icon/card_locat_icon.png')} style={globalStyles.contentIcon} ></Image> </View>
+            <View style={styles.shopInfoIcon}> 
+              {/* <Image source={require('../assets/icon/card_locat_icon.png')} style={globalStyles.contentIcon} ></Image> */}
+              <Ionicons name="location-sharp" size={30} color="#000000"/>
+            </View>
             <View style={styles.shopInfoText}>
               <Text style={[globalStyles.contentText, styles.shopcardContentText]}>{drawnCard.addr}</Text>
             </View>
@@ -212,7 +223,7 @@ const styles = StyleSheet.create({
     },
 
     shopPhoto:{
-      flex:6,
+      flex:7,
       
     },
     shopInfoRow:{

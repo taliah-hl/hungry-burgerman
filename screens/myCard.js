@@ -111,7 +111,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
 
 export default function MyCard({ navigation }) {
   
-  const [selectOne, setSelectOne] = useState(new Array(DATA.length).fill(false));
+  const [selectOne, setSelectOne] = useState(new Array(100).fill(false));
   const [selectAll, setSelectAll] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
