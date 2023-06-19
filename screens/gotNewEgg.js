@@ -6,18 +6,7 @@ export default function GotNewEgg({navigation, route}) {
   
   const {drawnCard, gglPhoto} = route.params;
 
-  const [localEggStatus, setLocalEggStatus] = useState(1);
-  const [isLoading, setLoading] = useState(true);
-
-  useEffect(()=>{
-    console.log('useEffect in new egg executed')
-    setLocalEggStatus(1);
-    setGlobalState('eggStatus', 1);
-
-    setLoading(false);
-
-  })
-
+  
 
    
   

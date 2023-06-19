@@ -31,7 +31,7 @@ let customFonts = {
 };
 export default function App() {
   const [fontsLoaded] = useFonts(customFonts);
-  ClearallCards();
+  //ClearallCards();
   if(!fontsLoaded){
     return (
       <AppLoading/>

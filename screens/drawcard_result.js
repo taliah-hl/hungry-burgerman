@@ -126,14 +126,14 @@ export default function Drawcard_result({ route, navigation }) {
   const places_photoUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='; 
 
   useEffect(() => {
-    setLoading(true);
+    
     let randNum = Math.floor(Math.random() * 19);
     fetch(
       `${CORS_ANYWHERE_HOST}${drawShopUrls[cardType]}`
     )
       .then((response) => response.json())
       .then((json) => {
-        setInfo(json?.results[randNum]);
+        
         setDrawncard({
           gglPalceId: json?.results[randNum]?.place_id,
           cardId: 0,
@@ -159,7 +159,6 @@ export default function Drawcard_result({ route, navigation }) {
         `${CORS_ANYWHERE_HOST}${places_photoUrl}${photo_reference}&key=${apiKey}`
       );
       const data = await res.blob();
-      setGglPhoto(URL.createObjectURL(data));
       setDrawncard(drawnCard=> {
         return{
           ...drawnCard,
@@ -213,6 +212,7 @@ export default function Drawcard_result({ route, navigation }) {
         timestamp = date.getTime();
         // console.log(timestamp);
         setGlobalState('countDownTime_time', timestamp+5*3600*1000);
+        setGlobalState('eggStatus', 1);
         // countDownTime = useGlobalState('countDownTime')[0];
         // console.log(countDownTime);
   

@@ -22,8 +22,8 @@ export default function View_egg_hatching() {
           {/* <Text style={styles.timeText}>4:30:50</Text> */}
           <CountDown style={styles.time}
             size={20} //on Press call
-            // until={totalDuration}
-            until = {0}
+            until={totalDuration}
+            //until = {0}
             onFinish={() => alert('Finished')}
             digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#1CC625'}}
             digitTxtStyle={{color: '#1CC625'}}

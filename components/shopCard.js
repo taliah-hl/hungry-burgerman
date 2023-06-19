@@ -133,7 +133,7 @@ export const ShopCard=(props)=>{
           </View>
           <View style={styles.shopInfoRow}>
             <View style={styles.shopInfoIcon}>
-              {/*   <Image source={require('../assets/icon/card_home_icon.png')} style={globalStyles.contentIcon}></Image>  */}
+              
                 <IconFoundation name="home" size={30} color="#000000"/>
             </View>
             <View style={styles.shopInfoText}>
@@ -143,7 +143,7 @@ export const ShopCard=(props)=>{
 
           <View style={styles.shopInfoRow}>
             <View style={styles.shopInfoIcon}> 
-              {/* <Image source={require('../assets/icon/card_locat_icon.png')} style={globalStyles.contentIcon} ></Image> */}
+             
               <Ionicons name="location-sharp" size={30} color="#000000"/>
             </View>
             <View style={styles.shopInfoText}>

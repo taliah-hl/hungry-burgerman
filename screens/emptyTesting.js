@@ -6,6 +6,7 @@ import {drawcardStyles} from '../components/drawcard_style'
 import {globalStyles} from '../components/global_style'
 import  {setGlobalState, useGlobalState} from '../shared/states'
 import * as CardData from '../shared/myCard_data'
+import { Card } from 'react-native-paper';
 
 const Item = ({name, addr}) => (
   <View style={styles.item}>
@@ -19,43 +20,21 @@ const Item = ({name, addr}) => (
 export default function EmptyTesting({navigation}) {
     console.log("in test page");
     const [cardlist, setCardlist] = useState([]);
-    const [cardPromise, setCardPromise]=useState('');
-    const [anotherCardlist, setanotherCardlist] = useState([]);
-    const [fstcd, setFstcd]=useState('');
+
     const [isLoading, setLoading] = useState(true);
     
     // let cards=[];
     // for(k of cardKeys){
     //     cards.push(readCard(k));
     // }
-
-    const getFirstCard = async()=>{
-      try{
-        const onecard = await AsyncStorage.getItem("ChIJP0riSl2pQjQRE2yfU1bcuPY")
-        setCardlist(onecard)
-      }catch(err){}
-    }
-
-    
-
+ 
     useEffect(()=>{
-      setLoading(true);
-      //   const cards = async()=>{
-      //       const cardKeys = await getAllCardsKeys();
-      //       for(k of cardKeys){
-      //           const v = await readCard(k);
-            
-      //           setCardlist(cardlist.push(k))
-      //       }
-      //     setCardPromise(GetallCards)
-            
-      //   }
-      CardData.readFirstCard(setFstcd);
+      
       CardData.GetallCards(setCardlist);
       setLoading(false)
-       },[] )
 
-    console.log(`first card: ${fstcd}`);
+    },[])
+    
     console.log(cardlist);
     //console.log(`cardlist:${JSON.stringify(anotherCardlist)}`)
     //console.log(`one card: ${anotherCardlist[0].name}`)
@@ -66,8 +45,7 @@ export default function EmptyTesting({navigation}) {
   return (
     <View>
       <Text>emptyTesting</Text>
-      <Text> {fstcd.name}</Text>
-      <Text> {fstcd.addr}</Text>
+     
       {isLoading? 
         (<></>): (
         <FlatList

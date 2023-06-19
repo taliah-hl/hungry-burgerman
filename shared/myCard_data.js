@@ -15,14 +15,44 @@ export const GetallCards = async (toSet) => {
         }catch(err){
           //pass
           console.error(err)
+        }finally{
+          toSet(allData)
+
         }
       
-      toSet(allData)
+      
       
     } 
   }catch (error) {
     console.error(error)
   }
+}
+
+export const ReturnallCards = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    let allData = [];
+    
+    for(let k of keys)
+    {
+      
+      const res = await AsyncStorage.getItem(k);
+      try{
+        if( typeof JSON.parse(res).name !== 'undefined') allData.push((JSON.parse(res)));
+      }catch(err){
+        //pass
+        console.error(err)
+      }finally{
+        return allData
+
+      }
+    
+    
+    
+  } 
+}catch (error) {
+  console.error(error)
+}
 }
 
 export const RemoveCard =  async (item_id)=>{

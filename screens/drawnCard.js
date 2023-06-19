@@ -30,20 +30,21 @@ export default function DrawnCard({route, navigation}) {
   SaveCard(drawnCard);
  }
   
-  useEffect(()=>{
+  // useEffect(()=>{
     
-    //GetallCards(setAllCards)
-    readFirstCard(setFstCard);
-    SaveCard(drawnCard);
+  //   //GetallCards(setAllCards)
+  //   readFirstCard(setFstCard);
+    
 
-  },[])
+  // },[])
+  SaveCard(drawnCard);
   
 
   
 
   //console.log(JSON.parse(allCards))
   //console.log(allCards.value)
-  console.log(fstCard);
+  //console.log(fstCard);
 
   
 

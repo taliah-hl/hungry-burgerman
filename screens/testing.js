@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native'
-import React ,{useState, useEffect, useCallback} from 'react'
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, Image, CheckBox, Modal } from 'react-native'
+import React ,{useState, useEffect, useCallback} from 'react'
+
 
 import {ShopCard} from '../components/shopCard'
 import {GetallCards, SaveCard, ClearallCards} from '../shared/myCard_data'
@@ -79,8 +79,9 @@ const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModa
     const [isLoading, setLoading] = useState(true);
     
     useEffect(()=>{
-      setLoading(true);
-      CardData.GetallCards(setCardlist);
+      
+      const newCardlist = CardData.ReturnallCards();
+      setCardlist(newCardlist)
       setLoading(false)
 
     },[])
