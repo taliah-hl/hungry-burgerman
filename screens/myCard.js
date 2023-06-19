@@ -8,10 +8,8 @@ var cnt = 1;
 const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
-      name: selectOne[idx].name,
-      img: selectOne[idx].img,
-      isChecked: false,
-      gglPalceId: selectOne[idx].gglPalceId
+      ...selectOne[idx],
+      isChecked: false
     }
   ));
 
@@ -43,10 +41,8 @@ const handleDelete = (selectOne, setSelectOne, setSelectAll, setEditMode, setMod
 const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
-      name: selectOne[idx].name,
-      img: selectOne[idx].img,
-      isChecked: (selectAll) ? false : true,
-      gglPalceId: selectOne[idx].gglPalceId
+      ...selectOne[idx],
+      isChecked: (selectAll) ? false : true
     }
   ));
 
@@ -58,10 +54,8 @@ const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDe
 const handleOnValueChange = (index, selectOne, setSelectOne) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
-      name: selectOne[idx].name,
-      img: selectOne[idx].img,
-      isChecked: (idx === index) ? !selectOne[idx].isChecked : selectOne[idx].isChecked,
-      gglPalceId: selectOne[idx].gglPalceId
+      ...selectOne[idx],
+      isChecked: (idx === index) ? !selectOne[idx].isChecked : selectOne[idx].isChecked
     }
   ));
 
@@ -73,8 +67,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
     <TouchableOpacity
       onPress={()=>{
         navigation.navigate("view saved card", {
-          name: item.name,
-          img: item.img
+          card: item
         });
       }}
       disabled={editMode}
@@ -83,7 +76,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
         <Text style={styles.cardText}>{item.name}</Text>
       </View>
       <View style={styles.cardBody}>
-        <Image style={styles.cardImg} source={require(`../assets/${item.img}`)}/>
+        <Image style={styles.cardImg} source={item.photoUrl}/>
       </View>
     </TouchableOpacity>
 
@@ -306,9 +299,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FDE9C3',
     height: 40,
     margin: 0,
-    padding: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderTopLeftRadius: 10,
-    borderTopRightRadius: 10
+    borderTopRightRadius: 10,
+    justifyContent: 'center'
   },
   cardText: {
     
