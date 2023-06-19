@@ -17,11 +17,19 @@ import View_wallpaper from './view_wallpaper';
 // import 'babel-polyfill';
 
 const size = 72;
+const react_logo = {
+  uri: 'https://reactnative.dev/img/tiny_logo.png',
+  width: size,
+  height: size,
+};  
 const logo = {
-    uri: 'https://reactnative.dev/img/tiny_logo.png',
+    // uri: 'https://reactnative.dev/img/tiny_logo.png',
+    uri: require('../assets/not_get.PNG'),
     width: size,
     height: size,
   };  
+
+// writer1
 const logo1 = {
     uri: require('../assets/wallpaper_writer1/wallpaper_1.PNG'),
     width: size,
@@ -48,40 +56,67 @@ const logo5 = {
     height: size,
   };  
 
+// writer2
+const logo6 = {
+  uri: require('../assets/wallpaper_writer2/sticker1.png'),
+  width: size,
+  height: size,
+};  
+const logo7 = {
+  uri: require('../assets/wallpaper_writer2/sticker2.png'),
+  width: size,
+  height: size,
+};  
+const logo8 = {
+  uri: require('../assets/wallpaper_writer2/sticker3.png'),
+  width: size,
+  height: size,
+};  
+
 const DATA_origin = [{
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'co-branding-1',
-      img:  logo
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      hidden: true,
+      img:  react_logo
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: 'co-branding-2',
-      img: logo
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      hidden: true,
+      img: react_logo
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
       title: 'co-branding-3',
-      img: logo
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      hidden: true,
+      img: react_logo
     },
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'co-branding-4',
-      img: logo
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      hidden: true,
+      img: react_logo
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: 'co-branding-5',
-      img: logo
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      hidden: true,
+      img: react_logo
     },
   ];
 
-let DATA = [{
+let DATA_writer3 = [{
     id: 'co-branding-1',
     title: 'co-branding-1',
     navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
     navigateTo: "view wallpaper 1",
     // hidden: (counter>5) ? true:false,
-    // hidden: false,
+    hidden: false,
     img:  logo1
   },
   {
@@ -118,10 +153,96 @@ let DATA = [{
   },
 ];
 
+let DATA_writer2 = [{
+  id: 'co-branding-1',
+  title: 'co-branding-1',
+  navigateURL: require('../assets/wallpaper_writer2/sticker_wallpaper.png'),
+  navigateTo: "view wallpaper 1",
+  // hidden: (counter>5) ? true:false,
+  hidden: true,
+  img:  logo6
+},
+{
+  id: 'co-branding-2',
+  title: 'co-branding-2',
+  navigateURL: require('../assets/wallpaper_writer2/sticker_wallpaper.png'),
+  navigateTo: "view wallpaper 2",
+  hidden: true,
+  img: logo7
+},
+{
+  id: 'co-branding-3',
+  title: 'co-branding-3',
+  navigateURL: require('../assets/wallpaper_writer2/sticker_wallpaper.png'),
+  navigateTo: "view wallpaper 3",
+  hidden: true,
+  img: logo8
+},
+{ // not change
+  id: 'co-branding-4',
+  title: 'co-branding-4',
+  navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin4.jpg'),
+  navigateTo: "view wallpaper 4",
+  hidden: false,
+  img: logo4
+},
+{
+  id: 'co-branding-5',
+  title: 'co-branding-5',
+  navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin5.jpg'),
+  navigateTo:"view wallpaper 5",
+  hidden: false,
+  img: logo5
+},
+];
+
+let DATA_writer1 = [{
+  id: 'co-branding-1',
+  title: 'co-branding-1',
+  navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+  navigateTo: "view wallpaper 1",
+  // hidden: (counter>5) ? true:false,
+  hidden: false,
+  img:  logo1
+},
+{
+  id: 'co-branding-2',
+  title: 'co-branding-2',
+  navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin2.jpg'),
+  navigateTo: "view wallpaper 2",
+  hidden: false,
+  img: logo2
+},
+{
+  id: 'co-branding-3',
+  title: 'co-branding-3',
+  navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin3.jpg'),
+  navigateTo: "view wallpaper 3",
+  hidden: false,
+  img: logo3
+},
+{
+  id: 'co-branding-4',
+  title: 'co-branding-4',
+  navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin4.jpg'),
+  navigateTo: "view wallpaper 4",
+  hidden: false,
+  img: logo4
+},
+{
+  id: 'co-branding-5',
+  title: 'co-branding-5',
+  navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin5.jpg'),
+  navigateTo:"view wallpaper 5",
+  hidden: false,
+  img: logo5
+},
+];
+
 
 const numColumns = 3;
 export default function WallpaperSet( {navigation} ) {
-  
+
   const [counter, setCounter] = useState(0);
   
   let counter_new = {...counter};
@@ -129,23 +250,23 @@ export default function WallpaperSet( {navigation} ) {
     (async () => {
       if(counter >=5) {
         console.log('get first wallpaper!');
-        DATA[0]['hidden'] = true;
+        DATA_writer3[0]['hidden'] = true;
       }
       if(counter >=10) {
         console.log('get second wallpaper!');
-        DATA[1]['hidden'] = true;
+        DATA_writer3[1]['hidden'] = true;
       }
       if(counter >=15) {
         console.log('get third wallpaper!');
-        DATA[2]['hidden'] = true;
+        DATA_writer3[2]['hidden'] = true;
       }
       if(counter >=25) {
         console.log('get fourth wallpaper!');
-        DATA[3]['hidden'] = true;
+        DATA_writer3[3]['hidden'] = true;
       }
       if(counter >=40) {
         console.log('get fifth wallpaper!');
-        DATA[4]['hidden'] = true;
+        DATA_writer3[4]['hidden'] = true;
       }
     })();
   }, [counter_new]);
@@ -156,8 +277,8 @@ export default function WallpaperSet( {navigation} ) {
   
   const Item = ({ img, hidden, navigation, navigateTo, navigateURL }) => (
     (hidden)?
-    <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate(navigateTo)} >
-    {/* <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate((View_wallpaper, {'navigateURL': navigateURL}))} > */}
+    // <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate(navigateTo)} >
+    <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('view wallpaper', {navigateURL})} >
       <View style={styles.cardBody}>
         <Image style={styles.cardImg} source={img}/>
       </View>
@@ -215,7 +336,7 @@ export default function WallpaperSet( {navigation} ) {
                       
                       <FlatList
                         numColumns={3}
-                        data={DATA} 
+                        data={DATA_writer3} 
                         renderItem={({item}) => <Item img={item.img} hidden={item.hidden} navigation={navigation} navigateTo={item.navigateTo} navigateURL={item.navigateURL}></Item>}
                       />
                     </View>
@@ -229,7 +350,7 @@ export default function WallpaperSet( {navigation} ) {
                       </Text>
                       <FlatList
                         numColumns={3}
-                        data={DATA_origin} 
+                        data={DATA_writer2} 
                         renderItem={({item}) => <Item title={item.title} hidden={item.hidden} img={item.img} navigation={navigation} navigateURL={item.navigateURL}></Item>}
                       />
                     </View>

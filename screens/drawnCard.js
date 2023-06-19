@@ -13,7 +13,6 @@ export default function DrawnCard({route, navigation}) {
   console.log('in card drawn here');
   return (
     <View style={styles.container}>
-
       <View style={{position: 'abosolute',  top: 40, alignSelf: 'center'}} >
       <View style={styles.burgermanSpeech}>
           <Image source={require('../assets/conversation/section-burgerman-speech-newCardPicked.png')}

@@ -6,15 +6,33 @@ import {drawcardStyles} from '../components/drawcard_style'
 export default function Drawcard_animation({route, navigation}) {
 
   const {foodOrDrink, walkOrDrive} = route.params;
-  
-  
-
-    
 
   return (
     <ImageBackground source={require('../assets/bg/drawcard-bg.jpg')}
       resizeMode="cover"
+
       style={{flex: 1, justifyContent: 'center'}}>
+      {/* Lala add */}
+      <Image source={require('../assets/progressBar-step3.png')}
+            style={drawcardStyles.progressBar_top} />
+      <Image source={require('../assets/clickedRecordBar.png')}
+            style={drawcardStyles.clickedRecordBar} />
+      {
+        (foodOrDrink==='food')?
+        <Image source={require('../assets/icon/food_icon.png')}
+              style={drawcardStyles.clickedRecordBar_sub1_food} />
+      :
+        <Image source={require('../assets/icon/drink_icon.png')}
+                style={drawcardStyles.clickedRecordBar_sub1_drink} />
+      }
+      {
+        (walkOrDrive==='walk')?
+        <Image source={require('../assets/icon/walk_icon.png')}
+              style={drawcardStyles.clickedRecordBar_sub2_walk} />
+      :
+        <Image source={require('../assets/icon/drive_icon.png')}
+                style={drawcardStyles.clickedRecordBar_sub2_drive} />
+      }
       <View style={styles.container}>
       <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>

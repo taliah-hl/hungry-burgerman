@@ -12,6 +12,13 @@ export default function Drawcard_step1({ navigation }) {
     <ImageBackground source={require('../assets/bg/drawcard-bg.jpg')}
       resizeMode="cover"
       style={{flex: 1, justifyContent: 'center'}}>
+    
+    {/* Lala add */}
+    <Image source={require('../assets/progressBar-step1.png')}
+            style={drawcardStyles.progressBar_top} />
+    <Image source={require('../assets/clickedRecordBar.png')}
+           style={drawcardStyles.clickedRecordBar} />
+
     <View style={styles.container}>
     <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
@@ -82,8 +89,5 @@ const styles = StyleSheet.create({
   },
   progressBar:{
     flex:1,
-    
-
   },
-
 })

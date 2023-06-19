@@ -11,7 +11,22 @@ export default function Drawcard_step2({ route, navigation }) {
     <ImageBackground source={require('../assets/bg/drawcard-bg.jpg')}
       resizeMode="cover"
       style={{flex: 1, justifyContent: 'center'}}>
-    <View style={styles.container}>
+
+    {/* Lala add */}
+    <Image source={require('../assets/progressBar-step2.png')}
+            style={drawcardStyles.progressBar_top} />
+    <Image source={require('../assets/clickedRecordBar.png')}
+           style={drawcardStyles.clickedRecordBar} />
+    {
+      (foodOrDrink==='food')?
+      <Image source={require('../assets/icon/food_icon.png')}
+            style={drawcardStyles.clickedRecordBar_sub1_food} />
+    :
+      <Image source={require('../assets/icon/drink_icon.png')}
+              style={drawcardStyles.clickedRecordBar_sub1_drink} />
+    }
+
+      <View style={styles.container}>
     <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
       <View style = {drawcardStyles.burgermanSpeech}>

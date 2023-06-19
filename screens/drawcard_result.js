@@ -198,6 +198,14 @@ export default function Drawcard_result({ route, navigation }) {
     
     eggCurStatus?   navigation.navigate('Drawn card', {drawnCard: drawnCard, gglPhoto: gglPhoto})
       : 
+      setGlobalState('countDownTime', 60*60*5);
+      var date = new Date(), timestamp;
+      timestamp = date.getTime();
+      // console.log(timestamp);
+      setGlobalState('countDownTime_time', timestamp+5*3600*1000);
+      // countDownTime = useGlobalState('countDownTime')[0];
+      // console.log(countDownTime);
+
       navigation.reset({
         index: 0,
         routes:[{
@@ -206,11 +214,9 @@ export default function Drawcard_result({ route, navigation }) {
         }
         ]
       })
-
       //navigation.navigate('Got new egg', {drawnCard: drawnCard, gglPhoto: gglPhoto} );
-    
-  
   }
+
   const handleCardPickedNoEggGot=()=>{
   navigation.navigate('Drawn card');
   }
@@ -248,8 +254,7 @@ export default function Drawcard_result({ route, navigation }) {
         <View style={[globalStyles.pairGreenBtnsMedium, styles.secActionBtn]}>
           <View style={globalStyles.greenBtnFrameMedium}>
           <TouchableOpacity style = {globalStyles.greenCircleBtnMedium}
-              onPress={ ()=>handleGotNewEgg(eggCurStatus) }
-            
+              onPress={ ()=>handleGotNewEgg(eggCurStatus) }          
             >
             <Image source = {require('../assets/icon/tick-icon.png')}
               style={{width: 57, height: '100%', resizeMode: 'contain'}}
@@ -270,13 +275,9 @@ export default function Drawcard_result({ route, navigation }) {
 
         </View>
       </View>
-      
-      )}
-     
-     
+      )} 
     </View>
   )
-  
 }
 
 
