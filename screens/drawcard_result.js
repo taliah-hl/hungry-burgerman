@@ -60,14 +60,16 @@ export default function Drawcard_result({ route, navigation }) {
   
   const eggCurStatus = useGlobalState('eggStatus')[0];
   
-  console.log(`Egg status: ${eggCurStatus}`)
-  console.log(`user choice: ${foodOrDrink}, ${walkOrDrive}`)
+  console.log('in draw card result, Egg status: ')
+  console.log(eggCurStatus)
+ 
 
   const cardType = ((foodOrDrink==='food'? 0:1)<<1) + (walkOrDrive==='walk'? 0:1);
   console.log(`cardType=${cardType}`);
   
   const [drawnCard, setDrawncard]=useState( 
     {
+      gglPalceId: '',
       cardId: 0,
       name: '',
       photoUrl: '',
@@ -75,7 +77,7 @@ export default function Drawcard_result({ route, navigation }) {
       gglStar: 0,
       gglPrice: 0,
       drawFromGgl: true,
-      gglPalceId: '',
+      
 
     }
   );
@@ -113,12 +115,13 @@ export default function Drawcard_result({ route, navigation }) {
   })();
   const CORS_ANYWHERE_HOST = 'https://cors-anywhere.herokuapp.com/';
   const apiKey= 'AIzaSyBF43lMa8RkSkIm0l4fbaioe-SR5LoiUdc';
-  const userLocation = '24.80,120.99';
+  const NTHULocation = '24.80,120.99';
+  const linhoouLocation = '25.077,121.373'
   const drawShopUrls = [
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation}&radius=1500&keyword=餐廳&language=zh-TW&key=${apiKey}`,
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation}&radius=20000&keyword=餐廳&language=zh-TW&key=${apiKey}`,
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation}&radius=1500&keyword=飲料&language=zh-TW&key=${apiKey}`,
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation}&radius=10000&keyword=飲料&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=1500&keyword=餐廳&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=20000&keyword=餐廳&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=1500&keyword=飲料&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=10000&keyword=飲料&language=zh-TW&key=${apiKey}`,
     ]
   const places_photoUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='; 
 
@@ -132,6 +135,7 @@ export default function Drawcard_result({ route, navigation }) {
       .then((json) => {
         setInfo(json?.results[randNum]);
         setDrawncard({
+          gglPalceId: json?.results[randNum]?.place_id,
           cardId: 0,
           name: json?.results[randNum]?.name,
           photoUrl: '',
@@ -139,7 +143,7 @@ export default function Drawcard_result({ route, navigation }) {
           gglStar: json?.results[randNum]?.rating,
           gglPrice: (json?.results[randNum]?.price_level)? (json?.results[randNum]?.price_level): 0,
           drawFromGgl: true,
-          gglPalceId: json?.results[randNum]?.place_id,
+          
     
         });
         console.log(`shop photo reference: ${json?.results[randNum]?.photos[0].photo_reference}`);
@@ -156,6 +160,12 @@ export default function Drawcard_result({ route, navigation }) {
       );
       const data = await res.blob();
       setGglPhoto(URL.createObjectURL(data));
+      setDrawncard(drawnCard=> {
+        return{
+          ...drawnCard,
+          photoUrl: URL.createObjectURL(data)
+        }
+      })
 
       
     } catch (error) {
@@ -166,14 +176,14 @@ export default function Drawcard_result({ route, navigation }) {
   const loadDrawnCard=(info)=>{
     console.log('loaddrawnCard is excuted');
     let updateVal = {
-      cardId: 0,
+
+      gglPalceId: info.place_id,
       name: info.name,
       photoUrl: gglPhoto,
       addr: info.vicinity,
       gglStar: rating,
       gglPrice: info.price_level? info.price_level: 0,
       drawFromGgl: true,
-      gglPalceId: info.place_id,
 
     };
     setDrawncard({
@@ -196,21 +206,23 @@ export default function Drawcard_result({ route, navigation }) {
     
     console.log(`in drawcard, egg status: ${eggCurStatus}`);
     
-    eggCurStatus?   navigation.navigate('Drawn card', {drawnCard: drawnCard, gglPhoto: gglPhoto})
-      : 
-      navigation.reset({
-        index: 0,
-        routes:[{
-          name: "Got new egg",
-          params: {drawnCard: drawnCard, gglPhoto: gglPhoto}
-        }
-        ]
-      })
-
-      //navigation.navigate('Got new egg', {drawnCard: drawnCard, gglPhoto: gglPhoto} );
-    
+    if(eggCurStatus)   navigation.navigate('Drawn card', {drawnCard: drawnCard})
+      else{
+        setGlobalState('countDownTime', 60*60*5);
+        var date = new Date(), timestamp;
+        timestamp = date.getTime();
+        // console.log(timestamp);
+        setGlobalState('countDownTime_time', timestamp+5*3600*1000);
+        // countDownTime = useGlobalState('countDownTime')[0];
+        // console.log(countDownTime);
   
+        navigation.replace( "Got new egg",{drawnCard: drawnCard})
+      } 
+
+    
+      //navigation.navigate('Got new egg', {drawnCard: drawnCard, gglPhoto: gglPhoto} );
   }
+
   const handleCardPickedNoEggGot=()=>{
   navigation.navigate('Drawn card');
   }
@@ -234,7 +246,7 @@ export default function Drawcard_result({ route, navigation }) {
           
           :(<ShopCard 
               drawnCard = {drawnCard} 
-              gglPhoto = {gglPhoto} /> )
+              /> )
           }
         </View>
       </View>
@@ -248,8 +260,7 @@ export default function Drawcard_result({ route, navigation }) {
         <View style={[globalStyles.pairGreenBtnsMedium, styles.secActionBtn]}>
           <View style={globalStyles.greenBtnFrameMedium}>
           <TouchableOpacity style = {globalStyles.greenCircleBtnMedium}
-              onPress={ ()=>handleGotNewEgg(eggCurStatus) }
-            
+              onPress={ ()=>handleGotNewEgg(eggCurStatus) }          
             >
             <Image source = {require('../assets/icon/tick-icon.png')}
               style={{width: 57, height: '100%', resizeMode: 'contain'}}
@@ -270,13 +281,9 @@ export default function Drawcard_result({ route, navigation }) {
 
         </View>
       </View>
-      
-      )}
-     
-     
+      )} 
     </View>
   )
-  
 }
 
 

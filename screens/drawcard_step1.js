@@ -2,7 +2,6 @@ import { StyleSheet, Image, Text, View, Button, TouchableOpacity, ImageBackgroun
 import React from 'react'
 import { SvgUri } from 'react-native-svg';
 import {globalStyles} from '../components/global_style'
-import SpeechBubble_2line_toRight from '../components/speechBubble_2line_toRight'
 import {drawcardStyles} from '../components/drawcard_style'
 import {BtnTextMedium} from '../components/typography'
 
@@ -12,6 +11,13 @@ export default function Drawcard_step1({ navigation }) {
     <ImageBackground source={require('../assets/bg/drawcard-bg.jpg')}
       resizeMode="cover"
       style={{flex: 1, justifyContent: 'center'}}>
+    
+    {/* Lala add */}
+    <Image source={require('../assets/progressBar-step1.png')}
+            style={drawcardStyles.progressBar_top} />
+    <Image source={require('../assets/clickedRecordBar.png')}
+           style={drawcardStyles.clickedRecordBar} />
+
     <View style={styles.container}>
     <View style = {styles.uppersection}>
       <View style = {styles.progressBar}></View>
@@ -82,8 +88,5 @@ const styles = StyleSheet.create({
   },
   progressBar:{
     flex:1,
-    
-
   },
-
 })

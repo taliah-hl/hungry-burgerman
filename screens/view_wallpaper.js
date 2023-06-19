@@ -12,9 +12,14 @@ import {
 
 const styles = StyleSheet.create({})
 
-export default function View_wallpaper(imgSource) {
+export default function View_wallpaper({ route, navigation }) {
+
+  const { navigateURL } = route.params;
+
+  console.log(navigateURL);
+
   return (
-    <ImageBackground source={imgSource} resizeMode="cover" style={{flex: 1, justifyContent: 'center'}}>
+    <ImageBackground source={navigateURL} resizeMode="cover" style={{flex: 1, justifyContent: 'center'}}>
     </ImageBackground>
   )
 }

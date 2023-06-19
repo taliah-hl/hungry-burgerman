@@ -91,7 +91,6 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
 );
 
 export default function MyCard({ navigation }) {
-  
   const [selectOne, setSelectOne] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [editMode, setEditMode] = useState(false);

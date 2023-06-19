@@ -18,6 +18,7 @@ import Drawcard_stack from './routes/drawcard_stack';
 import Viewcard_stack from './routes/viewCard_stack';
 import ViewEgg_stack from './routes/viewEgg_stack';
 import ViewWallpaper_stack from './routes/viewWallpaper_stack';
+import { ClearallCards } from './shared/myCard_data';
 
 SplashScreen.preventAutoHideAsync();
 const Tab = createBottomTabNavigator();
@@ -30,6 +31,7 @@ let customFonts = {
 };
 export default function App() {
   const [fontsLoaded] = useFonts(customFonts);
+  ClearallCards();
   if(!fontsLoaded){
     return (
       <AppLoading/>
