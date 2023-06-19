@@ -3,8 +3,6 @@ import React, {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as CardData from '../shared/myCard_data'
 
-var cnt = 1;
-
 const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
@@ -101,8 +99,8 @@ export default function MyCard({ navigation }) {
   const [deleteBtnAvailable, setDeleteBtnAvailable] = useState(false);
 
   useEffect(() => {
+    // CardData.clearData();
     CardData.ReturnallCards().then((allData) => {
-      // console.log(allData);
       setSelectOne(allData);
     });
   },[]);
@@ -183,11 +181,7 @@ export default function MyCard({ navigation }) {
             <TouchableOpacity
               style={styles.drawbtn}
               onPress={()=>(
-                setSelectOne(selectOne.concat([{
-                  name: '豬多好事' + (cnt++).toString(),
-                  img: "my_card.jpg",
-                  isChecked: false
-                }]))
+                console.log(1)
               )}
             >
               <Text style={styles.drawbtnText}>{"從My Card抽卡"}</Text>
