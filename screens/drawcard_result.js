@@ -60,8 +60,9 @@ export default function Drawcard_result({ route, navigation }) {
   
   const eggCurStatus = useGlobalState('eggStatus')[0];
   
-  console.log(`Egg status: ${eggCurStatus}`)
-  console.log(`user choice: ${foodOrDrink}, ${walkOrDrive}`)
+  console.log('in draw card result, Egg status: ')
+  console.log(eggCurStatus)
+ 
 
   const cardType = ((foodOrDrink==='food'? 0:1)<<1) + (walkOrDrive==='walk'? 0:1);
   console.log(`cardType=${cardType}`);
@@ -205,29 +206,20 @@ export default function Drawcard_result({ route, navigation }) {
     
     console.log(`in drawcard, egg status: ${eggCurStatus}`);
     
-    eggCurStatus?   navigation.navigate('Drawn card', {drawnCard: drawnCard})
-      : 
-<<<<<<< HEAD
-      setGlobalState('countDownTime', 60*60*5);
-      var date = new Date(), timestamp;
-      timestamp = date.getTime();
-      // console.log(timestamp);
-      setGlobalState('countDownTime_time', timestamp+5*3600*1000);
-      // countDownTime = useGlobalState('countDownTime')[0];
-      // console.log(countDownTime);
+    if(eggCurStatus)   navigation.navigate('Drawn card', {drawnCard: drawnCard})
+      else{
+        setGlobalState('countDownTime', 60*60*5);
+        var date = new Date(), timestamp;
+        timestamp = date.getTime();
+        // console.log(timestamp);
+        setGlobalState('countDownTime_time', timestamp+5*3600*1000);
+        // countDownTime = useGlobalState('countDownTime')[0];
+        // console.log(countDownTime);
+  
+        navigation.replace( "Got new egg",{drawnCard: drawnCard})
+      } 
 
-      navigation.reset({
-        index: 0,
-        routes:[{
-          name: "Got new egg",
-          params: {drawnCard: drawnCard, gglPhoto: gglPhoto}
-        }
-        ]
-      })
-=======
-      navigation.replace( "Got new egg",{drawnCard: drawnCard})
-
->>>>>>> a39591abfecfc96fd40c881adee7ccd670bb6942
+    
       //navigation.navigate('Got new egg', {drawnCard: drawnCard, gglPhoto: gglPhoto} );
   }
 

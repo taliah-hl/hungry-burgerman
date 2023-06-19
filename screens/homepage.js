@@ -14,7 +14,7 @@ export default function Homepage({navigation}) {
       style={{flex: 1, justifyContent: 'center'}}>
     
        <View style = {styles.uppersection}>
-       <Button title={"TEST"} onclick={()=>navigation.navigate("empty")}></Button>
+       
        <Image source={require('../assets/icon/burgerman.png')}
            style={styles.bugermanpic} />
 
