@@ -43,7 +43,10 @@ const GeneratePriceSymb = (props)=>{
 
 export const ShopCard=(props)=>{
   const drawnCard = props.drawnCard;
+  const photoBlob = props.photoBlob;
   const gglmapLink = `http://maps.google.com/maps?z=12&t=m&q=place_id:${drawnCard.gglPalceId}`
+
+  console.log(drawnCard.photoUrl)
 
   const [isLoading, setLoading] = useState(true);
   
@@ -128,7 +131,7 @@ export const ShopCard=(props)=>{
 
           </View>
           <View style={styles.shopPhoto}>
-            <Image source={drawnCard.photoUrl} style={{width: 300, height: '100%', maxWidth: 370, resizeMode:'contain'}} ></Image>
+            <Image  source={{ uri: drawnCard.photoUrl }} style={{width: 300, height: '100%', maxWidth: 370, resizeMode:'contain'}} ></Image>
 
           </View>
           <View style={styles.shopInfoRow}>

@@ -4,6 +4,7 @@ import {ShopCard} from '../components/shopCard'
 import {drawcardStyles} from '../components/drawcard_style'
 import {globalStyles} from '../components/global_style'
 import  {setGlobalState, useGlobalState} from '../shared/states'
+import * as FileSystem from 'expo-file-system';
 
 
 const CardsCandidate =[
@@ -118,10 +119,10 @@ export default function Drawcard_result({ route, navigation }) {
   const NTHULocation = '24.80,120.99';
   const linhoouLocation = '25.077,121.373'
   const drawShopUrls = [
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=1500&keyword=餐廳&language=zh-TW&key=${apiKey}`,
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=20000&keyword=餐廳&language=zh-TW&key=${apiKey}`,
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=1500&keyword=飲料&language=zh-TW&key=${apiKey}`,
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=10000&keyword=飲料&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${NTHULocation}&radius=1500&keyword=餐廳&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${NTHULocation}&radius=20000&keyword=餐廳&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${NTHULocation}&radius=1500&keyword=飲料&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${NTHULocation}&radius=10000&keyword=飲料&language=zh-TW&key=${apiKey}`,
     ]
   const places_photoUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='; 
 
@@ -139,14 +140,15 @@ export default function Drawcard_result({ route, navigation }) {
           cardId: 0,
           name: json?.results[randNum]?.name,
           photoUrl: '',
+          photoRef: json?.results[randNum]?.photos[0].photo_reference,
           addr: json?.results[randNum]?.vicinity,
           gglStar: json?.results[randNum]?.rating,
           gglPrice: (json?.results[randNum]?.price_level)? (json?.results[randNum]?.price_level): 0,
           drawFromGgl: true,
           isChecked: false,
-          
-          
-    
+          img: "my_card.jpg",
+
+
         });
         console.log(`shop photo reference: ${json?.results[randNum]?.photos[0].photo_reference}`);
         loadImage(json?.results[randNum]?.photos[0].photo_reference);
@@ -156,6 +158,28 @@ export default function Drawcard_result({ route, navigation }) {
   }, []);
 
   const loadImage = async (photo_reference) => {
+    try {
+      const res = await fetch(
+        `${CORS_ANYWHERE_HOST}${places_photoUrl}${photo_reference}&key=${apiKey}`
+      );
+      const data = await res.blob();
+  
+      // Convert the blob to a base64-encoded data URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUrl = reader.result;
+        setDrawncard((drawnCard) => ({
+          ...drawnCard,
+          photoUrl: dataUrl,
+        }));
+      };
+      reader.readAsDataURL(data);
+    } catch (error) {
+      console.error(`error in photo api: ${error}`);
+    }
+  };
+
+  const loadImage2 = async (photo_reference) => {
     try {
       const res = await fetch(
         `${CORS_ANYWHERE_HOST}${places_photoUrl}${photo_reference}&key=${apiKey}`
@@ -209,7 +233,7 @@ export default function Drawcard_result({ route, navigation }) {
         // countDownTime = useGlobalState('countDownTime')[0];
         // console.log(countDownTime);
   
-        navigation.replace( "Got new egg",{drawnCard: drawnCard})
+        navigation.replace( "Got new egg",{drawnCard: drawnCard, gglPhoto: drawnCard.photoUrl})
       } 
 
     
@@ -239,6 +263,7 @@ export default function Drawcard_result({ route, navigation }) {
           
           :(<ShopCard 
               drawnCard = {drawnCard} 
+              photoBlob = {drawnCard.photoUrl}
               /> )
           }
         </View>

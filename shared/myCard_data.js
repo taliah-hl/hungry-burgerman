@@ -16,9 +16,10 @@ export const GetallCards = async (toSet) => {
           //pass
           console.error(err)
         }finally{
-          toSet(allData)
+          
 
         }
+        toSet(allData)
       
       
       
@@ -43,16 +44,19 @@ export const ReturnallCards = async () => {
         //pass
         console.error(err)
       }finally{
-        return allData
+        // console.log(allData)
+        
 
       }
     
     
     
   } 
+  return allData
 }catch (error) {
   console.error(error)
 }
+
 }
 
 export const RemoveCard =  async (item_id)=>{

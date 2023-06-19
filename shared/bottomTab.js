@@ -22,7 +22,6 @@ const BottomTab=() =>{
         <Tab.Screen name="Draw Card" component={Drawcard_stack} options={{headerShown: false, unmountOnBlur: true}}/>
         <Tab.Screen name="My Card" component={Viewcard_stack} options={{headerBackVisible:true, headerTransparent: true, headerTitle: "", unmountOnBlur: true}}/>
         <Tab.Screen name="Burger Wallpaper" component={ViewWallpaper_stack} options={{headerBackVisible:true, headerTransparent: true, headerTitle: "", unmountOnBlur: true}}/> 
-        <Tab.Screen name = "card test"  component={TestingCard} options={{unmountOnBlur: true}}/>
         <Tab.Screen name = "empty test"  component={emptyTesting} options={{unmountOnBlur: true}}/>
 
     </Tab.Navigator>
