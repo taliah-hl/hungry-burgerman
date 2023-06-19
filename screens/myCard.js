@@ -1,15 +1,16 @@
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, Image, CheckBox, Modal } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import * as CardData from '../shared/myCard_data'
 
 var cnt = 1;
 
 const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
-      title: selectOne[idx].title,
+      name: selectOne[idx].name,
       img: selectOne[idx].img,
-      checked: false
+      isChecked: false
     }
   ));
 
@@ -22,7 +23,7 @@ const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModa
 
 const handleDelete = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
   const newSelectOne = selectOne.filter((item) => {
-    return !item.checked
+    return !item.isChecked
   });
 
   setSelectOne(newSelectOne);
@@ -35,9 +36,9 @@ const handleDelete = (selectOne, setSelectOne, setSelectAll, setEditMode, setMod
 const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
-      title: selectOne[idx].title,
+      name: selectOne[idx].name,
       img: selectOne[idx].img,
-      checked: (selectAll) ? false : true
+      isChecked: (selectAll) ? false : true
     }
   ));
 
@@ -49,9 +50,9 @@ const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDe
 const handleOnValueChange = (index, selectOne, setSelectOne) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
-      title: selectOne[idx].title,
+      name: selectOne[idx].name,
       img: selectOne[idx].img,
-      checked: (idx === index) ? !selectOne[idx].checked : selectOne[idx].checked
+      isChecked: (idx === index) ? !selectOne[idx].isChecked : selectOne[idx].isChecked
     }
   ));
 
@@ -63,14 +64,14 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
     <TouchableOpacity
       onPress={()=>{
         navigation.navigate("view saved card", {
-          title: item.title,
+          name: item.name,
           img: item.img
         });
       }}
       disabled={editMode}
     >
       <View style={styles.cardHeader}>
-        <Text style={styles.cardText}>{item.title}</Text>
+        <Text style={styles.cardText}>{item.name}</Text>
       </View>
       <View style={styles.cardBody}>
         <Image style={styles.cardImg} source={require(`../assets/${item.img}`)}/>
@@ -81,7 +82,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
       (editMode) ?
         <CheckBox
           style={styles.check}
-          value={selectOne[index].checked}
+          value={selectOne[index].isChecked}
           onValueChange={()=>(handleOnValueChange(index, selectOne, setSelectOne))}
         />
       :
@@ -97,12 +98,25 @@ export default function MyCard({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteBtnAvailable, setDeleteBtnAvailable] = useState(false);
 
+  CardData.ReturnallCards().then((allData) => {
+    console.log(allData);
+    // const newAllData = allData.map((val, idx) => (
+    //   {
+    //     name: val.name,
+    //     img: "my_card.jpg",
+    //     isChecked: false
+    //   }
+    // ));
+    // console.log(newAllData);
+    // setSelectOne(allData);
+  });
+
   useEffect(() => {
     if(editMode) {
       var newDeleteBtnAvailable = false;
       var newSelectAll = true;
       for(var i = 0; i < selectOne.length; i++) {
-        if(selectOne[i].checked) {
+        if(selectOne[i].isChecked) {
           newDeleteBtnAvailable = true;
         } else {
           newSelectAll = false;
@@ -174,9 +188,9 @@ export default function MyCard({ navigation }) {
               style={styles.drawbtn}
               onPress={()=>(
                 setSelectOne(selectOne.concat([{
-                  title: '豬多好事' + (cnt++).toString(),
+                  name: '豬多好事' + (cnt++).toString(),
                   img: "my_card.jpg",
-                  checked: false
+                  isChecked: false
                 }]))
               )}
             >
