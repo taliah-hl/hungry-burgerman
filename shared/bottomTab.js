@@ -9,6 +9,8 @@ import Drawcard_stack from '../routes/drawcard_stack';
 import Viewcard_stack from '../routes/viewCard_stack';
 import ViewEgg_stack from '../routes/viewEgg_stack';
 import ViewWallpaper_stack from '../routes/viewWallpaper_stack';
+import emptyTesting from '../screens/emptyTesting';
+import Home_stack from '../routes/home_stack';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +21,7 @@ const BottomTab=() =>{
         <Tab.Screen name="Draw Card" component={Drawcard_stack} options={{headerShown: false, unmountOnBlur: true}}/>
         <Tab.Screen name="My Card" component={Viewcard_stack} options={{headerShown: false, unmountOnBlur: true}}/>
         <Tab.Screen name="Burger Wallpaper" component={ViewWallpaper_stack} options={{headerShown: false, unmountOnBlur: true}}/> 
+        <Tab.Screen name = "empty test"  component={emptyTesting} options={{unmountOnBlur: true}}/>
 
     </Tab.Navigator>
     )

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, Image, CheckBox, Modal } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const DATA = [
@@ -47,7 +47,37 @@ const DATA = [
   }
 ];
 
-const Item = ({item, index, navigation, editMode}) => (
+const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
+  const newSelectOne = selectOne.map(() => (
+    false
+  ));
+
+  setSelectOne(newSelectOne);
+  setSelectAll(false);
+  setEditMode(false);
+  setModalVisible(false);
+  setDeleteBtnAvailable(false);
+}
+
+const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable) => {
+  const newSelectOne = selectOne.map(() => (
+    (selectAll) ? false : true
+  ));
+
+  setSelectOne(newSelectOne);
+  setSelectAll(!selectAll);
+  setDeleteBtnAvailable((selectAll) ? false : true);
+}
+
+const handleOnValueChange = (index, selectOne, setSelectOne) => {
+  const newSelectOne = selectOne.map((val, idx) => (
+    (idx === index) ? !val : val
+  ));
+
+  setSelectOne(newSelectOne);
+};
+
+const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
   <View style={styles.card}>
     <TouchableOpacity
       onPress={()=>{
@@ -68,7 +98,11 @@ const Item = ({item, index, navigation, editMode}) => (
 
     {
       (editMode) ?
-        <CheckBox style={styles.check} value={DATA[index].checked} onValueChange={()=>(DATA[index].checked = !DATA[index].checked)}></CheckBox>
+        <CheckBox
+          style={styles.check}
+          value={selectOne[index]}
+          onValueChange={()=>(handleOnValueChange(index, selectOne, setSelectOne))}
+        />
       :
         null
     }
@@ -77,10 +111,25 @@ const Item = ({item, index, navigation, editMode}) => (
 
 export default function MyCard({ navigation }) {
   
-  const [SelectOne, setSelectOne] = useState([{isSelected: false}]);
+  const [selectOne, setSelectOne] = useState(new Array(100).fill(false));
   const [selectAll, setSelectAll] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [deleteBtnAvailable, setDeleteBtnAvailable] = useState(false);
+
+  useEffect(() => {
+    var newDeleteBtnAvailable = false;
+    var newSelectAll = true;
+    for(var i = 0; i < DATA.length; i++) {
+      if(selectOne[i] === true) {
+        newDeleteBtnAvailable = true;
+      } else {
+        newSelectAll = false;
+      }
+    }
+    setDeleteBtnAvailable(newDeleteBtnAvailable);
+    setSelectAll(newSelectAll);
+  }, [selectOne]);
   
   return (
     <View style={styles.page}>
@@ -89,7 +138,7 @@ export default function MyCard({ navigation }) {
         <Text style={styles.headerText}>{"My card"}</Text>
         {
           (editMode) ?
-            <TouchableOpacity style={styles.cancel} onPress={()=>(setEditMode(false) + setSelectAll(false))}>
+            <TouchableOpacity style={styles.cancel} onPress={()=>(handleReset(selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable))}>
               <Text style={styles.cancelText}>{"X取消"}</Text>
             </TouchableOpacity>
           :
@@ -99,7 +148,7 @@ export default function MyCard({ navigation }) {
         }
         {
           (editMode) ?
-            <TouchableOpacity style={styles.selectAll} onPress={()=>(setSelectAll(!selectAll))}>
+            <TouchableOpacity style={styles.selectAll} onPress={()=>(handleSelectAll(selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable))}>
               <Text style={styles.selectAllText}>{(selectAll) ? "取消全選" : "全選"}</Text>
             </TouchableOpacity>
           :
@@ -109,6 +158,13 @@ export default function MyCard({ navigation }) {
 
       <View style={styles.body}>
 
+        {
+          (editMode) ?
+            <Image style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-select-to-delete.png`)}/>
+          :
+            null
+        }
+
         <ScrollView>
           <FlatList
             numColumns={2}
@@ -117,6 +173,8 @@ export default function MyCard({ navigation }) {
               <Item
                 item={item}
                 index={index}
+                selectOne={selectOne}
+                setSelectOne={setSelectOne}
                 navigation={navigation}
                 editMode={editMode}
               />
@@ -126,7 +184,7 @@ export default function MyCard({ navigation }) {
 
         {
           (editMode) ?
-            <TouchableOpacity style={(selectAll) ? styles.deletebtnRed : styles.deletebtnGray} onPress={()=>(setModalVisible(true))} disabled={!selectAll}>
+            <TouchableOpacity style={(deleteBtnAvailable) ? styles.deletebtnRed : styles.deletebtnGray} onPress={()=>(setModalVisible(true))} disabled={!deleteBtnAvailable}>
               <Text style={styles.deletebtnText}>{"刪除"}</Text>
             </TouchableOpacity>
           :
@@ -148,7 +206,7 @@ export default function MyCard({ navigation }) {
             <TouchableOpacity style={styles.modalCancel} onPress={()=>(setModalVisible(false))}>
               <Text style={styles.modalCancelText}>{"取消"}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modalConfirm} onPress={()=>(setEditMode(false) + setSelectAll(false) + setModalVisible(false))}>
+            <TouchableOpacity style={styles.modalConfirm} onPress={()=>(handleReset(selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable))}>
               <Text style={styles.modalConfirmText}>{"確認"}</Text>
             </TouchableOpacity>
           </View>
@@ -214,6 +272,13 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#D7F8F0',
     flex: 1
+  },
+
+  conversationImg: {
+    height: 70,
+    width: 300,
+    alignSelf: 'center',
+    marginBottom: 10
   },
 
   card: {

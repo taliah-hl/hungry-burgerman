@@ -1,13 +1,51 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React ,{useState, useEffect} from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native'
+import React ,{useState, useEffect, useCallback} from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ShopCard} from '../components/shopCard'
 import {drawcardStyles} from '../components/drawcard_style'
 import {globalStyles} from '../components/global_style'
 import  {setGlobalState, useGlobalState} from '../shared/states'
+import {GetallCards, SaveCard, ClearallCards, readFirstCard} from '../shared/myCard_data'
+
+
 
 export default function DrawnCard({route, navigation}) {
 
-  const {drawnCard, gglPhoto} = route.params;
+  const {drawnCard} = route.params;
+  const [saveCard, setSaveCard] = useState('');
+  const [allCards, setAllCards] = useState({});
+  const [clickToggle, setClickToggle]=useState(0);
+  const [fstCard, setFstCard] = useState('');
+
+  
+
+
+ const handleClearCard=()=>{
+  React.useCallback(async()=>{
+    ClearallCards();
+  },[])
+ }
+
+ const handleSaveCar=(drawnCard)=>{
+  SaveCard(drawnCard);
+ }
+  
+  useEffect(()=>{
+    
+    //GetallCards(setAllCards)
+    readFirstCard(setFstCard);
+    SaveCard(drawnCard);
+
+  },[])
+  
+
+  
+
+  //console.log(JSON.parse(allCards))
+  //console.log(allCards.value)
+  console.log(fstCard);
+
+  
 
 
   console.log('in card drawn here');
@@ -20,8 +58,12 @@ export default function DrawnCard({route, navigation}) {
         </View>
         <ShopCard 
             drawnCard = {drawnCard} 
-            gglPhoto = {gglPhoto} />
+             />
       </View>
+      <Button onclick={handleClearCard} title={"clear cards"}></Button>
+      <Button onclick={()=>{setClickToggle(clickToggle^1)}} title={"show cards in console"}> </Button>
+      <Button onclick={handleSaveCar} title={"save this card"} ></Button>
+      
     </View>
   )
 }

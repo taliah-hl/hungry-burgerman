@@ -2,7 +2,6 @@ import { StyleSheet, Image, Text, View, Button, TouchableOpacity, ImageBackgroun
 import React from 'react'
 import { SvgUri } from 'react-native-svg';
 import {globalStyles} from '../components/global_style'
-import SpeechBubble_2line_toRight from '../components/speechBubble_2line_toRight'
 import {drawcardStyles} from '../components/drawcard_style'
 import {BtnTextMedium} from '../components/typography'
 
