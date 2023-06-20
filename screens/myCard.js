@@ -101,7 +101,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode, drawM
       disabled={editMode || drawMode}
     >
       <View style={styles.cardHeader}>
-        <Text style={styles.cardText}>{item.name}</Text>
+        <Text style={styles.cardText}>{(item.name.length > 18) ? item.name.substr(0, 18) : item.name}</Text>
       </View>
       <View style={styles.cardBody}>
         <Image style={styles.cardImg} source={item.photoUrl}/>
@@ -164,6 +164,48 @@ export default function MyCard({ navigation }) {
       setSelectAll(newSelectAll);
     }
   }, [selectOne]);
+
+  if(selectOne.length === 0) {
+    return (
+      <View style={styles.page}>
+  
+        <View style={styles.header}>
+          <Text style={styles.headerText}>{"My card"}</Text>
+          {
+            (editMode || drawMode) ?
+              <TouchableOpacity style={styles.cancel} onPress={()=>(handleReset(selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable, setDrawMode, setDrawBtnAvailable))}>
+                <Text style={styles.cancelText}>{"X取消"}</Text>
+              </TouchableOpacity>
+            :
+              <TouchableOpacity style={styles.editbtn} onPress={()=>(setEditMode(true))}>
+                <Icon name="pencil" size={25} color="#fff"/>
+              </TouchableOpacity>
+          }
+          {
+            (editMode || drawMode) ?
+              <TouchableOpacity style={styles.selectAll} onPress={()=>(handleSelectAll(selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable))}>
+                <Text style={styles.selectAllText}>{(selectAll) ? "取消全選" : "全選"}</Text>
+              </TouchableOpacity>
+            :
+              null
+          }
+        </View>
+  
+        <View style={styles.body}>
+          <View style={styles.container}>
+            <Text style={styles.promptText}>{"噢喔！你沒有任何卡片"}</Text>
+
+            <Text style={styles.promptText}>{"快開始抽卡吧！           "}</Text>
+
+            <TouchableOpacity style={styles.homepageBtn} onPress={()=>navigation.navigate("Draw Card")}>
+              <Text style={styles.wallpaperBtn}>{'Draw Card'}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+  
+      </View>
+    )
+  }
   
   return (
     <View style={styles.page}>
@@ -319,6 +361,31 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#D7F8F0',
     flex: 1
+  },
+
+  container: {
+    justifyContent: 'center',
+    flex: 1
+  },
+  promptText: {
+    color: "#4B4949",
+    alignSelf: 'center',
+    fontSize: 20
+  },
+  homepageBtn: {
+    backgroundColor: '#52C69C',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 200,
+    height: 51,
+    alignSelf: 'center',
+    marginVertical: 5
+  },
+  wallpaperBtn: {
+    color: '#FDFCED',
+    fontFamily: 'lazy-dog',
+    fontSize: 33
   },
 
   conversationImg: {

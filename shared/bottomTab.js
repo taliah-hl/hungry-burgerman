@@ -63,7 +63,7 @@ const BottomTab=() =>{
             
             />
         <Tab.Screen name="Burger Wallpaper" component={ViewWallpaper_stack} options={{headerBackVisible:true, headerTransparent: true, headerTitle: "", unmountOnBlur: true}}/> 
-        <Tab.Screen name = "empty test"  component={emptyTesting} options={{unmountOnBlur: true}}/>
+        {/* <Tab.Screen name = "empty test"  component={emptyTesting} options={{unmountOnBlur: true}}/> */}
 
     </Tab.Navigator>
     )
