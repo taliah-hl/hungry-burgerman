@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native'
-import React ,{useState, useEffect, useCallback} from 'react'
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, Image, CheckBox, Modal } from 'react-native'
+import React ,{useState, useEffect, useCallback} from 'react'
+
 
 import {ShopCard} from '../components/shopCard'
 import {GetallCards, SaveCard, ClearallCards} from '../shared/myCard_data'
@@ -79,8 +79,9 @@ const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModa
     const [isLoading, setLoading] = useState(true);
     
     useEffect(()=>{
-      setLoading(true);
-      CardData.GetallCards(setCardlist);
+      
+      const newCardlist = CardData.ReturnallCards();
+      setCardlist(newCardlist)
       setLoading(false)
 
     },[])
@@ -143,7 +144,13 @@ const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModa
   
           <ScrollView>
           {isLoading? 
-            (<Text> Loading... </Text>)
+            // (<Text> Loading... </Text>)
+            <View style={[styles.container_loading, styles.horizontal_loading]}>
+              {/* <ActivityIndicator />
+              <ActivityIndicator size="large" />
+              <ActivityIndicator size="small" color="#0000ff" /> */}
+              <ActivityIndicator size="large" color="#00ff00" />
+            </View>
               :
             (<FlatList
               numColumns={2}
@@ -181,4 +188,16 @@ const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModa
       </View>
     )
   }
+  
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    horizontal: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      padding: 10,
+    },
+  });
   

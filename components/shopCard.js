@@ -43,7 +43,10 @@ const GeneratePriceSymb = (props)=>{
 
 export const ShopCard=(props)=>{
   const drawnCard = props.drawnCard;
+  const photoBlob = props.photoBlob;
   const gglmapLink = `http://maps.google.com/maps?z=12&t=m&q=place_id:${drawnCard.gglPalceId}`
+
+  console.log(drawnCard.photoUrl)
 
   const [isLoading, setLoading] = useState(true);
   
@@ -128,13 +131,13 @@ export const ShopCard=(props)=>{
 
           </View>
           <View style={styles.shopPhoto}>
-            <Image source={drawnCard.photoUrl} style={{width: 300, height: '100%', maxWidth: 370, resizeMode:'contain'}} ></Image>
+            <Image  source={{ uri: drawnCard.photoUrl }} style={{width: 260, height: '100%', maxWidth: 260, resizeMode: 'cover'}} ></Image>
 
           </View>
           <View style={styles.shopInfoRow}>
             <View style={styles.shopInfoIcon}>
-              {/*   <Image source={require('../assets/icon/card_home_icon.png')} style={globalStyles.contentIcon}></Image>  */}
-                <IconFoundation name="home" size={30} color="#000000"/>
+              
+                <IconFoundation name="home" size={30} color="#000000" style={{alignSelf: 'center'}}/>
             </View>
             <View style={styles.shopInfoText}>
               <Text style={[globalStyles.contentText, styles.shopcardContentText]}> {drawnCard.name}</Text>
@@ -143,8 +146,8 @@ export const ShopCard=(props)=>{
 
           <View style={styles.shopInfoRow}>
             <View style={styles.shopInfoIcon}> 
-              {/* <Image source={require('../assets/icon/card_locat_icon.png')} style={globalStyles.contentIcon} ></Image> */}
-              <Ionicons name="location-sharp" size={30} color="#000000"/>
+             
+              <Ionicons name="location-sharp" size={30} color="#000000" style={{alignSelf: 'center'}}/>
             </View>
             <View style={styles.shopInfoText}>
               <Text style={[globalStyles.contentText, styles.shopcardContentText]}>{drawnCard.addr}</Text>
@@ -232,7 +235,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignContent: 'center',
       flexDirection:'row',
-      width: '100%',
+      width: 260,
+      
       
 
     },
@@ -241,6 +245,7 @@ const styles = StyleSheet.create({
       borderColor: '#000000',
       justifyContent: 'center',
       alignItem: 'center',
+      
 
     },
     shopInfoText:{

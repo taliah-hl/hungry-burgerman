@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, } from 'react-native'
 import React ,{useState, useEffect} from 'react'
 import {ShopCard} from '../components/shopCard'
 import {drawcardStyles} from '../components/drawcard_style'
 import {globalStyles} from '../components/global_style'
 import  {setGlobalState, useGlobalState} from '../shared/states'
+import * as FileSystem from 'expo-file-system';
 
 
 const CardsCandidate =[
@@ -126,25 +127,28 @@ export default function Drawcard_result({ route, navigation }) {
   const places_photoUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='; 
 
   useEffect(() => {
-    setLoading(true);
+    
     let randNum = Math.floor(Math.random() * 19);
     fetch(
       `${CORS_ANYWHERE_HOST}${drawShopUrls[cardType]}`
     )
       .then((response) => response.json())
       .then((json) => {
-        setInfo(json?.results[randNum]);
+        
         setDrawncard({
           gglPalceId: json?.results[randNum]?.place_id,
           cardId: 0,
           name: json?.results[randNum]?.name,
           photoUrl: '',
+          photoRef: json?.results[randNum]?.photos[0].photo_reference,
           addr: json?.results[randNum]?.vicinity,
           gglStar: json?.results[randNum]?.rating,
           gglPrice: (json?.results[randNum]?.price_level)? (json?.results[randNum]?.price_level): 0,
           drawFromGgl: true,
-          
-    
+          isChecked: false,
+          img: "my_card.jpg",
+
+
         });
         console.log(`shop photo reference: ${json?.results[randNum]?.photos[0].photo_reference}`);
         loadImage(json?.results[randNum]?.photos[0].photo_reference);
@@ -159,7 +163,28 @@ export default function Drawcard_result({ route, navigation }) {
         `${CORS_ANYWHERE_HOST}${places_photoUrl}${photo_reference}&key=${apiKey}`
       );
       const data = await res.blob();
-      setGglPhoto(URL.createObjectURL(data));
+  
+      // Convert the blob to a base64-encoded data URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUrl = reader.result;
+        setDrawncard((drawnCard) => ({
+          ...drawnCard,
+          photoUrl: dataUrl,
+        }));
+      };
+      reader.readAsDataURL(data);
+    } catch (error) {
+      console.error(`error in photo api: ${error}`);
+    }
+  };
+
+  const loadImage2 = async (photo_reference) => {
+    try {
+      const res = await fetch(
+        `${CORS_ANYWHERE_HOST}${places_photoUrl}${photo_reference}&key=${apiKey}`
+      );
+      const data = await res.blob();
       setDrawncard(drawnCard=> {
         return{
           ...drawnCard,
@@ -175,17 +200,7 @@ export default function Drawcard_result({ route, navigation }) {
 
   const loadDrawnCard=(info)=>{
     console.log('loaddrawnCard is excuted');
-    let updateVal = {
 
-      gglPalceId: info.place_id,
-      name: info.name,
-      photoUrl: gglPhoto,
-      addr: info.vicinity,
-      gglStar: rating,
-      gglPrice: info.price_level? info.price_level: 0,
-      drawFromGgl: true,
-
-    };
     setDrawncard({
       cardId: 0,
       name: info.name,
@@ -195,6 +210,7 @@ export default function Drawcard_result({ route, navigation }) {
       gglPrice: info.price_level? info.price_level: 0,
       drawFromGgl: true,
       gglPalceId: info.place_id,
+      isChecked: false,
 
     });
 
@@ -213,10 +229,11 @@ export default function Drawcard_result({ route, navigation }) {
         timestamp = date.getTime();
         // console.log(timestamp);
         setGlobalState('countDownTime_time', timestamp+5*3600*1000);
+        setGlobalState('eggStatus', 1);
         // countDownTime = useGlobalState('countDownTime')[0];
         // console.log(countDownTime);
   
-        navigation.replace( "Got new egg",{drawnCard: drawnCard})
+        navigation.replace( "Got new egg",{drawnCard: drawnCard, gglPhoto: drawnCard.photoUrl})
       } 
 
     
@@ -241,11 +258,15 @@ export default function Drawcard_result({ route, navigation }) {
       <View style={styles.secCard}>
         <View style={{alignSelf: 'center'}}>
           {isLoading? (<View style={{height: 380, justifyContent: 'center'}}>
-            <Text style={{fontSize: 30, fontFamily: 'NotoSansTC-Regular',color: '#4a4848'}}> {loadingText} </Text>
+            {/* <Text style={{fontSize: 30, fontFamily: 'NotoSansTC-Regular',color: '#4a4848'}}> {loadingText} </Text> */}
+            <View style={[styles.container_loading, styles.horizontal_loading]}>
+              <ActivityIndicator size="large" color="#ffffff" />
+            </View>
           </View>)
           
           :(<ShopCard 
               drawnCard = {drawnCard} 
+              photoBlob = {drawnCard.photoUrl}
               /> )
           }
         </View>
@@ -311,6 +332,18 @@ const styles = StyleSheet.create({
   secActionBtn:{
     
     
+  },
+
+  container_loading: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  horizontal_loading: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    transform: [{ scaleX: 2 }, { scaleY: 2 }],
   },
 
 })

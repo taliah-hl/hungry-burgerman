@@ -1,6 +1,7 @@
 import { createNativeStackNavigator  } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native"
 import React from 'react';
+import { enableScreens } from 'react-native-screens';
 
 import Drawcard_step1 from '../screens/drawcard_step1';
 import Drawcard_step2 from '../screens/drawcard_step2';
@@ -9,15 +10,26 @@ import Drawcard_result from '../screens/drawcard_result'
 import GotNewEgg from '../screens/gotNewEgg'
 import DrawnCard from '../screens/drawnCard'
 
+enableScreens();
 const Stack = createNativeStackNavigator();
 
 export default function Drawcard_stack(){
     return(
       
-         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Draw card step 1" component = {Drawcard_step1}/>
-            <Stack.Screen name="Draw card step 2" component = {Drawcard_step2}/>
-            <Stack.Screen name="Draw card animation" component = {Drawcard_animation}/>
+         <Stack.Navigator screenOptions={{ 
+                headerShown: false,
+                animation: 'slide_from_right'
+          }}>
+            <Stack.Screen name="Draw card step 1" 
+                component = {Drawcard_step1}/>
+            <Stack.Screen name="Draw card step 2" 
+            component = {Drawcard_step2}
+            
+            />
+            <Stack.Screen name="Draw card animation" 
+                component = {Drawcard_animation}
+                
+                />
             <Stack.Screen name="Draw card result"  component ={Drawcard_result}/>
             <Stack.Screen name="Got new egg" component={GotNewEgg}  options={{headerShown: false}}/>
             <Stack.Screen name="Drawn card" component={DrawnCard}/>

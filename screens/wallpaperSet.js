@@ -287,6 +287,7 @@ export default function WallpaperSet( {navigation} ) {
       <Image style={styles.cardImg} source={logo}/>
     </View>
     );
+    console.log("i am executed");
 
     // render() {
     return (  

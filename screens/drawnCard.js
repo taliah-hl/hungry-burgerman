@@ -11,7 +11,7 @@ import {GetallCards, SaveCard, ClearallCards, readFirstCard} from '../shared/myC
 
 export default function DrawnCard({route, navigation}) {
 
-  const {drawnCard} = route.params;
+  const {drawnCard, gglPhoto} = route.params;
   const [saveCard, setSaveCard] = useState('');
   const [allCards, setAllCards] = useState({});
   const [clickToggle, setClickToggle]=useState(0);
@@ -20,30 +20,14 @@ export default function DrawnCard({route, navigation}) {
   
 
 
- const handleClearCard=()=>{
-  React.useCallback(async()=>{
-    ClearallCards();
-  },[])
- }
-
- const handleSaveCar=(drawnCard)=>{
   SaveCard(drawnCard);
- }
-  
-  useEffect(()=>{
-    
-    //GetallCards(setAllCards)
-    readFirstCard(setFstCard);
-    SaveCard(drawnCard);
-
-  },[])
   
 
   
 
   //console.log(JSON.parse(allCards))
   //console.log(allCards.value)
-  console.log(fstCard);
+  //console.log(fstCard);
 
   
 
@@ -58,6 +42,8 @@ export default function DrawnCard({route, navigation}) {
         </View>
         <ShopCard 
             drawnCard = {drawnCard} 
+            photoBlob= {gglPhoto}
+
              />
       </View>
 

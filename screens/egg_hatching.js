@@ -25,7 +25,10 @@ export default function View_egg_hatching() {
           <CountDown style={styles.time}
             size={20} //on Press call
             until={totalDuration}
+            // until = {10}
+            
             onFinish={() => {alert('Finished'); setGlobalState('eggCounter', egg_counter+1)}}
+
             digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#1CC625'}}
             digitTxtStyle={{color: '#1CC625'}}
             timeLabelStyle={{color: '#1CC625', fontWeight: 'bold'}}
