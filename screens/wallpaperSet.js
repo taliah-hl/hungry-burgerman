@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import {useEffect, useState} from 'react';
 import  {setGlobalState, useGlobalState} from '../shared/states'
+import * as Animatable from 'react-native-animatable';
 import View_wallpaper from './view_wallpaper';
 // import 'babel-polyfill';
 
@@ -317,7 +318,7 @@ export default function WallpaperSet( {navigation} ) {
                     </View>
                   </View>
                   <View style={styles.speech}>
-                    <Image style={{ height: 70, margin: 10, flex:5, resizeMode:'contain'}} source={require('../assets/section_hamburger_speech.png')} />
+                    <Animatable.Image animation="zoomInUp" style={{ height: 70, margin: 10, flex:5, resizeMode:'contain'}} source={require('../assets/section_hamburger_speech.png')} />
                     <Text style={{flex:1}} />
                   </View>
 

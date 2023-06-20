@@ -5,6 +5,7 @@ import {drawcardStyles} from '../components/drawcard_style'
 import {globalStyles} from '../components/global_style'
 import  {setGlobalState, useGlobalState} from '../shared/states'
 import * as FileSystem from 'expo-file-system';
+import * as Animatable from 'react-native-animatable';
 
 
 const CardsCandidate =[
@@ -275,7 +276,7 @@ export default function Drawcard_result({ route, navigation }) {
         (<></>)
         :( <View style={styles.lowerSec}>
         <View style={styles.burgermanSpeech}>
-          <Image source={require('../assets/conversation/speechAndBurgerman-drawcard-result.png')}
+          <Animatable.Image animation={'fadeInLeft'} source={require('../assets/conversation/speechAndBurgerman-drawcard-result.png')}
             style={drawcardStyles.bugermanSpeechImg} />
         </View>
         <View style={[globalStyles.pairGreenBtnsMedium, styles.secActionBtn]}>

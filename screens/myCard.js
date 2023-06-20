@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, Image, CheckBox, Modal } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import * as CardData from '../shared/myCard_data'
+import * as CardData from '../shared/myCard_data';
+import * as Animatable from 'react-native-animatable';
 
 const handleDraw = (navigation, selectOne, setSelectOne, setSelectAll, setDrawMode, setModalVisible, setDrawBtnAvailable) => {
   var selectedCards = [];
@@ -101,7 +102,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode, drawM
       disabled={editMode || drawMode}
     >
       <View style={styles.cardHeader}>
-        <Text style={styles.cardText}>{(item.name.length > 18) ? item.name.substr(0, 18) : item.name}</Text>
+        <Text style={styles.cardText}>{(item.name.length > 18) ? item.name.substr(0, 18) + '...' : item.name}</Text>
       </View>
       <View style={styles.cardBody}>
         <Image style={styles.cardImg} source={item.photoUrl}/>
@@ -236,11 +237,11 @@ export default function MyCard({ navigation }) {
 
         {
           (editMode) ?
-            <Image style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-select-to-delete.png`)}/>
+            <Animatable.Image animation="zoomInUp" style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-select-to-delete.png`)}/>
           :
             (
               (drawMode) ?
-                <Image style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-draw-from-mycard.png`)}/>
+                <Animatable.Image animation="zoomInUp" style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-draw-from-mycard.png`)}/>
               :
                 null
             )
