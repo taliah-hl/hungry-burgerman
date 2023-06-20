@@ -38,7 +38,7 @@ const BottomTab=() =>{
             else color="#878787"
             
             // Return the icon component
-            return <MaterialComIcon name={iconName} size ={25} color={color} />;
+            return <MaterialComIcon name={iconName} size ={30} color={color} />;
         },
         tabBarActiveTintColor: "#337755",
         tabBarInactiveTintColor: "#878787",

@@ -247,23 +247,23 @@ export default function WallpaperSet( {navigation} ) {
 
   useEffect(() => {
     (async () => {
-      if(egg_counter >=5) {
+      if(egg_counter >= 5) {
         console.log('get first wallpaper!');
         DATA_writer3[0]['hidden'] = true;
       }
-      if(egg_counter >=10) {
+      if(egg_counter >= 10) {
         console.log('get second wallpaper!');
         DATA_writer3[1]['hidden'] = true;
       }
-      if(egg_counter >=15) {
+      if(egg_counter >= 15) {
         console.log('get third wallpaper!');
         DATA_writer3[2]['hidden'] = true;
       }
-      if(egg_counter >=25) {
+      if(egg_counter >= 25) {
         console.log('get fourth wallpaper!');
         DATA_writer3[3]['hidden'] = true;
       }
-      if(egg_counter >=40) {
+      if(egg_counter >= 40) {
         console.log('get fifth wallpaper!');
         DATA_writer3[4]['hidden'] = true;
       }
@@ -322,9 +322,10 @@ export default function WallpaperSet( {navigation} ) {
                   </View>
 
                   {/* ----- Test ----- */}
-                  <View> 
                     {/* <button style={{ margin: 10}} onClick={() => setCounter(counter + 1)}>Increment</button> */}
-                    <button style={{ margin: 10}} onClick={() => setGlobalState('eggCounter', egg_counter+1)}>Increment</button>
+                    {/* <button style={{ margin: 10}} onClick={() => setGlobalState('eggCounter', egg_counter+1)}>Increment</button> */}
+                  <View style={{position: 'absolute', top: 100, right: 20, width: 30}}> 
+                    <button style={{ margin: 10, justifyContent: 'center' }} onClick={() => setGlobalState('eggCounter', egg_counter+1)}> + </button>
                   </View>
                   {/* ----------------- */}
 
