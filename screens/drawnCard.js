@@ -60,9 +60,7 @@ export default function DrawnCard({route, navigation}) {
             drawnCard = {drawnCard} 
              />
       </View>
-      <Button onclick={handleClearCard} title={"clear cards"}></Button>
-      <Button onclick={()=>{setClickToggle(clickToggle^1)}} title={"show cards in console"}> </Button>
-      <Button onclick={handleSaveCar} title={"save this card"} ></Button>
+
       
     </View>
   )

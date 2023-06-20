@@ -7,6 +7,7 @@ const {setGlobalState, useGlobalState} = createGlobalState({
     time: 1,
     countDownTime: 10,
     countDownTime_time: 0,
+    eggCounter: 0,
 });
 
 export {setGlobalState, useGlobalState};

@@ -60,8 +60,9 @@ export default function Drawcard_result({ route, navigation }) {
   
   const eggCurStatus = useGlobalState('eggStatus')[0];
   
-  console.log(`Egg status: ${eggCurStatus}`)
-  console.log(`user choice: ${foodOrDrink}, ${walkOrDrive}`)
+  console.log('in draw card result, Egg status: ')
+  console.log(eggCurStatus)
+ 
 
   const cardType = ((foodOrDrink==='food'? 0:1)<<1) + (walkOrDrive==='walk'? 0:1);
   console.log(`cardType=${cardType}`);
@@ -117,10 +118,10 @@ export default function Drawcard_result({ route, navigation }) {
   const NTHULocation = '24.80,120.99';
   const linhoouLocation = '25.077,121.373'
   const drawShopUrls = [
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=1500&keyword=餐廳&language=zh-TW&key=${apiKey}`,
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=20000&keyword=餐廳&language=zh-TW&key=${apiKey}`,
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=1500&keyword=飲料&language=zh-TW&key=${apiKey}`,
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${linhoouLocation}&radius=10000&keyword=飲料&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${NTHULocation}&radius=1500&keyword=餐廳&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${NTHULocation}&radius=20000&keyword=餐廳&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${NTHULocation}&radius=1500&keyword=飲料&language=zh-TW&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${NTHULocation}&radius=10000&keyword=飲料&language=zh-TW&key=${apiKey}`,
     ]
   const places_photoUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='; 
 
@@ -204,14 +205,22 @@ export default function Drawcard_result({ route, navigation }) {
   const handleGotNewEgg=(eggCurStatus)=>{
     
     console.log(`in drawcard, egg status: ${eggCurStatus}`);
-    (eggCurStatus === 1 ) ?   
-      navigation.navigate('Drawn card', {drawnCard: drawnCard})
-      : 
-      setGlobalState('countDownTime', 60*60*5);
-      var date = new Date(), timestamp;
-      timestamp = date.getTime();
-      setGlobalState('countDownTime_time', timestamp+5*3600*1000);
-      navigation.replace( "Got new egg",{drawnCard: drawnCard})
+    
+    if(eggCurStatus)   navigation.navigate('Drawn card', {drawnCard: drawnCard})
+      else{
+        setGlobalState('countDownTime', 60*60*5);
+        var date = new Date(), timestamp;
+        timestamp = date.getTime();
+        // console.log(timestamp);
+        setGlobalState('countDownTime_time', timestamp+5*3600*1000);
+        // countDownTime = useGlobalState('countDownTime')[0];
+        // console.log(countDownTime);
+  
+        navigation.replace( "Got new egg",{drawnCard: drawnCard})
+      } 
+
+    
+      //navigation.navigate('Got new egg', {drawnCard: drawnCard, gglPhoto: gglPhoto} );
   }
 
   const handleCardPickedNoEggGot=()=>{

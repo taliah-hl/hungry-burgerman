@@ -9,22 +9,23 @@ export default function View_egg_hatching() {
   var date = new Date(), timestamp;
   timestamp = date.getTime();
   const countDownTime_time = useGlobalState('countDownTime_time')[0];
+  const egg_counter = useGlobalState('eggCounter')[0];
 
   console.log("timestamp", timestamp);
   console.log("countDownTime_time", countDownTime_time);
   const [totalDuration, setTotalDuration] = useState((countDownTime_time - timestamp)/1000);
 
   return (
-    <SafeAreaView style={styles.container}>
+    (useGlobalState('eggStatus')[0] === 1)?
+      <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <ImageBackground source={require('../assets/egg_hatching_ver2.png')} resizeMode="cover" style={styles.image}>
           <Text style={styles.headerText}>距離漢堡蛋孵化還有</Text>
           {/* <Text style={styles.timeText}>4:30:50</Text> */}
           <CountDown style={styles.time}
             size={20} //on Press call
-            // until={totalDuration}
-            until = {0}
-            onFinish={() => alert('Finished')}
+            until={totalDuration}
+            onFinish={() => {alert('Finished'); setGlobalState('eggCounter', egg_counter+1)}}
             digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#1CC625'}}
             digitTxtStyle={{color: '#1CC625'}}
             timeLabelStyle={{color: '#1CC625', fontWeight: 'bold'}}
@@ -36,6 +37,9 @@ export default function View_egg_hatching() {
         </ImageBackground>
       </View>
    </SafeAreaView>
+    :
+    <ImageBackground source={require('../assets/egg_noEgg.png')} resizeMode="cover" style={styles.image}>
+    </ImageBackground>
   )
 }
 
