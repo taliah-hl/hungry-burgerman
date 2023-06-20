@@ -11,9 +11,9 @@ import ViewEgg_stack from '../routes/viewEgg_stack';
 import ViewWallpaper_stack from '../routes/viewWallpaper_stack';
 import emptyTesting from '../screens/emptyTesting';
 import Home_stack from '../routes/home_stack';
-import TestingCard from '../screens/testing';
 import MaterialComIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ImageBackground } from 'react-native-web';
+import TestingCard from '../screens/testing';
 
 const Tab = createBottomTabNavigator();
 
@@ -63,7 +63,7 @@ const BottomTab=() =>{
             
             />
         <Tab.Screen name="Burger Wallpaper" component={ViewWallpaper_stack} options={{headerBackVisible:true, headerTransparent: true, headerTitle: "", unmountOnBlur: true}}/> 
-        <Tab.Screen name = "empty test"  component={emptyTesting} options={{unmountOnBlur: true}}/>
+        <Tab.Screen name = "empty test"  component={TestingCard} options={{unmountOnBlur: true}}/>
 
     </Tab.Navigator>
     )
@@ -72,3 +72,4 @@ const BottomTab=() =>{
 export default BottomTab
 
 const styles = StyleSheet.create({})
+//<Tab.Screen name = "empty test"  component={emptyTesting} options={{unmountOnBlur: true}}/>

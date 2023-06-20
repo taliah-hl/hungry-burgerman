@@ -14,7 +14,7 @@ const styles = StyleSheet.create({})
 
 export default function View_wallpaper_1_1() {
   return (
-    <ImageBackground source={require('../assets/wallpaper_writer1/wallpaper_origin1.PNG')} resizeMode="cover" style={{flex: 1, justifyContent: 'center'}}>
+    <ImageBackground source={require('../assets/wallpaper_writer1/wallpaper_origin1.png')} resizeMode="cover" style={{flex: 1, justifyContent: 'center'}}>
       {/* <Text>View_wallpaper</Text>  */}
     </ImageBackground>
   )

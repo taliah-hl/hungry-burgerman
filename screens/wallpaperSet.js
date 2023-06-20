@@ -24,14 +24,14 @@ const react_logo = {
 };  
 const logo = {
     // uri: 'https://reactnative.dev/img/tiny_logo.png',
-    uri: require('../assets/not_get.PNG'),
+    uri: require('../assets/not_get.png'),
     width: size,
     height: size,
   };  
 
 // writer1
 const logo1 = {
-    uri: require('../assets/wallpaper_writer1/wallpaper_1.PNG'),
+    uri: require('../assets/wallpaper_writer1/wallpaper_1.png'),
     width: size,
     height: size,
   };  
@@ -76,35 +76,35 @@ const logo8 = {
 const DATA_origin = [{
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'co-branding-1',
-      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.png'),
       hidden: true,
       img:  react_logo
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: 'co-branding-2',
-      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.png'),
       hidden: true,
       img: react_logo
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
       title: 'co-branding-3',
-      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.png'),
       hidden: true,
       img: react_logo
     },
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'co-branding-4',
-      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.png'),
       hidden: true,
       img: react_logo
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: 'co-branding-5',
-      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+      navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.png'),
       hidden: true,
       img: react_logo
     },
@@ -113,7 +113,7 @@ const DATA_origin = [{
 let DATA_writer3 = [{
     id: 'co-branding-1',
     title: 'co-branding-1',
-    navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+    navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.png'),
     navigateTo: "view wallpaper 1",
     // hidden: (counter>5) ? true:false,
     hidden: false,
@@ -199,7 +199,7 @@ let DATA_writer2 = [{
 let DATA_writer1 = [{
   id: 'co-branding-1',
   title: 'co-branding-1',
-  navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.PNG'),
+  navigateURL: require('../assets/wallpaper_writer1/wallpaper_origin1.png'),
   navigateTo: "view wallpaper 1",
   // hidden: (counter>5) ? true:false,
   hidden: false,
