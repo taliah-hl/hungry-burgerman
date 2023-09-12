@@ -1,30 +1,41 @@
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, Image, CheckBox, Modal } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import * as CardData from '../shared/myCard_data'
+import * as CardData from '../shared/myCard_data';
+import * as Animatable from 'react-native-animatable';
 
-var cnt = 1;
-
-const CORS_ANYWHERE_HOST = 'https://cors-anywhere.herokuapp.com/';
-const apiKey= 'AIzaSyBF43lMa8RkSkIm0l4fbaioe-SR5LoiUdc';
-const places_photoUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='; 
-
-var headers = new Headers();
-
-  headers.append('Content-Type', 'application/json');
-  headers.append('Accept', 'application/json');
-
-  headers.append('Access-Control-Allow-Origin', 'http://localhost:8080');
-  headers.append('Access-Control-Allow-Credentials', 'true');
-
-  headers.append('GET', 'POST', 'OPTIONS');
-
-const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
+const handleDraw = (navigation, selectOne, setSelectOne, setSelectAll, setDrawMode, setModalVisible, setDrawBtnAvailable) => {
+  var selectedCards = [];
+  for(var i = 0; i < selectOne.length; i++) {
+    if(selectOne[i].isChecked) {
+      selectedCards.push(selectOne[i]);
+    }
+  }
+  const rstId = Math.floor(Math.random() * (selectedCards.length));
+  navigation.navigate("view saved card", {
+    card: selectedCards[rstId],
+    shown: true
+  });
+  
   const newSelectOne = selectOne.map((val, idx) => (
     {
       ...selectOne[idx],
-      isChecked: false,
-      
+      isChecked: false
+    }
+  ));
+
+  setSelectOne(newSelectOne);
+  setSelectAll(false);
+  setDrawMode(false);
+  setModalVisible(false);
+  setDrawBtnAvailable(false);
+}
+
+const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable, setDrawMode, setDrawBtnAvailable) => {
+  const newSelectOne = selectOne.map((val, idx) => (
+    {
+      ...selectOne[idx],
+      isChecked: false
     }
   ));
 
@@ -33,6 +44,8 @@ const handleReset = (selectOne, setSelectOne, setSelectAll, setEditMode, setModa
   setEditMode(false);
   setModalVisible(false);
   setDeleteBtnAvailable(false);
+  setDrawMode(false);
+  setDrawBtnAvailable(false);
 }
 
 const handleDelete = (selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable) => {
@@ -57,8 +70,7 @@ const handleSelectAll = (selectOne, setSelectOne, selectAll, setSelectAll, setDe
   const newSelectOne = selectOne.map((val, idx) => (
     {
       ...selectOne[idx],
-      isChecked: (selectAll) ? false : true,
-      
+      isChecked: (selectAll) ? false : true
     }
   ));
 
@@ -71,23 +83,26 @@ const handleOnValueChange = (index, selectOne, setSelectOne) => {
   const newSelectOne = selectOne.map((val, idx) => (
     {
       ...selectOne[idx],
-      isChecked: (idx === index) ? !selectOne[idx].isChecked : selectOne[idx].isChecked,
-      
+      isChecked: (idx === index) ? !selectOne[idx].isChecked : selectOne[idx].isChecked
     }
   ));
 
   setSelectOne(newSelectOne);
 };
 
-const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
+const Item = ({item, index, selectOne, setSelectOne, navigation, editMode, drawMode}) => (
   <View style={styles.card}>
     <TouchableOpacity
-      onPress={()=>{navigation.navigate("view saved card",{card: item}) 
+      onPress={()=>{
+        navigation.navigate("view saved card", {
+          card: item,
+          shown: false
+        });
       }}
-      disabled={editMode}
+      disabled={editMode || drawMode}
     >
       <View style={styles.cardHeader}>
-        <Text style={styles.cardText}>{item.name}</Text>
+        <Text style={styles.cardText}>{(item.name.length > 18) ? item.name.substr(0, 18) + '...' : item.name}</Text>
       </View>
       <View style={styles.cardBody}>
         <Image style={styles.cardImg} source={item.photoUrl}/>
@@ -95,7 +110,7 @@ const Item = ({item, index, selectOne, setSelectOne, navigation, editMode}) => (
     </TouchableOpacity>
 
     {
-      (editMode) ?
+      (editMode || drawMode) ?
         <CheckBox
           style={styles.check}
           value={selectOne[index].isChecked}
@@ -111,56 +126,18 @@ export default function MyCard({ navigation }) {
   const [selectOne, setSelectOne] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [drawMode, setDrawMode] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteBtnAvailable, setDeleteBtnAvailable] = useState(false);
-
-  (function() {
-    var cors_api_host = 'cors-anywhere.herokuapp.com';
-    var cors_api_url = 'https://' + cors_api_host + '/';
-    var slice = [].slice;
-    var origin = window.location.protocol + '//' + window.location.host;
-    var open = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function() {
-        var args = slice.call(arguments);
-        var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
-        if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
-            targetOrigin[1] !== cors_api_host) {
-            args[1] = cors_api_url + args[1];
-        }
-        return open.apply(this, args);
-    };
-})();
-
-
-  const loadImage = async (newList) => {
-    try {
-      const res = await fetch(
-        `${CORS_ANYWHERE_HOST}${places_photoUrl}${item.photoRef}&key=${apiKey}`
-      );
-      const data = await res.blob();
-      console.log(URL.createObjectURL(data))
-      let tmp;
-      tmp = newList.map((val, idx) => (
-        {
-          ...newList[idx],
-          photoUrl: URL.createObjectURL(data)
-          
-        }
-      ));
-        
-      
-    } catch (error) {
-      console.error(`error in photo api: ${error}`);
-    }
-    return tmp;
-  }
+  const [drawBtnAvailable, setDrawBtnAvailable] = useState(false);
 
   useEffect(() => {
+    // CardData.clearData();
     CardData.ReturnallCards().then((allData) => {
-            
       setSelectOne(allData);
     });
   },[]);
+  console.log(selectOne)
 
   useEffect(() => {
     if(editMode) {
@@ -175,8 +152,62 @@ export default function MyCard({ navigation }) {
       }
       setDeleteBtnAvailable(newDeleteBtnAvailable);
       setSelectAll(newSelectAll);
+    }else if(drawMode) {
+      var newDrawBtnAvailable = false;
+      var newSelectAll = true;
+      for(var i = 0; i < selectOne.length; i++) {
+        if(selectOne[i].isChecked) {
+          newDrawBtnAvailable = true;
+        } else {
+          newSelectAll = false;
+        }
+      }
+      setDrawBtnAvailable(newDrawBtnAvailable);
+      setSelectAll(newSelectAll);
     }
   }, [selectOne]);
+
+  if(selectOne.length === 0) {
+    return (
+      <View style={styles.page}>
+  
+        <View style={styles.header}>
+          <Text style={styles.headerText}>{"My card"}</Text>
+          {
+            (editMode || drawMode) ?
+              <TouchableOpacity style={styles.cancel} onPress={()=>(handleReset(selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable, setDrawMode, setDrawBtnAvailable))}>
+                <Text style={styles.cancelText}>{"X取消"}</Text>
+              </TouchableOpacity>
+            :
+              <TouchableOpacity style={styles.editbtn} onPress={()=>(setEditMode(true))}>
+                <Icon name="pencil" size={25} color="#fff"/>
+              </TouchableOpacity>
+          }
+          {
+            (editMode || drawMode) ?
+              <TouchableOpacity style={styles.selectAll} onPress={()=>(handleSelectAll(selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable))}>
+                <Text style={styles.selectAllText}>{(selectAll) ? "取消全選" : "全選"}</Text>
+              </TouchableOpacity>
+            :
+              null
+          }
+        </View>
+  
+        <View style={styles.body}>
+          <View style={styles.container}>
+            <Text style={styles.promptText}>{"噢喔！你沒有任何卡片"}</Text>
+
+            <Text style={styles.promptText}>{"快開始抽卡吧！           "}</Text>
+
+            <TouchableOpacity style={styles.homepageBtn} onPress={()=>navigation.navigate("Draw Card")}>
+              <Text style={styles.wallpaperBtn}>{'Draw Card'}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+  
+      </View>
+    )
+  }
   
   return (
     <View style={styles.page}>
@@ -184,8 +215,8 @@ export default function MyCard({ navigation }) {
       <View style={styles.header}>
         <Text style={styles.headerText}>{"My card"}</Text>
         {
-          (editMode) ?
-            <TouchableOpacity style={styles.cancel} onPress={()=>(handleReset(selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable))}>
+          (editMode || drawMode) ?
+            <TouchableOpacity style={styles.cancel} onPress={()=>(handleReset(selectOne, setSelectOne, setSelectAll, setEditMode, setModalVisible, setDeleteBtnAvailable, setDrawMode, setDrawBtnAvailable))}>
               <Text style={styles.cancelText}>{"X取消"}</Text>
             </TouchableOpacity>
           :
@@ -194,7 +225,7 @@ export default function MyCard({ navigation }) {
             </TouchableOpacity>
         }
         {
-          (editMode) ?
+          (editMode || drawMode) ?
             <TouchableOpacity style={styles.selectAll} onPress={()=>(handleSelectAll(selectOne, setSelectOne, selectAll, setSelectAll, setDeleteBtnAvailable))}>
               <Text style={styles.selectAllText}>{(selectAll) ? "取消全選" : "全選"}</Text>
             </TouchableOpacity>
@@ -207,9 +238,14 @@ export default function MyCard({ navigation }) {
 
         {
           (editMode) ?
-            <Image style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-select-to-delete.png`)}/>
+            <Animatable.Image animation="zoomInUp" style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-select-to-delete.png`)}/>
           :
-            null
+            (
+              (drawMode) ?
+                <Animatable.Image animation="zoomInUp" style={styles.conversationImg} source={require(`../assets/conversation/section_hamburger_speech-draw-from-mycard.png`)}/>
+              :
+                null
+            )
         }
 
         <ScrollView>
@@ -224,6 +260,7 @@ export default function MyCard({ navigation }) {
                 setSelectOne={setSelectOne}
                 navigation={navigation}
                 editMode={editMode}
+                drawMode={drawMode}
               />
             )}
           />
@@ -235,12 +272,16 @@ export default function MyCard({ navigation }) {
               <Text style={styles.deletebtnText}>{"刪除"}</Text>
             </TouchableOpacity>
           :
-            <TouchableOpacity
-              style={styles.drawbtn}
-              
-            >
-              <Text style={styles.drawbtnText}>{"從My Card抽卡"}</Text>
-            </TouchableOpacity>
+            (
+              (drawMode) ?
+                <TouchableOpacity style={(drawBtnAvailable) ? styles.startDrawbtnGreen : styles.startDrawbtnGray} onPress={()=>(handleDraw(navigation, selectOne, setSelectOne, setSelectAll, setDrawMode, setModalVisible, setDrawBtnAvailable))} disabled={!drawBtnAvailable}>
+                  <Text style={styles.startDrawbtnText}>{"抽卡!"}</Text>
+                </TouchableOpacity>
+              :
+                <TouchableOpacity style={styles.drawbtn} onPress={()=>(setDrawMode(true))}>
+                  <Text style={styles.drawbtnText}>{"從My Card抽卡"}</Text>
+                </TouchableOpacity>
+            )
         }
 
       </View>
@@ -324,6 +365,31 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
+  container: {
+    justifyContent: 'center',
+    flex: 1
+  },
+  promptText: {
+    color: "#4B4949",
+    alignSelf: 'center',
+    fontSize: 20
+  },
+  homepageBtn: {
+    backgroundColor: '#52C69C',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 200,
+    height: 51,
+    alignSelf: 'center',
+    marginVertical: 5
+  },
+  wallpaperBtn: {
+    color: '#FDFCED',
+    fontFamily: 'lazy-dog',
+    fontSize: 33
+  },
+
   conversationImg: {
     height: 70,
     width: 300,
@@ -348,9 +414,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FDE9C3',
     height: 40,
     margin: 0,
-    padding: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderTopLeftRadius: 10,
-    borderTopRightRadius: 10
+    borderTopRightRadius: 10,
+    justifyContent: 'center'
   },
   cardText: {
     
@@ -389,6 +457,29 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   deletebtnText: {
+    color: "#FFFFFF",
+    fontSize: 20,
+    alignSelf: 'center'
+  },
+  startDrawbtnGreen: {
+    position: 'absolute',
+    bottom: 5,
+    width: 80,
+    alignSelf: 'center',
+    backgroundColor: '#0F9B68',
+    padding: 10,
+    borderRadius: 10
+  },
+  startDrawbtnGray: {
+    position: 'absolute',
+    bottom: 5,
+    width: 80,
+    alignSelf: 'center',
+    backgroundColor: '#878787',
+    padding: 10,
+    borderRadius: 10
+  },
+  startDrawbtnText: {
     color: "#FFFFFF",
     fontSize: 20,
     alignSelf: 'center'

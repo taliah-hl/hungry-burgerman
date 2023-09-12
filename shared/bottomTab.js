@@ -13,7 +13,7 @@ import emptyTesting from '../screens/emptyTesting';
 import Home_stack from '../routes/home_stack';
 import MaterialComIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ImageBackground } from 'react-native-web';
-import TestingCard from '../screens/testing';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +38,7 @@ const BottomTab=() =>{
             else color="#878787"
             
             // Return the icon component
-            return <MaterialComIcon name={iconName} size ={25} color={color} />;
+            return <MaterialComIcon name={iconName} size ={30} color={color} />;
         },
         tabBarActiveTintColor: "#337755",
         tabBarInactiveTintColor: "#878787",
@@ -63,7 +63,7 @@ const BottomTab=() =>{
             
             />
         <Tab.Screen name="Burger Wallpaper" component={ViewWallpaper_stack} options={{headerBackVisible:true, headerTransparent: true, headerTitle: "", unmountOnBlur: true}}/> 
-        <Tab.Screen name = "empty test"  component={TestingCard} options={{unmountOnBlur: true}}/>
+
 
     </Tab.Navigator>
     )

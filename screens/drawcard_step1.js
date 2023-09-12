@@ -4,7 +4,8 @@ import { SvgUri } from 'react-native-svg';
 import {globalStyles} from '../components/global_style'
 import {drawcardStyles} from '../components/drawcard_style'
 import {BtnTextMedium} from '../components/typography'
-
+import * as Animatable from 'react-native-animatable';
+const MyCustomComponent = Animatable.createAnimatableComponent(TouchableOpacity);
 
 export default function Drawcard_step1({ navigation }) {
   return (
@@ -33,22 +34,22 @@ export default function Drawcard_step1({ navigation }) {
       <View style={globalStyles.pairGreenBtnsLarge}>
         
         <View style={globalStyles.greenBtnFrameLarge}>
-         <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
+         <MyCustomComponent animation="bounce" style = {globalStyles.greenCircleBtnLarge}
           onPress={()=> navigation.navigate('Draw card step 2',  {foodOrDrink: 'food'})}>
           <Image source = {require('../assets/icon/meal.png')}
             style={globalStyles.greenCircleBtnIconLarge}
           />
-         </TouchableOpacity>
+         </MyCustomComponent>
         <Text style = {globalStyles.btnTextMedium}>吃的</Text>
         </View>
         
         <View style={globalStyles.greenBtnFrameLarge}>
-         <TouchableOpacity style = {globalStyles.greenCircleBtnLarge}
+         <MyCustomComponent animation="bounce" delay={300} style = {globalStyles.greenCircleBtnLarge}
           onPress={()=> navigation.navigate('Draw card step 2', {foodOrDrink: 'drink'})}>
           <Image source = {require('../assets/icon/soda.png')}
               style={globalStyles.greenCircleBtnIconLarge}
           />
-         </TouchableOpacity>
+         </MyCustomComponent>
         <Text style = {globalStyles.btnTextMedium}>喝的</Text>
         </View>
       </View>

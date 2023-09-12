@@ -6,6 +6,7 @@ import {drawcardStyles} from '../components/drawcard_style'
 import {globalStyles} from '../components/global_style'
 import  {setGlobalState, useGlobalState} from '../shared/states'
 import {GetallCards, SaveCard, ClearallCards, readFirstCard} from '../shared/myCard_data'
+import * as Animatable from 'react-native-animatable';
 
 
 
@@ -37,7 +38,7 @@ export default function DrawnCard({route, navigation}) {
     <View style={styles.container}>
       <View style={{position: 'abosolute',  top: 40, alignSelf: 'center'}} >
       <View style={styles.burgermanSpeech}>
-          <Image source={require('../assets/conversation/section-burgerman-speech-newCardPicked.png')}
+          <Animatable.Image animation={'flipInY'} source={require('../assets/conversation/section-burgerman-speech-newCardPicked.png')}
             style={drawcardStyles.bugermanSpeechImg} />
         </View>
         <ShopCard 

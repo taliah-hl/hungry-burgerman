@@ -4,6 +4,9 @@ import { CommonActions } from '@react-navigation/native'
 
 import { globalStyles } from '../components/global_style'
 
+import * as Animatable from 'react-native-animatable';
+const MyCustomComponent  = Animatable.createAnimatableComponent(TouchableOpacity);
+
 export default function Homepage({navigation}) {
   
 
@@ -15,8 +18,9 @@ export default function Homepage({navigation}) {
     
        <View style = {styles.uppersection}>
        
-       <Image source={require('../assets/icon/burgerman.png')}
-           style={styles.bugermanpic} />
+       <Animatable.Image source={require('../assets/icon/burgerman.png')}
+           style={styles.bugermanpic} 
+           animation="slideInDown" iterationCount={5} direction="alternate"/>
 
       </View>
       
@@ -28,17 +32,17 @@ export default function Homepage({navigation}) {
         </View>
         <View style = {styles.btnsection}>
         
-          <TouchableOpacity style = {styles.homepageBtn}onPress={()=>navigation.navigate("Draw Card")}>
+          <MyCustomComponent animation={'swing'} duration={1500} style = {styles.homepageBtn}onPress={()=>navigation.navigate("Draw Card")}>
             <Text style={globalStyles.btnYellowTitle} >Draw Card</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style = {styles.homepageBtn}
+          </MyCustomComponent>
+          <MyCustomComponent animation={'jello'} duration={1500} style = {styles.homepageBtn}
               onPress={()=> navigation.navigate("My Card")}>
             <Text style={globalStyles.btnYellowTitle}>My Card</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style = {styles.homepageBtn}
+          </MyCustomComponent>
+          <MyCustomComponent animation={'tada'} duration={1500} style = {styles.homepageBtn}
               onPress={()=> navigation.navigate("Burger Wallpaper")}>
             <Text style={styles.wallpaperBtn}>Burger Wallpaper</Text>
-          </TouchableOpacity>
+          </MyCustomComponent>
         </View>
        
       </ImageBackground>

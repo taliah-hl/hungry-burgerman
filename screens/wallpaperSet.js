@@ -13,6 +13,8 @@ import {
   Pressable,
 } from 'react-native';
 import {useEffect, useState} from 'react';
+import  {setGlobalState, useGlobalState} from '../shared/states'
+import * as Animatable from 'react-native-animatable';
 import View_wallpaper from './view_wallpaper';
 // import 'babel-polyfill';
 
@@ -242,34 +244,32 @@ let DATA_writer1 = [{
 
 const numColumns = 3;
 export default function WallpaperSet( {navigation} ) {
+  const egg_counter = useGlobalState('eggCounter')[0];
 
-  const [counter, setCounter] = useState(0);
-  
-  let counter_new = {...counter};
   useEffect(() => {
     (async () => {
-      if(counter >=5) {
+      if(egg_counter >= 5) {
         console.log('get first wallpaper!');
         DATA_writer3[0]['hidden'] = true;
       }
-      if(counter >=10) {
+      if(egg_counter >= 10) {
         console.log('get second wallpaper!');
         DATA_writer3[1]['hidden'] = true;
       }
-      if(counter >=15) {
+      if(egg_counter >= 15) {
         console.log('get third wallpaper!');
         DATA_writer3[2]['hidden'] = true;
       }
-      if(counter >=25) {
+      if(egg_counter >= 25) {
         console.log('get fourth wallpaper!');
         DATA_writer3[3]['hidden'] = true;
       }
-      if(counter >=40) {
+      if(egg_counter >= 40) {
         console.log('get fifth wallpaper!');
         DATA_writer3[4]['hidden'] = true;
       }
     })();
-  }, [counter_new]);
+  }, [egg_counter]);
 
   const onPressFunction = () => {
       navigation.navigate("view egg hatching")
@@ -291,88 +291,91 @@ export default function WallpaperSet( {navigation} ) {
     console.log("i am executed");
 
     // render() {
-      return (  
-          <View style={styles.page}>
-              {/* ----- header ----- */}
-              <View style={styles.header}>
-                  <Text style={styles.headerText}>Burger Wallpaper</Text>                    
-              </View>
+    return (  
+        <View style={styles.page}>
+            {/* ----- header ----- */}
+            <View style={styles.header}>
+                <Text style={styles.headerText}>Burger Wallpaper</Text>                    
+            </View>
 
-              {/* ----- body ----- */}
-              <View style={styles.body}>
-                  <ScrollView style={styles.scrollView}>
-                    <Text style={styles.count}> {counter} </Text>
-                    <Text style={styles.time}> time </Text>
-                    {/* <Countdown func={time_data}/> */}
-                    {/* <Text style={styles.time}> {timeLeft.hours}:{timeLeft.minutes}:{" "}{timeLeft.seconds} </Text> */}
+            {/* ----- body ----- */}
+            <View style={styles.body}>
+                <ScrollView style={styles.scrollView}>
+                  {/* <Text style={styles.count}> {counter} </Text> */}
+                  <Text style={styles.count}> {egg_counter} </Text>
+                  <Text style={styles.time}> time </Text>
+                  {/* <Countdown func={time_data}/> */}
+                  {/* <Text style={styles.time}> {timeLeft.hours}:{timeLeft.minutes}:{" "}{timeLeft.seconds} </Text> */}
 
-                    <View style={styles.bar}>
-                      <Image style={{ height: 70, margin: 10, flex:3, resizeMode:'contain'}} source={require('../assets/acheivementBar_ver2.png')}/>
-                      <View style={styles.container}>
-                        <Pressable onPress={onPressFunction}>
-                          <Image
-                              style={{ width: 64, height: 70, flex:1, resizeMode:'contain'}}
-                              source={require('../assets/egg_notHatched.png')}/>
-                        </Pressable>
-                      </View>
+                  <View style={styles.bar}>
+                    <Image style={{ height: 70, margin: 10, flex:3, resizeMode:'contain'}} source={require('../assets/acheivementBar_ver2.png')}/>
+                    <View style={styles.container}>
+                      <Pressable onPress={onPressFunction}>
+                        <Image
+                            style={{ width: 64, height: 70, flex:1, resizeMode:'contain'}}
+                            source={require('../assets/egg_notHatched.png')}/>
+                      </Pressable>
                     </View>
-                    <View style={styles.speech}>
-                      <Image style={{ height: 70, margin: 10, flex:5, resizeMode:'contain'}} source={require('../assets/section_hamburger_speech.png')} />
-                      <Text style={{flex:1}} />
-                    </View>
+                  </View>
+                  <View style={styles.speech}>
+                    <Animatable.Image animation="zoomInUp" style={{ height: 70, margin: 10, flex:5, resizeMode:'contain'}} source={require('../assets/section_hamburger_speech.png')} />
+                    <Text style={{flex:1}} />
+                  </View>
 
-                    {/* ----- Test ----- */}
-                    <View> 
-                      <button style={{ margin: 10}} onClick={() => setCounter(counter + 1)}>Increment</button>
-                    </View>
-                    {/* ----------------- */}
+                  {/* ----- Test ----- */}
+                    {/* <button style={{ margin: 10}} onClick={() => setCounter(counter + 1)}>Increment</button> */}
+                    {/* <button style={{ margin: 10}} onClick={() => setGlobalState('eggCounter', egg_counter+1)}>Increment</button> */}
+                  <View style={{position: 'absolute', top: 100, right: 20, width: 30}}> 
+                    <button style={{ margin: 10, justifyContent: 'center' }} onClick={() => setGlobalState('eggCounter', egg_counter+1)}> + </button>
+                  </View>
+                  {/* ----------------- */}
 
-                    <View style={styles.drawer}>
-                      <Text>
-                        <Text style={styles.drawerTitle}>2023 Mar. </Text>
-                        <Text style={ {fontSize: 20, fontFamily: 'lazy-dog'} } >burgerman</Text>
-                        <Text style={ {fontSize: 18, fontFamily: 'NotoSansTC-Regular', fontWeight: 'bold'} } > x </Text>
-                        <Text style={ styles.writer1 } >Gummy bear</Text>
-                      </Text>
-                      
-                      <FlatList
-                        numColumns={3}
-                        data={DATA_writer3} 
-                        renderItem={({item}) => <Item img={item.img} hidden={item.hidden} navigation={navigation} navigateTo={item.navigateTo} navigateURL={item.navigateURL}></Item>}
-                      />
-                    </View>
-
-                    <View style={styles.drawer}>
-                      <Text>
-                        <Text style={styles.drawerTitle}>2023 Feb. </Text>
-                        <Text style={ {fontSize: 20, fontFamily: 'lazy-dog'} } >burgerman</Text>
-                        <Text style={ {fontSize: 18, fontFamily: 'NotoSansTC-Regular', fontWeight: 'bold'} } > x </Text>
-                        <Text style={ styles.writer2 } >Shan Hung</Text>
-                      </Text>
-                      <FlatList
-                        numColumns={3}
-                        data={DATA_writer2} 
-                        renderItem={({item}) => <Item title={item.title} hidden={item.hidden} img={item.img} navigation={navigation} navigateURL={item.navigateURL}></Item>}
-                      />
-                    </View>
+                  <View style={styles.drawer}>
+                    <Text>
+                      <Text style={styles.drawerTitle}>2023 Mar. </Text>
+                      <Text style={ {fontSize: 20, fontFamily: 'lazy-dog'} } >burgerman</Text>
+                      <Text style={ {fontSize: 18, fontFamily: 'NotoSansTC-Regular', fontWeight: 'bold'} } > x </Text>
+                      <Text style={ styles.writer1 } >Gummy bear</Text>
+                    </Text>
                     
-                    <View style={styles.drawer}>
-                      <Text>
-                        <Text style={styles.drawerTitle}>2023 Jan. </Text>
-                        <Text style={ {fontSize: 20, fontFamily: 'lazy-dog'} } >burgerman</Text>
-                        <Text style={ {fontSize: 18, fontFamily: 'NotoSansTC-Regular', fontWeight: 'bold'} } > x </Text>
-                        <Text style={ styles.writer3 } >ALI ( JP ) </Text>
-                      </Text>
-                      <FlatList
-                          numColumns={3}
-                          data={DATA_origin} 
-                          renderItem={({item}) => <Item title={item.title} hidden={item.hidden} img={item.img} navigation={navigation} navigateURL={item.navigateURL}></Item>}
-                      />
-                    </View>
-                  </ScrollView>
-              </View>
-          </View>
-      );
+                    <FlatList
+                      numColumns={3}
+                      data={DATA_writer3} 
+                      renderItem={({item}) => <Item img={item.img} hidden={item.hidden} navigation={navigation} navigateTo={item.navigateTo} navigateURL={item.navigateURL}></Item>}
+                    />
+                  </View>
+
+                  <View style={styles.drawer}>
+                    <Text>
+                      <Text style={styles.drawerTitle}>2023 Feb. </Text>
+                      <Text style={ {fontSize: 20, fontFamily: 'lazy-dog'} } >burgerman</Text>
+                      <Text style={ {fontSize: 18, fontFamily: 'NotoSansTC-Regular', fontWeight: 'bold'} } > x </Text>
+                      <Text style={ styles.writer2 } >Shan Hung</Text>
+                    </Text>
+                    <FlatList
+                      numColumns={3}
+                      data={DATA_writer2} 
+                      renderItem={({item}) => <Item title={item.title} hidden={item.hidden} img={item.img} navigation={navigation} navigateURL={item.navigateURL}></Item>}
+                    />
+                  </View>
+                  
+                  <View style={styles.drawer}>
+                    <Text>
+                      <Text style={styles.drawerTitle}>2023 Jan. </Text>
+                      <Text style={ {fontSize: 20, fontFamily: 'lazy-dog'} } >burgerman</Text>
+                      <Text style={ {fontSize: 18, fontFamily: 'NotoSansTC-Regular', fontWeight: 'bold'} } > x </Text>
+                      <Text style={ styles.writer3 } >ALI ( JP ) </Text>
+                    </Text>
+                    <FlatList
+                        numColumns={3}
+                        data={DATA_origin} 
+                        renderItem={({item}) => <Item title={item.title} hidden={item.hidden} img={item.img} navigation={navigation} navigateURL={item.navigateURL}></Item>}
+                    />
+                  </View>
+                </ScrollView>
+            </View>
+        </View>
+    );
   // }
 }
 

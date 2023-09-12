@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, } from 'react-native'
 import React ,{useState, useEffect} from 'react'
 import {ShopCard} from '../components/shopCard'
 import {drawcardStyles} from '../components/drawcard_style'
 import {globalStyles} from '../components/global_style'
 import  {setGlobalState, useGlobalState} from '../shared/states'
 import * as FileSystem from 'expo-file-system';
+import * as Animatable from 'react-native-animatable';
 
 
 const CardsCandidate =[
@@ -258,7 +259,10 @@ export default function Drawcard_result({ route, navigation }) {
       <View style={styles.secCard}>
         <View style={{alignSelf: 'center'}}>
           {isLoading? (<View style={{height: 380, justifyContent: 'center'}}>
-            <Text style={{fontSize: 30, fontFamily: 'NotoSansTC-Regular',color: '#4a4848'}}> {loadingText} </Text>
+            {/* <Text style={{fontSize: 30, fontFamily: 'NotoSansTC-Regular',color: '#4a4848'}}> {loadingText} </Text> */}
+            <View style={[styles.container_loading, styles.horizontal_loading]}>
+              <ActivityIndicator size="large" color="#ffffff" />
+            </View>
           </View>)
           
           :(<ShopCard 
@@ -272,7 +276,7 @@ export default function Drawcard_result({ route, navigation }) {
         (<></>)
         :( <View style={styles.lowerSec}>
         <View style={styles.burgermanSpeech}>
-          <Image source={require('../assets/conversation/speechAndBurgerman-drawcard-result.png')}
+          <Animatable.Image animation={'fadeInLeft'} source={require('../assets/conversation/speechAndBurgerman-drawcard-result.png')}
             style={drawcardStyles.bugermanSpeechImg} />
         </View>
         <View style={[globalStyles.pairGreenBtnsMedium, styles.secActionBtn]}>
@@ -329,6 +333,18 @@ const styles = StyleSheet.create({
   secActionBtn:{
     
     
+  },
+
+  container_loading: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  horizontal_loading: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    transform: [{ scaleX: 2 }, { scaleY: 2 }],
   },
 
 })
