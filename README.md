@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Welcome to Hungry Burgerman, a coursework project developed for CS2410 Software Studio at National Tsinghua University.
+Welcome to Hungry Burgerman, a project developed for CS2410 Software Studio at National Tsinghua University.
 
-This project is a collaborative effort by a team of three groupmates, w The objective is to design a mobile app aimed at addressing issues we've identified among our fellow schoolmates.
+This project is a collaborative effort by a team of three groupmates, with the objective of designing a mobile app aimed at addressing issues we've identified among our fellow schoolmates.
 
 ## Goal of the app
 
