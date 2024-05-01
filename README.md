@@ -35,3 +35,6 @@ https://youtu.be/NxFXweULE2A
 Protype in Figma: https://www.figma.com/proto/izfQawMho7GrdKQtls4Ns3/Hungry_Burgerman_HiFi_final?type=design&node-id=327-3359&scaling=scale-down&page-id=46%3A583&starting-point-node-id=327%3A3359
 
 ![Alt text](figma-screenshot.png)
+
+## Run the app
+`expo start`
