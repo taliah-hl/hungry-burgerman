@@ -43,7 +43,7 @@ const BottomTab=() =>{
         tabBarActiveTintColor: "#337755",
         tabBarInactiveTintColor: "#878787",
         tabBarLabelStyle: {
-            "fontSize": 12,
+            "fontSize": 14,
            
      
         },
