@@ -1,5 +1,6 @@
 # Hungry Burgerman
 
+- A mobile app to explore dining options based on React Native
 ## Introduction
 
 Welcome to Hungry Burgerman, a project developed for CS2410 Software Studio at National Tsinghua University.
